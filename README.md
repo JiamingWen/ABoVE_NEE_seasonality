@@ -11,7 +11,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 - `README.md`: This file.
 
 ## Data
-- Atmospheric concentration measurements and footprints: CARVE and Arctic-CAP
+- Atmospheric CO2 concentration measurements and footprints: CARVE and Arctic-CAP
 - Atmospheric inversions: GCB 2023
 - Upscaled flux tower measurements: X-BASE, Upscaled ABCflux
 - TBM outputs: TRENDY v11
@@ -19,13 +19,13 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 
 ## Analysis Steps
 
-1. **Data Preprocessing**: 
-    - Datasets to be evaluated: 
-        - Regriding datasets to 0.5 degree, monthly resolution (`src/regrid/`)
-    - Atmospheric observations: 
-        - Match observations with footprint files
-        - Select observations above 2,000 m above ground level and calculate background signals
-        - Calculate CO2 enhancement/drawdown
+1. **Data Preprocessing for atmospheric observations**: 
+    - Match observations with footprint files
+    - Select observations above 2,000 m above ground level and calculate background signals
+    - Calculate CO2 enhancement/drawdown
+
+2. **Data Preprocessing for carbon flux and remote sensing datasets**: 
+    - Regriding all datasets to 0.5 degree, monthly resolution
 
 2. **Model Evaluation**:
     - Convert NEE surface flux fields remote sensing datasets to CO2 enhancement/drawdown
