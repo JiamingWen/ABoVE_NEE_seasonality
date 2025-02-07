@@ -22,12 +22,22 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 
 1. **Data Preprocessing for atmospheric observations**: 
     - Match observations with footprint files
-        - 
+        - match_arctic_cap_airborne_footprint.py
+        - match_carve_footprint.py
     - Select observations above 2,000 m above ground level and calculate background signals
+        - 
     - Calculate CO2 enhancement/drawdown
 
 2. **Data Preprocessing for carbon flux and remote sensing datasets**: 
     - Regriding all datasets to 0.5 degree, monthly resolution
+        - regrid_abcflux.py
+        - regrid_ceres_par.py
+        - regrid_gfed_v4.py
+        - regrid_gosif_gpp.py
+        - regrid_inversion_GCP2023.py
+        - regrid_odiac_FF.py
+        - regrid_trendy_v9.py
+        - regrid_trendy_v11.py
 
 3. **Model Evaluation**:
     - Convert NEE surface flux fields remote sensing datasets to CO2 enhancement/drawdown
