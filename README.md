@@ -27,19 +27,19 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 2. **Data Preprocessing for carbon flux and remote sensing datasets**: 
     - Regriding all datasets to 0.5 degree, monthly resolution
 
-2. **Model Evaluation**:
+3. **Model Evaluation**:
     - Convert NEE surface flux fields remote sensing datasets to CO2 enhancement/drawdown
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
 
-3. **Seasonality Analysis**:
+4. **Seasonality Analysis**:
     - Extract seasonal variations of NEE and remote sensing datasets
     - Calculate multiyear average of seasonality
 
-4. **Other Analyses**:
+5. **Other Analyses**:
     - Generate plots to visualize seasonal patterns in NEE.
     - Create comparative graphs to highlight differences between the three approaches.
 
-5. **Figures**:
+6. **Figures**:
 
 ## Contact
 
