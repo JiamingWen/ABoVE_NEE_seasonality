@@ -7,6 +7,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 ## Contents
 
 - `src/`: Directory containing analysis scripts.
+- `data/`: Directory containing input data.
 - `results/`: Directory containing output results.
 - `README.md`: This file.
 
@@ -21,6 +22,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 
 1. **Data Preprocessing for atmospheric observations**: 
     - Match observations with footprint files
+        - 
     - Select observations above 2,000 m above ground level and calculate background signals
     - Calculate CO2 enhancement/drawdown
 
@@ -35,7 +37,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Extract seasonal variations of NEE and remote sensing datasets
     - Calculate multiyear average of seasonality
 
-5. **Other Analyses**:
+5. **Other scripts**:
     - Generate plots to visualize seasonal patterns in NEE.
     - Create comparative graphs to highlight differences between the three approaches.
 
