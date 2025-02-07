@@ -5,7 +5,7 @@ import xarray as xr
 import pytz
 import datetime
 
-year = 2012 # 2012 2013 2014
+year = 2014 # 2012 2013 2014
 
 airborne_df = pd.read_csv(f'/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/carve-airborne/CARVE_L2_AtmosGas_Merge_1402/data/carve_AtmosISGA_L2_Merge_{year}_20160722.csv')
 airborne_df.replace({'CO2.X': -999.9, 'CO.X': -999.9}, np.nan, inplace=True)
