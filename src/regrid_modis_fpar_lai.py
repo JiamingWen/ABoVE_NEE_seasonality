@@ -38,7 +38,7 @@ def regrid_fpar_lai(varname, year) -> None:
     print(f"Regridding MODIS {varname} data to monthly, half-degree resolution:")
 
     # read the data
-    filename1 = f'/central/groups/carnegie_poc/jwen2/ABoVE/modis_fpar/{varname}-500m-monthly-{year}04-{year}11.nc'
+    filename1 = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{varname}-500m-monthly-{year}04-{year}11.nc'
     ds = xr.open_dataset(filename1)
 
     # change coordinate names
@@ -63,7 +63,7 @@ def regrid_fpar_lai(varname, year) -> None:
     ds_subset_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/jwen2/ABoVE/modis_fpar/{varname}-half-degree-monthly-{year}04-{year}11.nc"
+        f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{varname}-half-degree-monthly-{year}04-{year}11.nc"
     )
     ds_subset_out.to_netcdf(
         f_o,
