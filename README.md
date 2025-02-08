@@ -34,6 +34,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - regrid_gfed_v4.py
         - regrid_gosif_gpp.py
         - regrid_inversion_GCP2023.py
+        - regrid_modis_fpar_lai.py
         - regrid_odiac_FF.py
         - regrid_trendy_v9.py
         - regrid_trendy_v11.py
@@ -47,8 +48,16 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Calculate multiyear average of seasonality
 
 5. **Other scripts**:
-    - Generate plots to visualize seasonal patterns in NEE.
-    - Create comparative graphs to highlight differences between the three approaches.
+    - Generate a table with information of id, lat, lon, land cover, whether in the ABoVE region
+        - create_cellid_table.py
+    - Determine the dominant land cover of each 0.5 degree pixel based on land cover area fraction
+        - select_esa_cci_dominant_landcover.R
+    - Create a bbox shapefile that contains the ABoVE region, used to download MODIS FPAR from AppEEARS
+        -  create_ABoVE_bbox.R
+    - Download MODIS data from AppEEARS
+        - download_AppEEARS.R
+    - Aggregate MODIS FPAR/LAI from 8-day to monthly
+        - aggregate_monthly_modis_fpar_lai.py
 
 6. **Figures**:
 
