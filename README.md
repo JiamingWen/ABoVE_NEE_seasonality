@@ -25,7 +25,15 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - match_arctic_cap_airborne_footprint.py
         - match_carve_footprint.py
     - Select observations above 2,000 m above ground level and calculate background signals
-    - Calculate CO2 enhancement/drawdown
+        - calculate_arctic_cap_airborne_background.py
+        - calculate_carve_airborne_background.py
+    - Calculate CO2 enhancement/drawdown relative to background signals
+        - calculate_arctic_cap_airborne_change.py
+        - calculate_carve_airborne_change.py
+    - Create H matrix
+        - h_matrix_arctic_cap.py
+        - h_matrix_carve.py
+        - ancillary scripts: utils.py; config_carve2012.ini; config_carve2013.ini; config_carve2014.ini; config_arctic_cap2017.ini
 
 2. **Data Preprocessing for carbon flux and remote sensing datasets**: 
     - Regriding all datasets to 0.5 degree, monthly resolution
