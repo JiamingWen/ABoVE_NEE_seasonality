@@ -9,10 +9,10 @@ import sys
 import os
 
 import datetime
-import struct
-import math
+# import struct
+# import math
 import numpy
-from scipy.sparse import csr_matrix
+# from scipy.sparse import csr_matrix
 
 import netCDF4
 from configobj import ConfigObj
