@@ -15,7 +15,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 - Atmospheric CO2 concentration measurements and footprints: CARVE and Arctic-CAP
 - Atmospheric inversions: GCB 2023
 - Upscaled flux tower measurements: X-BASE, Upscaled ABCflux
-- TBM outputs: TRENDY v11
+- TBM outputs: TRENDY (v11, v9)
 - Remote sensing data: APAR (calculated from MODIS FPAR and CERES PAR), GOME-2 SIF, GOSIF GPP
 
 ## Analysis Steps
@@ -63,7 +63,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - regrid_trendy_v11.py
 
 3. **Model Evaluation**:
-    - Convert NEE surface flux or remote sensing fields to CO2 enhancement/drawdown
+    - Convert NEE surface flux or remote sensing fields to concentration space
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
 
 4. **Seasonality Analysis**:
