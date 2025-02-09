@@ -38,7 +38,7 @@ import numpy as np
 import pandas as pd
 import math
 
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/tmp/src')
+os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 import utils # import from an outside script
 
 receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_change.csv')
@@ -49,13 +49,13 @@ config = utils.getConfig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_sea
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
-hdir = config["hdir"]
-if os.path.exists(hdir):
-	# remove any files in hdir
-	shutil.rmtree(hdir)
+hdir = f'{config["workdir"]}/{config["hdir"]}'
+# if os.path.exists(hdir):
+# 	# remove any files in hdir
+# 	shutil.rmtree(hdir)
 
-# create hdir
-os.makedirs(hdir)
+# # create hdir
+# os.makedirs(hdir)
 
 # Loop through each of the footprint files
 for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - filename

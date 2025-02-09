@@ -51,14 +51,14 @@ config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_se
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
-hdir = config["hdir"]
-if os.path.exists(hdir):
-	# remove any files in hdir
-	shutil.rmtree(hdir)
+hdir = f'{config["workdir"]}/{config["hdir"]}'
+# if os.path.exists(hdir):
+# 	# remove any files in hdir
+# 	shutil.rmtree(hdir)
 
-# create hdir
-if not os.path.exists(hdir):
-	os.makedirs(hdir)
+# # create hdir
+# if not os.path.exists(hdir):
+# 	os.makedirs(hdir)
 
 # Loop through each of the footprint files
 for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - filename
