@@ -34,8 +34,23 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - h_matrix_arctic_cap.py
         - h_matrix_carve.py
         - ancillary scripts: utils.py; config_carve2012.ini; config_carve2013.ini; config_carve2014.ini; config_arctic_cap2017.ini
+    - Summarize/Aggregate footprint sensitivity: 
+    (1) for each atmospheric observation, summarize footprint sensitivity from different regions (e.g., land vs ocean; within vs out of ABoVE; forests vs shrubs vs tundra)
+    (2) Aggregate footprint sensitivity over all atmospheric observations for each month/year
+        - summarize_footprint_regional_influence.py
+        - summarize_footprint_regional_influence_selected.py (for atmospheric selected observations)
 
-2. **Data Preprocessing for carbon flux and remote sensing datasets**: 
+2. **Data Preprocessing for other datasets**: 
+    - Generate a table with information of id, lat, lon, land cover, whether in the ABoVE region
+        - create_cellid_table.py
+    - Determine the dominant land cover of each 0.5 degree pixel based on land cover area fraction
+        - select_esa_cci_dominant_landcover.R
+    - Create a bbox shapefile that contains the ABoVE region, used to download MODIS FPAR from AppEEARS
+        -  create_ABoVE_bbox.R
+    - Download MODIS data from AppEEARS
+        - download_AppEEARS.R
+    - Aggregate MODIS FPAR/LAI from 8-day to monthly
+        - aggregate_monthly_modis_fpar_lai.py
     - Regriding all datasets to 0.5 degree, monthly resolution
         - regrid_abcflux.py
         - regrid_ceres_par.py
@@ -48,24 +63,17 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - regrid_trendy_v11.py
 
 3. **Model Evaluation**:
-    - Convert NEE surface flux fields remote sensing datasets to CO2 enhancement/drawdown
+    - Convert NEE surface flux or remote sensing fields to CO2 enhancement/drawdown
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
 
 4. **Seasonality Analysis**:
     - Extract seasonal variations of NEE and remote sensing datasets
     - Calculate multiyear average of seasonality
 
-5. **Other scripts**:
-    - Generate a table with information of id, lat, lon, land cover, whether in the ABoVE region
-        - create_cellid_table.py
-    - Determine the dominant land cover of each 0.5 degree pixel based on land cover area fraction
-        - select_esa_cci_dominant_landcover.R
-    - Create a bbox shapefile that contains the ABoVE region, used to download MODIS FPAR from AppEEARS
-        -  create_ABoVE_bbox.R
-    - Download MODIS data from AppEEARS
-        - download_AppEEARS.R
-    - Aggregate MODIS FPAR/LAI from 8-day to monthly
-        - aggregate_monthly_modis_fpar_lai.py
+5. **Other scripts for additional analyses**:
+
+        - calculate_seasonality_uncertainty.py
+        - compare_inv_insitu_satellite.py
 
 6. **Figures**:
 

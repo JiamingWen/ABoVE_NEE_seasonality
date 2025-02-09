@@ -4,10 +4,10 @@ import pandas as pd
 import numpy as np
 
 year = 2014 # 2012 2013 2014
-data = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/ABoVE_{year}_carve_airborne_matching_footprint.csv')
+data = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint.csv')
 
 data_2000m = data[data['footprint_agl']>2000]
-data_2000m.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/ABoVE_{year}_carve_airborne_matching_footprint_agl2000m.csv', encoding='utf-8', index=False)
+data_2000m.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint_agl2000m.csv', encoding='utf-8', index=False)
 
 
 # extract unique dates with measurements >2000m agl 
@@ -40,7 +40,7 @@ for date in unique_datelist:
                                 'n': n}, index=[0])
     background_df = pd.concat([background_df, single_date])
 
-background_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/ABoVE_{year}_carve_airborne_background.csv', encoding='utf-8', index=False)
+background_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_background.csv', encoding='utf-8', index=False)
 
 ################################################################################
 # plot
@@ -48,7 +48,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 
-background_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/ABoVE_{year}_carve_airborne_background.csv')
+background_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_background.csv')
 background_df['date'] = pd.to_datetime(background_df['date'])
 
 fig, ax = plt.subplots()

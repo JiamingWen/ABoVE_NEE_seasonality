@@ -18,7 +18,7 @@ airborne_df = pd.DataFrame({'airborne_time_UTC': airborne_data.time,
                             'airborne_CO2_unc': airborne_data.CO2_unc,
                             'airborne_CO': airborne_data.CO})
 # Save airborne data to CSV
-airborne_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_10sec.csv', encoding='utf-8', index=False)
+airborne_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_10sec.csv', encoding='utf-8', index=False)
 
 
 #read footprint data (20s intervals) and combine with airborne data (10s intervals)
@@ -103,7 +103,7 @@ for footprint_file in footprint_list:
     combined_df = pd.concat([combined_df, single_record])
 
 # Save combined data to CSV
-combined_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv', encoding='utf-8', index=False)
+combined_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv', encoding='utf-8', index=False)
 
 # # #check the coordinate matching
 # np.sum(abs(combined_df.footprint_lat - combined_df.airborne_lat) > 0.0005)

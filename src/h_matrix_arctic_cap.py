@@ -41,7 +41,7 @@ import math
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 import utils # import from an outside script
 
-receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_change.csv')
+receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
 list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
 footprint_dir = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
 

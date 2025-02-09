@@ -43,7 +43,7 @@ import utils # import from an outside script
 
 year = 2014 # 2012 2013 2014
 
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/ABoVE_{year}_carve_airborne_change.csv')
+receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
 list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
 footprint_dir = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
 
