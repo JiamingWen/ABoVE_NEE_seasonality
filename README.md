@@ -70,6 +70,9 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
         - `evaluate_stat.py`
         - `evaluate_stat_multiyear.py`
+    - Fit regression (Month, Month x LC)
+        - `fit_regression_Month.py`
+        - `fit_regression_Month_LC.py`
 
 4. **Seasonality Analysis**:
     - Extract seasonal variations of NEE and remote sensing datasets
@@ -82,8 +85,14 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - calculate_seasonality_uncertainty.py
         - compare_inv_insitu_satellite.py
 
-6. **Figures**:
+6. **Figures in the manuscript**:
+    - Figure 1: `Fig1.py`
+    - Figure 2: `Fig2.py`
+    - Figure 3: `Fig3.py`
+    - Figure 4: `Fig4.py`
+    - Figure 5: `Fig5.py`
 
+    - Figure S4: `Fig2.py_full.py` 
 ## Contact
 
 For any questions or issues, please contact jwen@carnegiescience.edu.
