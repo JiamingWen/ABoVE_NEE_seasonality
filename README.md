@@ -68,12 +68,13 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - convert_variable_to_concentration_bymonth.py: sometimes require large memory; calculate at monthly basis; if added together for each year, the results are equal to convert_flux_to_concentration.py
         - convert_flux_to_concentration_only_seasonal.py: replacing the original fields with mean seasonal cycle
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
+        - evaluate_stat.py
+        - evaluate_stat_multiyear.py
 
 4. **Seasonality Analysis**:
     - Extract seasonal variations of NEE and remote sensing datasets
         - extract_seasonal.py
         - extract_seasonal_multiyear.py
-    - Calculate multiyear average of seasonality
 
 5. **Other scripts for additional analyses**:
 
