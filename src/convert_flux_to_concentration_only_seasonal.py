@@ -1,6 +1,7 @@
-# convert mean seasonal cycle to CO2 concentration change
-# both spatial variation and interannual variation are removed
-# maybe later test with adding spatial variation or interannual variation
+'''
+convert mean seasonal cycle of surface fields to concentration space
+both spatial variation and interannual variation are removed
+'''
 
 import numpy as np
 import pandas as pd

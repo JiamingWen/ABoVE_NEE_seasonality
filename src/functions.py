@@ -69,10 +69,7 @@ def read_TRENDYv9 (data_name, var_name, year, month):
 
 def read_TRENDYv11 (data_name, var_name, year, month):
 
-    if data_name == "ISBA-CTRIP" and var_name in ['cLitter', 'cSoil']:
-        f = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{data_name}_S3_{var_name}-half-degree-monthly.nc"
-    else:
-        f = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{data_name}_S3_{var_name}-half-degree.nc"
+    f = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{data_name}_S3_{var_name}-half-degree.nc"
 
     ds = xr.open_dataset(f)
     ds_subset: xr.Dataset = ds.isel(
@@ -80,8 +77,10 @@ def read_TRENDYv11 (data_name, var_name, year, month):
     latitude=(ds.latitude >= 30) & (ds.latitude <= 90),
     )
 
-    # ds_subset_2d = ds_subset[list(ds_subset.data_vars)[0]] # why did I make this change?
-    ds_subset_2d = ds_subset[var_name]
+    if var_name == 'lai':
+        ds_subset_2d = ds_subset[list(ds_subset.data_vars)[0]] # ISAM LAI's varname is sometimes 'LAI' and sometimes 'lai'
+    else:
+        ds_subset_2d = ds_subset[var_name]
 
     return ds_subset_2d
 

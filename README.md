@@ -31,8 +31,8 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - calculate_arctic_cap_airborne_change.py
         - calculate_carve_airborne_change.py
     - Create H matrix
-        - h_matrix_arctic_cap.py
-        - h_matrix_carve.py
+        - derive_h_matrix_arctic_cap.py
+        - derive_h_matrix_carve.py
         - ancillary scripts: utils.py; config_carve2012.ini; config_carve2013.ini; config_carve2014.ini; config_arctic_cap2017.ini
     - Summarize/Aggregate footprint sensitivity: 
     (1) for each atmospheric observation, summarize footprint sensitivity from different regions (e.g., land vs ocean; within vs out of ABoVE; forests vs shrubs vs tundra)
@@ -64,10 +64,15 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 
 3. **Model Evaluation**:
     - Convert NEE surface flux or remote sensing fields to concentration space
+        - convert_flux_to_concentration.py (recommended memory: 100-150 GB)
+        - convert_variable_to_concentration_bymonth.py: sometimes require large memory; calculate at monthly basis; if added together for each year, the results are equal to convert_flux_to_concentration.py
+        - convert_flux_to_concentration_only_seasonal.py: replacing the original fields with mean seasonal cycle
     - Calculate correlation between modeled and observed CO2 enhancement/drawdown
 
 4. **Seasonality Analysis**:
     - Extract seasonal variations of NEE and remote sensing datasets
+        - extract_seasonal.py
+        - extract_seasonal_multiyear.py
     - Calculate multiyear average of seasonality
 
 5. **Other scripts for additional analyses**:

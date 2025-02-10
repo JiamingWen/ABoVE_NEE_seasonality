@@ -1,26 +1,29 @@
-# convert variables (e.g., CRU inputs, spatially-uniform flux) into concentration space, for later regression
+'''
+convert variables (e.g., spatially-uniform flux, remote sensing variables, CRU inputs, land cover) 
+into concentration space, for regression later
+'''
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from scipy.sparse import csr_matrix
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, read_remote_sensing, read_cru, read_MODIS_VI, read_GOME2_SIF
 
-year = 2012 # 2012 2013 2014 2017
+year = 2017 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 
 # read observations
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
 n_receptor = receptor_df.shape[0]
 
 # mask for land pixels
-cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/cell_id_table/cell_id_table.csv')
+cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 land_cellnum_list = np.where(cell_id_table['land']==1)[0]
 
-dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/regression_covariates/"
+dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/regression_covariates/"
 if not os.path.exists(dir0):
     os. makedirs(dir0)
 
@@ -29,7 +32,7 @@ for month in np.arange(start_month,end_month+1):
     print(year, month)
 
     # read H matrix
-    h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+    h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
                     sep="\s+", index_col=False, header=None,
                     names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
     #  \s+ is the expression for "any amount of whitespace"
@@ -50,7 +53,7 @@ for month in np.arange(start_month,end_month+1):
 
 
     # remote-sensing variables
-    for data_name in ['NDVI', 'EVI', 'GOME2_SIF']: #'APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF'
+    for data_name in ['APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF']: #'APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF'
         if data_name == 'PAR':
             variable = read_remote_sensing('par', 'PAR', year, month).values.flatten()[land_cellnum_list]
         elif data_name == 'FPAR':
@@ -92,4 +95,4 @@ for month in np.arange(start_month,end_month+1):
         variable = variable[land_cellnum_list]
         covariate = np.matmul(h_matrix0_subset, variable)
         covariate = pd.DataFrame(covariate, columns=['constant'])
-        covariate.to_csv(f'{dir0}constant_{lcname}_{year}_{month}.csv', encoding='utf-8', index=False)        
+        covariate.to_csv(f'{dir0}constant_{lcname}_{year}_{month}.csv', encoding='utf-8', index=False)
