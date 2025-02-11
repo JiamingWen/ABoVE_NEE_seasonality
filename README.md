@@ -79,9 +79,14 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `extract_seasonal.py`
         - `extract_seasonal_multiyear.py`
     - Modify NEE season cycle and examine its consistency with atmospheric observations
+        - `modify_TRENDY_component_seasonal_example.py`
+        - `modify_TRENDY_component_seasonal_groupH.py`
+        - `modify_TRENDY_component_seasonal_obs.py`
+        - `modify_X_BASE_component_seasonal_groupH.py`
 
 5. **Other scripts for additional analyses**:
-
+    - Compare relative proportion of carbon component (Ra, Rh to GPP)
+        - `compare_component_flux_ratio.py`
         - calculate_seasonality_uncertainty.py
         - compare_inv_insitu_satellite.py
 
@@ -92,10 +97,12 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Figure 4: `Fig4.py`
     - Figure 5: `Fig5.py`
 
+    - Figure S1: `modify_TRENDY_component_seasonal_example.py`
     - Figure S2: `Fig2_different_year.py`
     - Figure S4: `Fig2_scaled.py`
     - Figure S5: `Fig2_different_lc`
     - Figure S6: `Fig2.py_full.py` 
+    - Figure S11: `compare_component_flux_ratio.py`
 
 ## Contact
 

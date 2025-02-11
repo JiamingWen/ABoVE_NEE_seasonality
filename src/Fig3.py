@@ -9,7 +9,7 @@ varname = 'NEE' # NEE GPP Ra Rh Reco
 reference = 'obs' # GroupH obs
 
 
-lcname = 'tundra' #alllc forest shrub tundra
+lcname = 'alllc' #alllc forest shrub tundra
 if lcname == 'alllc':
     lc_filestr = ''
 elif lcname in ['forest', 'shrub', 'tundra']:
@@ -190,5 +190,7 @@ if varname == 'GPP' and reference == 'obs':
 fig.legend(handles=handles, loc='lower center', fontsize=14, bbox_to_anchor=(0.5, 0.015), ncol=math.ceil(len(handles)/2))
 
 plt.subplots_adjust(wspace=0, hspace=0)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.png', dpi=300, bbox_inches='tight')
 plt.show()
+
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.jpg', dpi=300, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.pdf', dpi=300, bbox_inches='tight')
