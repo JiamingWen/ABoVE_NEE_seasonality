@@ -144,3 +144,4 @@ plt.subplots_adjust(wspace=0.3, hspace=0.2)
 plt.show()
 
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/modify_TRENDY_component_seasonal_example.png', dpi=300, bbox_inches='tight')
+fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/modify_TRENDY_component_seasonal_example.pdf', dpi=300, bbox_inches='tight')

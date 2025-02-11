@@ -124,5 +124,5 @@ for lcname, color in zip(['forest', 'shrub', 'tundra'], ["#05450a", "#c6b044", "
 plt.legend(bbox_to_anchor=(0.45, 0.7), fontsize=12)
 plt.show()
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_lc.jpg', dpi=300, bbox_inches='tight')
+fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_lc.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_lc.pdf', dpi=300, bbox_inches='tight')

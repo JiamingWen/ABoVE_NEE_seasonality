@@ -192,5 +192,5 @@ fig.legend(handles=handles, loc='lower center', fontsize=14, bbox_to_anchor=(0.5
 plt.subplots_adjust(wspace=0, hspace=0)
 plt.show()
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.jpg', dpi=300, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.png', dpi=300, bbox_inches='tight')
 plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig3_{varname}_{reference}{lc_filestr}.pdf', dpi=300, bbox_inches='tight')

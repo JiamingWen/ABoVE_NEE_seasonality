@@ -123,5 +123,5 @@ ax.annotate("TRENDY TBMs", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]-1.5), fo
 plt.legend(bbox_to_anchor=(0.4, 0.75), fontsize=12)
 plt.show()
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_year.jpg', dpi=300, bbox_inches='tight')
+fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_year.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_year.pdf', dpi=300, bbox_inches='tight')

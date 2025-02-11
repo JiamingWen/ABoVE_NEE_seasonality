@@ -113,5 +113,5 @@ plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean
 
 plt.show()
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_scaled.jpg', dpi=300, bbox_inches='tight')
+fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_scaled.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_scaled.pdf', dpi=300, bbox_inches='tight')

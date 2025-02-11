@@ -63,5 +63,5 @@ plt.ylim([0, 1.15])
 plt.legend(ncol=2, bbox_to_anchor=(0, 1), loc='upper left')
 plt.show()
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_component_flux_ratio.jpg', dpi=300, bbox_inches='tight')
+fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_component_flux_ratio.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_component_flux_ratio.pdf', dpi=300, bbox_inches='tight')
