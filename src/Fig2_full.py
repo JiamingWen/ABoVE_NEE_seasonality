@@ -127,7 +127,6 @@ plt.axvline(x=fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference
 plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b), p5], ['Original data', 'Mean seasonal cycle', 'Regreession models'],
            bbox_to_anchor=(0.65, 0.75), fontsize=14, handletextpad=1.5, scatterpoints=1, numpoints=1, handler_map={tuple: HandlerTuple(ndivide=None, pad=2)}, frameon=True, borderpad=1, labelspacing=0.5)
 
-
 plt.show()
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_full.png', dpi=300, bbox_inches='tight')
 
