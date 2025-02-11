@@ -94,7 +94,8 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 
     - Figure S2: `Fig2_different_year.py`
     - Figure S4: `Fig2.py_full.py` 
-    
+    - Figure S5: `Fig2_different_lc`
+
 ## Contact
 
 For any questions or issues, please contact jwen@carnegiescience.edu.
