@@ -7,8 +7,6 @@ remove regression models
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from matplotlib.legend_handler import HandlerTuple
 
 lcname = 'alllc' #alllc forest shrub tundra
@@ -116,7 +114,6 @@ plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean
 # plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean seasonal cycle'],
 #            bbox_to_anchor=(0.5, 1.15), loc='upper center', fontsize=14, handletextpad=1.5, scatterpoints=1, numpoints=1, handler_map={tuple: HandlerTuple(ndivide=None, pad=2)}, frameon=True, borderpad=1, labelspacing=0.5)
 
-plt.show()
-
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2.pdf', dpi=300, bbox_inches='tight')
+plt.show()

@@ -6,8 +6,6 @@ evaluation separately for each land cover
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from statsmodels.regression.linear_model import OLSResults
 
 lcname = 'alllc' #alllc forest shrub tundra
@@ -122,7 +120,7 @@ for lcname, color in zip(['forest', 'shrub', 'tundra'], ["#05450a", "#c6b044", "
     plt.scatter(fitting_df_reference_merge[f'{stat_var}_lc'], fitting_df_reference_merge['model_name'], marker='o', color=color, facecolors='none', s=70)
 
 plt.legend(bbox_to_anchor=(0.45, 0.7), fontsize=12)
-plt.show()
 
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_lc.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_lc.pdf', dpi=300, bbox_inches='tight')
+plt.show()

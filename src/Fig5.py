@@ -20,15 +20,15 @@ regionname = 'ABoVEcore'
 
 # seasonal cycle
 # TRENDY
-seasonal_df_TRENDYv11NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11Rh= pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11Rh= pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11Ra + seasonal_df_TRENDYv11Rh
 
 # X-BASE
-seasonal_df_NEEobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_GPPobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_NEEobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_GPPobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11NEE['X-BASE'] = seasonal_df_NEEobservations['FluxCOM-X-NEE']
 seasonal_df_TRENDYv11GPP['X-BASE'] = seasonal_df_GPPobservations['FluxCOM-X-GPP']
 seasonal_df_TRENDYv11Reco['X-BASE'] = seasonal_df_TRENDYv11NEE['X-BASE'] + seasonal_df_TRENDYv11GPP['X-BASE']
@@ -177,7 +177,8 @@ ax3.set_ylabel(r'NEE$_{{September}}$ / NEE$_{{min}}$', fontsize=16)
 
 
 plt.subplots_adjust(wspace=0.3)
-plt.show()
 
 # save figure
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig5_{component_name}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig5_{component_name}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig5_{component_name}.pdf', dpi=300, bbox_inches='tight')
+plt.show()

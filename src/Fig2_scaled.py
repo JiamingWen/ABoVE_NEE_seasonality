@@ -6,9 +6,6 @@ evaluation with and without regression
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
-from statsmodels.regression.linear_model import OLSResults
 from matplotlib.legend_handler import HandlerTuple
 
 lcname = 'alllc' #alllc forest shrub tundra
@@ -111,7 +108,6 @@ plt.axvline(x=fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference
 plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean seasonal cycle'],
            bbox_to_anchor=(0.65, 0.8), fontsize=14, handletextpad=1.5, scatterpoints=1, numpoints=1, handler_map={tuple: HandlerTuple(ndivide=None, pad=2)}, frameon=True, borderpad=1, labelspacing=0.5)
 
-plt.show()
-
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_scaled.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_scaled.pdf', dpi=300, bbox_inches='tight')
+plt.show()

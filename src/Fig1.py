@@ -157,7 +157,7 @@ cb.set_ticklabels(['$10^0$', '$10^1$', '$10^2$'])
 add_above_boundaries(ax)
 
 plt.subplots_adjust(wspace=0.2)
-plt.show()
 
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.pdf', dpi=300, bbox_inches='tight')
+plt.show()

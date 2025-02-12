@@ -6,8 +6,6 @@ evaluation separately for each year
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 from statsmodels.regression.linear_model import OLSResults
 
@@ -121,7 +119,7 @@ ax.annotate("Upscaled EC", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_
 ax.annotate("TRENDY TBMs", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]-1.5), fontsize=15)
 
 plt.legend(bbox_to_anchor=(0.4, 0.75), fontsize=12)
-plt.show()
 
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_year.png', dpi=300, bbox_inches='tight')
 fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_different_year.pdf', dpi=300, bbox_inches='tight')
+plt.show()
