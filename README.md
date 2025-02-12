@@ -110,6 +110,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Figure S6: `Fig2.py_full.py` 
     - Figure S11: `compare_component_flux_ratio.py`
     - Figure S12-S16, S19-20: `Fig3.py`
+    - Figure S18: `Fig4.py`
 
 ## Contact
 
