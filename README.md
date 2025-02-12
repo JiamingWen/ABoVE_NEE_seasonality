@@ -78,6 +78,9 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Extract seasonal variations of NEE and remote sensing datasets
         - `extract_seasonal.py`
         - `extract_seasonal_multiyear.py`
+    - Plot seasonal variations of NEE
+        - `plot_seasonal.py`
+        - `plot_seasonal_different_years.py`
     - Modify NEE season cycle and examine its consistency with atmospheric observations
         - `modify_TRENDY_component_seasonal_example.py`
         - `modify_TRENDY_component_seasonal_groupH.py`
@@ -108,6 +111,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Figure S4: `Fig2_scaled.py`
     - Figure S5: `Fig2_different_lc`
     - Figure S6: `Fig2.py_full.py` 
+    - Figure S7: `extract_seasonal_multiyear.py`
     - Figure S11: `compare_component_flux_ratio.py`
     - Figure S12-S16, S19-20: `Fig3.py`
     - Figure S18: `Fig4.py`
