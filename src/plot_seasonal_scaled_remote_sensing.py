@@ -72,6 +72,6 @@ for i in np.arange(len(reference_names)):
 
 plt.subplots_adjust(wspace=0.4, hspace=0.35)
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.png', dpi=100, bbox_inches='tight')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.pdf', dpi=100, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.pdf', dpi=300, bbox_inches='tight')
 plt.show()

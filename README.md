@@ -100,8 +100,10 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 5. **Other scripts for additional analyses**:
     - Compare relative proportion of carbon component (Ra, Rh to GPP)
         - `compare_component_flux_ratio.py`
-        - calculate_seasonality_uncertainty.py
-        - compare_inv_insitu_satellite.py
+    - Evaluate seasonality difference between each pair of TRENDY models
+        - `calculate_seasonality_uncertainty.py`
+    - Evaluate consistency between atmospheric observations and inversions based on different CO2 input sources
+        - `compare_inv_insitu_satellite.py`
     
 
 6. **Figures in the manuscript**:
@@ -118,9 +120,14 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Figure S5: `Fig2_different_lc`
     - Figure S6: `Fig2.py_full.py` 
     - Figure S7: `extract_seasonal_multiyear.py`
+    - Figure S8: `examine_cor_mad.py`
+    - Figure S9: `examine_mad_across_lc.py`
+    - Figure S10: `plot_seasonal_scaled_remote_sensing.py`
     - Figure S11: `compare_component_flux_ratio.py`
     - Figure S12-S16, S19-20: `Fig3.py`
     - Figure S18: `Fig4.py`
+    - Figure S19: `Fig5.py`
+    - Figure S21: `calculate_seasonality_uncertainty.py`
 
 ## Contact
 
