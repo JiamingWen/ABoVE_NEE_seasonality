@@ -6,7 +6,7 @@ from scipy.stats import pearsonr
 
 weightname = 'unweighted' #unweighted
 regionname = 'ABoVEcore'
-reference = 'obs' # GroupH obs
+reference = 'GroupH' # GroupH obs
 varname = 'NEE' # NEE GPP Ra Rh Reco
 
 high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']

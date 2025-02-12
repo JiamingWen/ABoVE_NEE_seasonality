@@ -109,5 +109,5 @@ axes[1].text(0.95, 0.95, '(b) High-cor TBMs', transform=axes[1].transAxes, fonts
 plt.tight_layout()
 
 plt.savefig("/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.png", dpi=300, bbox_inches='tight')
-plt.savefig("/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.png", dpi=300, bbox_inches='tight')
+plt.savefig("/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.pdf", dpi=300, bbox_inches='tight')
 plt.show()
