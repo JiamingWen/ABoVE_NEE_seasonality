@@ -91,7 +91,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Compute Mean Absolute Deviation of seasonality compared to reference data
         - `Fig3.py`
     - Analyze the relationship between NEE seasonlity bias and consistency with atmospheric observations
-        - ``
+        - `examine_cor_mad.py`
     - Analyze the relationship between NEE seasonlity bias and GPP/Reco seasonality bias
         - `Fig5.py`
     - Analyze the relationship of NEE seasonality bias between the whole region and individual land cover
