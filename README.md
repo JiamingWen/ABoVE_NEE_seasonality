@@ -88,8 +88,12 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `modify_X_BASE_component_seasonal_groupH.py`
     - Compute Mean Absolute Deviation of seasonality compared to reference data
         - `Fig3.py`
+    - Analyze the relationship between NEE seasonlity bias and consistency with atmospheric observations
+        - ``
     - Analyze the relationship between NEE seasonlity bias and GPP/Reco seasonality bias
         - `Fig5.py`
+    - Analyze the relationship of NEE seasonality bias between the whole region and individual land cover
+        - `examine_mad_across_lc.py`
 
 5. **Other scripts for additional analyses**:
     - Compare relative proportion of carbon component (Ra, Rh to GPP)
