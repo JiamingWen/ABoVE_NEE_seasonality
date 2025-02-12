@@ -59,5 +59,6 @@ for ax, lc, mad, subtitle in zip(axs, land_covers, mad_data, subtitles):
     ax.text(0.05, 0.95, f'{subtitle} {lc}', transform=ax.transAxes, fontsize=18, va='top')
 plt.tight_layout()
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.png', dpi=100, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.pdf', dpi=300, bbox_inches='tight')
 plt.show()

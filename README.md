@@ -81,6 +81,8 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Plot seasonal variations of NEE
         - `plot_seasonal.py`
         - `plot_seasonal_different_years.py`
+    - Plot seasonal variations of scaled remtoe sensing variables
+        - `plot_seasonal_scaled_remote_sensing.py`
     - Modify NEE season cycle and examine its consistency with atmospheric observations
         - `modify_TRENDY_component_seasonal_example.py`
         - `modify_TRENDY_component_seasonal_groupH.py`

@@ -70,8 +70,8 @@ for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions'
     plt.savefig(f'{dir0}/plot/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=100, bbox_inches='tight')
     
     if model_type == 'inversionsNEE':
-        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=100, bbox_inches='tight')
-        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.pdf', dpi=100, bbox_inches='tight')
+        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.pdf', dpi=300, bbox_inches='tight')
         
     plt.show()
 

@@ -48,6 +48,6 @@ for year in [2012, 2013, 2014, 2017]: #
 
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
         # plt.tight_layout()
-        plt.savefig(f'{dir0}/plot/seasonal_{year}_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=100, bbox_inches='tight')
+        plt.savefig(f'{dir0}/plot/seasonal_{year}_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=300, bbox_inches='tight')
         plt.show()
 
