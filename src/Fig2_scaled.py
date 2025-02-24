@@ -23,6 +23,7 @@ fitting_df_TRENDYv11_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/A
 # fitting_df_TRENDYv11_scaled = fitting_df_TRENDYv11_scaled.loc[~fitting_df_TRENDYv11_scaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
 fitting_df_inversions_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_scaled = fitting_df_inversions_scaled.loc[~fitting_df_inversions_scaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_scaled.loc[fitting_df_inversions_scaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
 fitting_df_NEEobservations_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_NEEobservations{lc_filestr}.csv')
 fitting_df_NEEobservations_scaled.loc[fitting_df_NEEobservations_scaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 fitting_df_NEEobservations_scaled.loc[fitting_df_NEEobservations_scaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
@@ -83,6 +84,7 @@ fitting_df_TRENDYv11_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/
 # fitting_df_TRENDYv11_only_seasonal = fitting_df_TRENDYv11_only_seasonal.loc[~fitting_df_TRENDYv11_only_seasonal['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
 fitting_df_inversions_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
 fitting_df_inversions_only_seasonal = fitting_df_inversions_only_seasonal.loc[~fitting_df_inversions_only_seasonal['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_only_seasonal.loc[fitting_df_inversions_only_seasonal['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
 fitting_df_NEEobservations_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_NEEobservations{lc_filestr}_only_seasonal.csv')
 fitting_df_NEEobservations_only_seasonal.loc[fitting_df_NEEobservations_only_seasonal['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 fitting_df_NEEobservations_only_seasonal.loc[fitting_df_NEEobservations_only_seasonal['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'

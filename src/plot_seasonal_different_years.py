@@ -57,8 +57,13 @@ for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions'
             # plt.title(model_name, fontsize=20)
             plt.ylim(ylim1, ylim2)
 
+            if model_name == 'MIROC':
+                title_name = 'MIROC4-ACTM'
+            else:
+                title_name = model_name
+
             subtitle = chr(ord('`')+subplot_id+1)
-            ax1.annotate(f'({subtitle}) {model_name}', xy=(0.95, 0.05), xycoords='axes fraction', fontsize=18, ha='right', va='bottom')
+            ax1.annotate(f'({subtitle}) {title_name}', xy=(0.95, 0.05), xycoords='axes fraction', fontsize=18, ha='right', va='bottom')
 
             if model_name == 'LPX-Bern':
                 plt.ylim(-5,5)

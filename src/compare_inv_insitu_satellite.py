@@ -10,12 +10,13 @@ stat_var = 'cor'; xlim = [0.55, 0.8]
 fitting_df_all = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE.csv')
 fitting_df_2017 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE_2017.csv')
 fitting_df_inversions_unscaled = pd.merge(fitting_df_all[['model_name', 'cor']], fitting_df_2017[['model_name', 'cor']], on='model_name', how='outer', suffixes=('_All', '_2017'))
+fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
 fitting_df_inversions_unscaled.rename(columns={'cor_All': 'All', 'cor_2017': '2017'}, inplace=True)
 inversion_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
 fitting_df_inversions_unscaled.fillna(-999, inplace=True)
 
 # data input
-inv_insitu_list = ['CAMS', 'CarboScope', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE']
+inv_insitu_list = ['CAMS', 'CarboScope', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC4-ACTM', 'NISMON-CO2', 'UoE']
 inv_satellite_list = ['CAMS-Satellite', 'GCASv2', 'GONGGA', 'THU']
 inv_combine_list = ['CMS-Flux', 'COLA']
 

@@ -21,6 +21,7 @@ fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2
 # fitting_df_TRENDYv11_unscaled = fitting_df_TRENDYv11_unscaled.loc[~fitting_df_TRENDYv11_unscaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
 fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
 fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
 fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE NEE'
 fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
@@ -93,6 +94,7 @@ for lcname, color in zip(['forest', 'shrub', 'tundra'], ["#05450a", "#c6b044", "
     # fitting_df_TRENDYv11_unscaled_lc = fitting_df_TRENDYv11_unscaled_lc.loc[~fitting_df_TRENDYv11_unscaled_lc['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
     fitting_df_inversions_unscaled_lc = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
     fitting_df_inversions_unscaled_lc = fitting_df_inversions_unscaled_lc.loc[~fitting_df_inversions_unscaled_lc['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+    fitting_df_inversions_unscaled_lc.loc[fitting_df_inversions_unscaled_lc['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
     fitting_df_NEEobservations_unscaled_lc = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
     fitting_df_NEEobservations_unscaled_lc.loc[fitting_df_NEEobservations_unscaled_lc['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE NEE'
     fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
