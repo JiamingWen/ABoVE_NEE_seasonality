@@ -5,7 +5,7 @@ import pandas as pd
 import xarray as xr
 import os
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
-from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv9, read_inversions, read_remote_sensing, read_gosif_gpp, read_fluxcom_x, read_abcflux, read_fossil_fire, read_MODIS_VI, read_GOME2_SIF
+from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv9, read_inversions, read_inversions_prior, read_remote_sensing, read_gosif_gpp, read_fluxcom_x, read_abcflux, read_fossil_fire, read_MODIS_VI, read_GOME2_SIF
 
 
 # year = 2012 # 2012 2013 2014 2017
@@ -51,13 +51,13 @@ for year in [2012, 2013, 2014, 2017]:
                 elif weightname == 'weighted':
                     weight = influence.influence.values.flatten()
                 
-                for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl']: #'TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl'
+                for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl', 'inversions-prior', 'inversionsNEE-prior']: #'TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl', 'inversions-prior', 'inversionsNEE-prior'
                     print(year, regionname, lcname, weightname, model_type)
                     if model_type in ['TRENDYv11', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI']:
                         model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
                     elif model_type == 'TRENDYv9':
                         model_names = ['CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT']
-                    elif model_type in ['inversions', 'inversionsNEE']:
+                    elif model_type in ['inversions', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior']:
                         model_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
                     elif model_type in ['reference']:
                         model_names = ['APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF']
@@ -96,11 +96,19 @@ for year in [2012, 2013, 2014, 2017]:
                                 nee = nee_vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(nee, nan=0)
 
-                            elif model_type == 'inversions':
+                            elif model_type in ['inversions', 'inversions-prior']:
                                 # nbe
-                                nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
+                                if model_type == 'inversions':
+                                    nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
+                                else:
+                                    nbe_vec = read_inversions_prior(model_name, 'prior_flux_land', year, month).values.flatten()
+                                
                                 nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
-                                nbe = np.nan_to_num(nbe, nan=0)
+                                
+                                if np.isnan(nbe).all():
+                                    continue
+                                else:
+                                    variable = np.nan_to_num(nbe, nan=0)
 
                             elif model_type == 'TRENDYv11GPP':
                                 # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
@@ -194,11 +202,19 @@ for year in [2012, 2013, 2014, 2017]:
                                 variable = read_fossil_fire('fire', 'CO2_emission', year, month).values.flatten() #unit: gCO2 m-2 month-1
                                 variable = variable/30/24/3600/44*1e6 #convert unit to μmol m-2 s-1
                             
-                            elif model_type == 'inversionsNEE':
+                            elif model_type in ['inversionsNEE', 'inversionsNEE-prior']:
                                 # nbe
-                                nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
+                                if model_type == 'inversionsNEE':
+                                    nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
+                                else:
+                                    nbe_vec = read_inversions_prior(model_name, 'prior_flux_land', year, month).values.flatten()
+                                
                                 nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
-                                nbe = np.nan_to_num(nbe, nan=0)
+                                
+                                if np.isnan(nbe).all():
+                                    continue
+                                else:
+                                    variable = np.nan_to_num(nbe, nan=0)
 
                                 # fire
                                 fire = read_fossil_fire('fire', 'CO2_emission', year, month).values.flatten() #unit: gCO2 m-2 month-1

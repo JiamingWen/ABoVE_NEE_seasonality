@@ -34,9 +34,9 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 
 # model types
 # all types
-model_types = ['TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal'] #'TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal'
+model_types = ['TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'] #'TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'
 # only one variable (i.e., not regression like CRU or LC)
-model_types_single = ['TRENDYv11', 'inversionsNEE', 'reference', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal']
+model_types_single = ['TRENDYv11', 'inversionsNEE', 'reference', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal']
 
 for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
 
@@ -104,6 +104,13 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
                 model_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
             else:
                 model_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # remove the five satellite-based inversions
+        elif model_type in ['inversionsNEE-prior']:
+            if year == 2017:
+                model_names = ['CAMS', 'CAMS-Satellite', 'CMS-Flux', 'CTE', 'GCASv2', 'GONGGA', 'MIROC', 'NISMON-CO2', 'THU']
+            else:
+                model_names = ['CAMS', 'CMS-Flux', 'CTE', 'MIROC', 'NISMON-CO2'] # remove inversions without providing priors
+        elif model_type == 'inversionsNEE-prior_only_seasonal':
+            model_names = ['CAMS', 'CMS-Flux', 'CTE', 'MIROC', 'NISMON-CO2']
         elif model_type in ['NEEobservations', 'NEEobservations_only_seasonal']:
             model_names = ['FluxCOM-X-NEE', 'ABCflux-NEE']
         elif model_type == 'GPPobservations':
@@ -149,8 +156,11 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
             '''add transported carbon fluxes or variables'''
             if model_type in model_types_single:
                 
-                if model_type == 'inversionsNEE': # account for fire emissions
-                    df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
+                if model_type in ['inversionsNEE', 'inversionsNEE-prior']: # account for fire emissions
+                    if model_type == 'inversionsNEE':
+                        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
+                    elif model_type == 'inversionsNEE-prior':
+                        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions-prior.csv')
                     X_year_NEE = df_model[f"{model_name}_CO2_change"].loc[mask_id] - df_fossil_fire['fire_CO2_change'].loc[mask_id]
                     X_year = pd.concat((X_year_NEE, X_year), axis=1)
                 else:

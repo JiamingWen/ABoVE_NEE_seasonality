@@ -116,6 +116,19 @@ def read_inversions (data_name, var_name, year, month):
 
     return ds_subset_2d
 
+def read_inversions_prior (data_name, var_name, year, month):
+
+    f = f"/central/groups/carnegie_poc/michalak-lab/data/inversions/inversions-half-degree/GCP2023-prior/{data_name}-half-degree.nc"
+
+    ds = xr.open_dataset(f)
+    ds_subset: xr.Dataset = ds.isel(
+    time=(ds.time.dt.year == year) & (ds.time.dt.month == month),
+    latitude=(ds.latitude >= 30) & (ds.latitude <= 90),
+    )
+    ds_subset_2d = ds_subset[var_name]
+
+    return ds_subset_2d
+
 def read_fossil_fire (data_name, var_name, year, month):
 
     if data_name == 'fossil':

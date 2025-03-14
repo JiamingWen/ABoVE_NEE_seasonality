@@ -6,7 +6,7 @@ import xesmf as xe
 import time
 from datetime import datetime, timedelta
 
-def regrid_inversions_GCP2023(dataset_name, ds) -> None:
+def regrid_inversions_GCP2023(dataset_name, ds, is_posterior) -> None:
     """Regrid inversions."""
 
     year_start: int = 2012
@@ -59,8 +59,13 @@ def regrid_inversions_GCP2023(dataset_name, ds) -> None:
     # copy the attributes
     ds_subset_out = ds_subset_out.assign_attrs(ds.attrs)
 
+    if is_posterior == False:
+        posterior_str = '-prior'
+    elif is_posterior == True:
+        posterior_str = ''
+
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/data/inversions/inversions-half-degree/GCP2023/"
+        f"/central/groups/carnegie_poc/michalak-lab/data/inversions/inversions-half-degree/GCP2023{posterior_str}/"
         f"{dataset_name}-half-degree.nc"
     )
 
@@ -76,5 +81,11 @@ ds = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/data/inversions/
 for inversion_num in np.arange(ds.ensemble_member_name.shape[0]):
     
     inversion_name = ''.join(ds.ensemble_member_name[inversion_num].values)
-    land_flux_only_fossil_cement_adjusted_indvidual = ds.land_flux_only_fossil_cement_adjusted[inversion_num]  #unit: PgC/m2/yr
-    regrid_inversions_GCP2023(inversion_name, land_flux_only_fossil_cement_adjusted_indvidual)
+    
+    for is_posterior in [False, True]:
+        if is_posterior == False: # prior
+            land_flux_indvidual = ds.prior_flux_land[inversion_num]
+        elif is_posterior == True: # posterior
+            land_flux_indvidual = ds.land_flux_only_fossil_cement_adjusted[inversion_num] #unit: PgC/m2/yr
+
+        regrid_inversions_GCP2023(inversion_name, land_flux_indvidual, is_posterior)

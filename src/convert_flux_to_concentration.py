@@ -6,7 +6,7 @@ import xarray as xr
 from scipy.sparse import csr_matrix
 import os
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
-from functions import get_campaign_info, read_H_matrix, read_fossil_fire, read_TRENDYv11, read_TRENDYv9, read_inversions, read_remote_sensing, read_fluxcom_x, read_abcflux, read_gosif_gpp, read_MODIS_VI, read_GOME2_SIF
+from functions import get_campaign_info, read_H_matrix, read_fossil_fire, read_TRENDYv11, read_TRENDYv9, read_inversions, read_remote_sensing, read_fluxcom_x, read_abcflux, read_gosif_gpp, read_MODIS_VI, read_GOME2_SIF, read_inversions_prior
 
 year = 2012 # 2012 2013 2014 2017
 
@@ -152,7 +152,11 @@ for data_name in inversion_names:
         # same order as in the cell_id_table.csv
         nee_vec = read_inversions(data_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten()[land_cellnum_list] #unit: PgC/m2/yr
         nee = nee_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
-        NEE = np.nan_to_num(nee, nan=0)
+
+        if np.isnan(nee).all():
+            NEE = nee
+        else:
+            NEE = np.nan_to_num(nee, nan=0)
 
         if month == start_month:
             X_matrix = NEE
@@ -273,3 +277,33 @@ for data_name in GPPobservations_names:
     CO2_change = np.matmul(h_matrix, X_matrix)
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_GPPobservations.csv', encoding='utf-8', index=False)
+
+
+# inversions's prior from GCB2023
+inversion_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
+result_df = pd.DataFrame()
+for data_name in inversion_names:
+    print(data_name)
+
+    # read X matrix
+    for month in np.arange(start_month, end_month+1):
+        print(year, month)
+        
+        # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
+        # same order as in the cell_id_table.csv
+        nee_vec = read_inversions_prior(data_name, 'prior_flux_land', year, month).values.flatten()[land_cellnum_list] #unit: PgC/m2/yr
+        nee = nee_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
+        
+        if np.isnan(nee).all():
+            NEE = nee
+        else:
+            NEE = np.nan_to_num(nee, nan=0)
+
+        if month == start_month:
+            X_matrix = NEE
+        else:
+            X_matrix = np.concatenate((X_matrix, NEE), axis=0)
+
+    CO2_change = np.matmul(h_matrix, X_matrix)
+    result_df[f'{data_name}_CO2_change'] = CO2_change
+result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions-prior.csv', encoding='utf-8', index=False)
