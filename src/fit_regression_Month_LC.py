@@ -124,16 +124,16 @@ for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
 # constant term in X, but no constant term in HX (eq. 2)
 # to properly scale remote sensing or CRU variables to NEE
 model = sm.OLS(y,X)
-results = model.fit()
-results.save(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
+results2 = model.fit()
+results2.save(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
 # to load ols model back
 results2 = OLSResults.load(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
-results.params
-results.summary() # this is exactly the same as the results from fit_linear_regression_fullH.py
+results2.params
+results2.summary() # this is exactly the same as the results from fit_linear_regression_fullH.py
 # export results to txt
 f = f"{dir1}{model_type}_{model_name}{lc_filestr}.txt"
 with open(f, 'w') as fh:
-    fh.write(results.summary().as_text())
+    fh.write(results2.summary().as_text())
 
 # calculate correlation between z and H X beta
 y_hat = results2.fittedvalues
@@ -149,7 +149,7 @@ X2 = sm.add_constant(y_hat)
 model = sm.OLS(y,X2)
 results3 = model.fit()
 results3.params
-r2_2 = results2.rsquared
+r2_2 = results3.rsquared
 
 fitting_df = pd.DataFrame([[model_name, cor1, cor_CI_low, cor_CI_high, r2_1, r2_2]], 
                         columns=['model_name', 'cor', 'cor_CI_low', 'cor_CI_high', 'r2_1', 'r2_2'])
@@ -160,10 +160,10 @@ fitting_df.to_csv(f"{dir0}evaluation_stat_{model_name}{lc_filestr}.csv", encodin
 #########################################################################
 # plot seasonal vairations of each land cover (i.e., fitted beta)
 fig, ax = plt.subplots(figsize=(4,3))
-plt.plot(np.arange(4,12), results.params[0:8], linestyle='-',color='black',label='forest')
-plt.plot(np.arange(4,12), results.params[8:16], linestyle='-',color='blue',label='shrub')
-plt.plot(np.arange(4,12), results.params[16:24], linestyle='-',color='red',label='tundra')
-plt.plot(np.arange(4,12), results.params[24:32], linestyle='-',color='green',label='others')
+plt.plot(np.arange(4,12), results2.params[0:8], linestyle='-',color='black',label='forest')
+plt.plot(np.arange(4,12), results2.params[8:16], linestyle='-',color='blue',label='shrub')
+plt.plot(np.arange(4,12), results2.params[16:24], linestyle='-',color='red',label='tundra')
+plt.plot(np.arange(4,12), results2.params[24:32], linestyle='-',color='green',label='others')
 plt.xlim(4,11)
 # plt.ylim(-1.2,1)
 ax.set_xticks(np.arange(4,12))

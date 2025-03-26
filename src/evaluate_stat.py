@@ -235,7 +235,7 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
             # export results to txt
             f = f"{dir1}{model_type}_{model_name}{lc_filestr}_{year}.txt"
             with open(f, 'w') as fh:
-                fh.write(results1.summary().as_text())
+                fh.write(results2.summary().as_text())
 
             # calculate correlation between z and H X beta
             y_hat = results2.fittedvalues

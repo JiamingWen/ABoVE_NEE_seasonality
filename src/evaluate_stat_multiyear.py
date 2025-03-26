@@ -231,7 +231,7 @@ for model_type in model_types:
         # export results to txt
         f = f"{dir1}{model_type}_{model_name}{lc_filestr}.txt"
         with open(f, 'w') as fh:
-            fh.write(results1.summary().as_text())
+            fh.write(results2.summary().as_text())
 
         # calculate correlation between z and H X beta
         y_hat = results2.fittedvalues
