@@ -37,9 +37,7 @@ import shutil
 import numpy as np
 import pandas as pd
 import math
-
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/tmp/src')
-import utils # import from an outside script
+import utils
 
 year = 2014 # 2012 2013 2014
 
