@@ -48,7 +48,7 @@ for data_name in ['fossil', 'fire']:
         else:
             X_matrix = np.concatenate((X_matrix, NEE), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv', encoding='utf-8', index=False)
 
@@ -93,10 +93,10 @@ for data_name in TRENDYv11_names:
             X_matrix_Reco = np.concatenate((X_matrix_Reco, Reco), axis=0)
 
 
-    CO2_change_NEE = np.matmul(h_matrix, X_matrix_NEE)
-    CO2_change_GPP = np.matmul(h_matrix, X_matrix_GPP)
-    CO2_change_NPP = np.matmul(h_matrix, X_matrix_NPP)
-    CO2_change_Reco = np.matmul(h_matrix, X_matrix_Reco)
+    CO2_change_NEE = h_matrix @ X_matrix_NEE
+    CO2_change_GPP = h_matrix @ X_matrix_GPP
+    CO2_change_NPP = h_matrix @ X_matrix_NPP
+    CO2_change_Reco = h_matrix @ X_matrix_Reco
     
     result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
     result_df_GPP[f'{data_name}_CO2_change'] = CO2_change_GPP
@@ -133,7 +133,7 @@ for data_name in TRENDYv9_names:
         else:
             X_matrix = np.concatenate((X_matrix, NEE), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_TRENDYv9.csv', encoding='utf-8', index=False)
 
@@ -163,7 +163,7 @@ for data_name in inversion_names:
         else:
             X_matrix = np.concatenate((X_matrix, NEE), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv', encoding='utf-8', index=False)
 
@@ -206,7 +206,7 @@ for data_name in reference_names:
         else:
             X_matrix = np.concatenate((X_matrix, variable), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_reference.csv', encoding='utf-8', index=False)
 
@@ -237,7 +237,7 @@ for data_name in NEEobservations_names:
         else:
             X_matrix = np.concatenate((X_matrix, variable), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_NEEobservations.csv', encoding='utf-8', index=False)
 
@@ -274,7 +274,7 @@ for data_name in GPPobservations_names:
         else:
             X_matrix = np.concatenate((X_matrix, variable), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_GPPobservations.csv', encoding='utf-8', index=False)
 
@@ -304,6 +304,6 @@ for data_name in inversion_names:
         else:
             X_matrix = np.concatenate((X_matrix, NEE), axis=0)
 
-    CO2_change = np.matmul(h_matrix, X_matrix)
+    CO2_change = h_matrix @ X_matrix
     result_df[f'{data_name}_CO2_change'] = CO2_change
 result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions-prior.csv', encoding='utf-8', index=False)

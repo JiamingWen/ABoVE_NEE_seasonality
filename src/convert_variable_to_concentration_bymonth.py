@@ -11,7 +11,7 @@ import os
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, read_remote_sensing, read_cru, read_MODIS_VI, read_GOME2_SIF
 
-year = 2017 # 2012 2013 2014 2017
+year = 2012 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 
@@ -39,15 +39,15 @@ for month in np.arange(start_month,end_month+1):
 
     n_cell = 720 * 120
     h_matrix0 = csr_matrix((h_df.val, (h_df.obs_id, h_df.cell_id)),  
-                            shape = (n_receptor, n_cell)).toarray()
+                            shape = (n_receptor, n_cell))
     
-    h_matrix0_subset = h_matrix0[:,land_cellnum_list]
+    h_matrix0_subset = h_matrix0[:, land_cellnum_list]
     del h_matrix0
 
 
     # spatially-uniform flux
     variable = np.ones((n_cell))[land_cellnum_list]
-    covariate = np.matmul(h_matrix0_subset, variable)
+    covariate = h_matrix0_subset @ variable
     covariate = pd.DataFrame(covariate, columns=['constant'])
     covariate.to_csv(f'{dir0}constant_{year}_{month}.csv', encoding='utf-8', index=False)
 
@@ -74,7 +74,7 @@ for month in np.arange(start_month,end_month+1):
             variable = read_GOME2_SIF('dcSIF', year, month).values.flatten()[land_cellnum_list]
             variable = np.nan_to_num(variable, nan=0)
 
-        covariate = np.matmul(h_matrix0_subset, variable)
+        covariate = h_matrix0_subset @ variable
         covariate = pd.DataFrame(covariate, columns=[data_name])
         covariate.to_csv(f'{dir0}{data_name}_{year}_{month}.csv', encoding='utf-8', index=False)
         
@@ -84,7 +84,7 @@ for month in np.arange(start_month,end_month+1):
         variable = read_cru(data_name, data_name, year, month).values.flatten()[land_cellnum_list]
         variable = np.nan_to_num(variable, nan=0)
 
-        covariate = np.matmul(h_matrix0_subset, variable)
+        covariate = h_matrix0_subset @ variable
         covariate = pd.DataFrame(covariate, columns=[data_name])
         covariate.to_csv(f'{dir0}{data_name}_{year}_{month}.csv', encoding='utf-8', index=False)
 
@@ -93,6 +93,6 @@ for month in np.arange(start_month,end_month+1):
         variable = np.zeros((n_cell))
         variable[np.where(cell_id_table['lc'] .isin (lcid))[0]] = 1
         variable = variable[land_cellnum_list]
-        covariate = np.matmul(h_matrix0_subset, variable)
+        covariate = h_matrix0_subset @ variable
         covariate = pd.DataFrame(covariate, columns=['constant'])
         covariate.to_csv(f'{dir0}constant_{lcname}_{year}_{month}.csv', encoding='utf-8', index=False)

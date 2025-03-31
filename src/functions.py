@@ -4,7 +4,7 @@ Functions used in the analysis
 import xarray as xr
 import numpy as np
 import pandas as pd
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_matrix, hstack
 from glob import glob
 
 # get start_month, end_month, campaign_name of each year
@@ -25,33 +25,38 @@ def get_campaign_info (year):
 # n_receptor - number of receptors, same as shape[0] of h_matrix
 # cell_id - a vector consisting of id of certain grids, e.g., only land grids (cell id can be found in the cell_id_table.csv)
 
-def read_H_matrix (year, n_receptor, cell_id):
+def read_H_matrix(year, n_receptor, cell_id):
     start_month, end_month, campaign_name = get_campaign_info(year)
 
-    for month in np.arange(start_month,end_month+1):
+    h_matrix = None
+
+    for month in np.arange(start_month, end_month + 1):
         print(month)
 
         # read stored H sparse matrix
-        h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
-                        sep="\s+", index_col=False, header=None,
-                        names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
+        h_df = pd.read_csv(
+            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+            sep="\s+", index_col=False, header=None,
+            names=["obs_id", "cell_id", "lat_id", "lon_id", "lat", "lon", "val"]
+        )
         #  \s+ is the expression for "any amount of whitespace"
 
+        # Create sparse matrix directly
         n_cell = 720 * 120
-        h_matrix0 = csr_matrix((h_df.val, (h_df.obs_id, h_df.cell_id)),  
-                                shape = (n_receptor, n_cell)).toarray()
-        
-        h_matrix0_subset = h_matrix0[:,cell_id]
+        h_matrix0 = csr_matrix((h_df.val, (h_df.obs_id, h_df.cell_id)), shape=(n_receptor, n_cell))
 
-        if month == start_month:
+        # Subset the sparse matrix
+        h_matrix0_subset = h_matrix0[:, cell_id]
+
+        # Concatenate sparse matrices
+        if h_matrix is None:
             h_matrix = h_matrix0_subset
         else:
-            h_matrix = np.concatenate((h_matrix, h_matrix0_subset), axis=1)
+            h_matrix = hstack([h_matrix, h_matrix0_subset]).tocsr()
 
         del h_df, h_matrix0, h_matrix0_subset
-    
-    return h_matrix
 
+    return h_matrix
 
 # read re-gridded netcdf data and crop 30-90N region for specific year and month
 def read_TRENDYv9 (data_name, var_name, year, month):
