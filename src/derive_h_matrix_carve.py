@@ -45,7 +45,7 @@ receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_s
 list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
 footprint_dir = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
 
-config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src/config_carve{year}.ini')
+config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config_carve{year}.ini')
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
