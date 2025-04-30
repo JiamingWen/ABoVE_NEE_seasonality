@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 def regrid_inversions_GCP2023(dataset_name, ds, is_posterior) -> None:
     """Regrid inversions."""
 
-    year_start: int = 2012
+    year_start: int = 2000
     year_end: int = 2020
 
     # grid for output data

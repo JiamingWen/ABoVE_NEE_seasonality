@@ -12,7 +12,7 @@ def regrid_ceres_par() -> None:
     """Regrid CERES PAR."""
     compression = dict(zlib=True, complevel=5)
 
-    year_start: int = 2012
+    year_start: int = 2001
     year_end: int = 2020
 
     # grid for output data

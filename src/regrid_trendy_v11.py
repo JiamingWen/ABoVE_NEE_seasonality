@@ -15,7 +15,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
     # compression = config.io.netcdf_compression
     compression = dict(zlib=True, complevel=5)
 
-    year_start: int = 2012
+    year_start: int = 2000
     year_end: int = 2021
 
     flist: List[str] = sorted(
@@ -263,7 +263,7 @@ def aggrgate_tsl_by_depth (model_name, ds):
 
 if __name__ == "__main__":
     start_time: float = time.time()
-    for var_name in ['cLitter', 'cSoil']: #"gpp", "nbp", "ra", "rh", "lai", 'tsl', 'cLitter', 'cSoil'
+    for var_name in ["gpp", "nbp", "ra", "rh", "lai", 'tsl', 'cLitter', 'cSoil']: #"gpp", "nbp", "ra", "rh", "lai", 'tsl', 'cLitter', 'cSoil'
         regrid_trendy(var_name=var_name)
 
     end_time: float = time.time()

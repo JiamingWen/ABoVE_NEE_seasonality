@@ -107,9 +107,9 @@ if __name__ == "__main__":
 
     # loop through the variables and years
     start_time: float = time.time()
-    year_start: int = 2013
+    year_start: int = 2001
     year_end: int = 2020
-    for varname in ['Reco']: #'NEE', 'GPP', 
+    for varname in ['NEE', 'GPP', 'Reco']: #'NEE', 'GPP', 'Reco'
         for year in np.arange(year_start, year_end+1):
         # for year in [2012, 2013, 2014, 2017]:
             regrid_abcflux(varname=varname, year=year, regridder=regridder)
