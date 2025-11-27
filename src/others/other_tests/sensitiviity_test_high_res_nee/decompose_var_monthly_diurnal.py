@@ -103,7 +103,7 @@ for r in range(3):
     axes[r, 4].tick_params(axis='x', labelsize=12)
 
 plt.tight_layout()
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src/others/other_tests/sensitiviity_test_high_res_nee/decompose_var_monthly_diurnal.png', dpi=300)
+plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/decompose_var_monthly_diurnal.png', dpi=300)
 plt.show()
 
 '''calculate correlation and variance'''
