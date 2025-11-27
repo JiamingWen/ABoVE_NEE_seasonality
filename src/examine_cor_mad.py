@@ -1,5 +1,5 @@
 '''
-Analyze the relationship between NEE seasonlity bias and consistency with atmospheric observations
+Analyze the relationship between NEE seasonlity bias and correlation with atmospheric observations
 '''
 
 import numpy as np
@@ -43,7 +43,7 @@ corr, _ = pearsonr(x, y)
 plt.text(0.5, 0.55, f'Cor: {"{:.2f}".format(corr)}', fontsize=15)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
-plt.xlabel(r'Correlation with observed CO$_{2}$ enhancement', fontsize=13)
+plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=13)
 plt.ylabel('MAD of rescaled seasonal cycle', fontsize=13)
 
 fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/cor_mad_{reference}.png', dpi=300, bbox_inches='tight')

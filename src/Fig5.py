@@ -26,14 +26,14 @@ seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE
 seasonal_df_TRENDYv11Rh= pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11Ra + seasonal_df_TRENDYv11Rh
 
-# X-BASE
-seasonal_df_NEEobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_GPPobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11NEE['X-BASE'] = seasonal_df_NEEobservations['FluxCOM-X-NEE']
-seasonal_df_TRENDYv11GPP['X-BASE'] = seasonal_df_GPPobservations['FluxCOM-X-GPP']
+# Upscaled EC
+seasonal_df_NEEobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_GPPobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11NEE['X-BASE'] = seasonal_df_NEEobservations['X-BASE']
+seasonal_df_TRENDYv11GPP['X-BASE'] = seasonal_df_GPPobservations['X-BASE']
 seasonal_df_TRENDYv11Reco['X-BASE'] = seasonal_df_TRENDYv11NEE['X-BASE'] + seasonal_df_TRENDYv11GPP['X-BASE']
-seasonal_df_TRENDYv11NEE['ABCflux'] = seasonal_df_NEEobservations['ABCflux-NEE']
-seasonal_df_TRENDYv11GPP['ABCflux'] = seasonal_df_GPPobservations['ABCflux-GPP']
+seasonal_df_TRENDYv11NEE['ABCflux'] = seasonal_df_NEEobservations['ABCflux']
+seasonal_df_TRENDYv11GPP['ABCflux'] = seasonal_df_GPPobservations['ABCflux']
 seasonal_df_TRENDYv11Reco['ABCflux'] = seasonal_df_TRENDYv11NEE['ABCflux'] + seasonal_df_TRENDYv11GPP['ABCflux']
 
 component_name = 'Reco' # GPP Reco

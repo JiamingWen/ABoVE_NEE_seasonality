@@ -1,0 +1,132 @@
+'''
+plot summary figure for model performance, e.g., mean bias, regression slopes/intercepts, RMSE
+evaluation with different background calculations
+'''
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.regression.linear_model import OLSResults
+
+lcname = 'alllc' #alllc forest shrub tundra
+if lcname == 'alllc':
+    lc_filestr = ''
+elif lcname in ['forest', 'shrub', 'tundra']:
+    lc_filestr = '_' + lcname
+
+stat_var = 'cor'; xlim = [-0.2, 0.85]; xlabel = r'Correlation with CO$_{2}$ observations'
+# stat_var = 'slope'; xlim = [-0.2, 2.2]; xlabel = r'Slope of regression with CO$_{2}$ observations'
+# stat_var = 'intercept'; xlim = [-8, 2]; xlabel = r'Intercept of regression with CO$_{2}$ observations'
+# stat_var = 'mean_bias'; xlim = [-8, 2]; xlabel = r'Mean bias compared to CO$_{2}$ observations'
+# stat_var = 'rmse'; xlim = [0, 15]; xlabel = r'RMSE compared to CO$_{2}$ observations'
+
+# unscaled variables (without linear regression)
+fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+# fitting_df_TRENDYv11_unscaled = fitting_df_TRENDYv11_unscaled.loc[~fitting_df_TRENDYv11_unscaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
+fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
+fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
+
+# sort for each category
+fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.sort_values('model_name', ascending=False)
+fitting_df_inversions_sorted = fitting_df_inversions_unscaled.sort_values('model_name', ascending=False)
+fitting_df_UpscaledEC_sorted = fitting_df_UpscaledEC_unscaled.sort_values('model_name', ascending=False)
+
+# set colors
+high_skill_TRENDY = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
+low_skill_TRENDY = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM'] #
+fitting_df_TRENDYv11_sorted.loc[fitting_df_TRENDYv11_sorted['model_name'].isin(high_skill_TRENDY),'color'] = '#396bb8'
+fitting_df_TRENDYv11_sorted.loc[fitting_df_TRENDYv11_sorted['model_name'].isin(low_skill_TRENDY),'color'] = '#d4631d'
+fitting_df_TRENDYv11_sorted.loc[fitting_df_TRENDYv11_sorted['model_name'].isin (['IBIS']),'color'] = 'grey' ## models with negative Rh
+
+
+fig, ax = plt.subplots(figsize=(7,10))
+
+labelname = f"Airborne Profiles"
+
+plt.scatter(fitting_df_TRENDYv11_sorted[f'{stat_var}'], fitting_df_TRENDYv11_sorted['model_name'], marker='o', color='black', label=labelname, s=70, facecolors='none', linewidths=2) #, color=fitting_df_TRENDYv11_sorted['color']
+plt.scatter(fitting_df_UpscaledEC_sorted[f'{stat_var}'], fitting_df_UpscaledEC_sorted['model_name'], marker='o', color='black', s=70, facecolors='none', linewidths=2) #, color='#6db753'
+plt.scatter(fitting_df_inversions_sorted[f'{stat_var}'], fitting_df_inversions_sorted['model_name'], marker='o', color='black', s=70, facecolors='none', linewidths=2)  #, color='black'
+
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+
+plt.xlim(xlim)
+plt.ylim(-1, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5)
+plt.xlabel(xlabel, fontsize=18)
+plt.xticks(fontsize=15) #np.arange(-0.2, 1, 0.2), 
+plt.yticks(fontsize=15)
+
+
+colors = fitting_df_TRENDYv11_sorted['color'].values.tolist() + ['#6db753']*fitting_df_UpscaledEC_sorted.shape[0] + ['black']*fitting_df_inversions_sorted.shape[0]
+for ytick, color in zip(ax.get_yticklabels(), colors):
+    ytick.set_color(color)
+
+ax.annotate("Atmospheric Inversions", (xlim[0]+(xlim[1]-xlim[0])/20, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-1.5), fontsize=15)
+ax.annotate("Upscaled EC", (xlim[0]+(xlim[1]-xlim[0])/20, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]-1.3), fontsize=15)
+ax.annotate("TRENDY TBMs", (xlim[0]+(xlim[1]-xlim[0])/20, fitting_df_TRENDYv11_sorted.shape[0]-1.5), fontsize=15)
+
+
+
+##############################################################
+# overlay with results for CT backgrounds
+
+# unscaled variables (without linear regression)
+fitting_df_TRENDYv11_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ct.csv')
+# fitting_df_TRENDYv11_unscaled_background_ct = fitting_df_TRENDYv11_unscaled_background_ct.loc[~fitting_df_TRENDYv11_unscaled_background_ct['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
+fitting_df_inversions_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ct.csv')
+fitting_df_inversions_unscaled_background_ct = fitting_df_inversions_unscaled_background_ct.loc[~fitting_df_inversions_unscaled_background_ct['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_unscaled_background_ct.loc[fitting_df_inversions_unscaled_background_ct['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
+fitting_df_UpscaledEC_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ct.csv')
+
+# scaled variables (with linear regression)
+fitting_df_reference_scaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ct.csv')
+fitting_df_reference_scaled_background_ct = fitting_df_reference_scaled_background_ct.loc[fitting_df_reference_scaled_background_ct['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
+fitting_df_reference_scaled_background_ct.loc[fitting_df_reference_scaled_background_ct['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
+
+fitting_df_TRENDYv11_merge_ct = pd.merge(fitting_df_TRENDYv11_sorted, fitting_df_TRENDYv11_unscaled_background_ct, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ct'))
+fitting_df_inversions_merge_ct = pd.merge(fitting_df_inversions_sorted, fitting_df_inversions_unscaled_background_ct, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ct'))
+fitting_df_UpscaledEC_merge_ct = pd.merge(fitting_df_UpscaledEC_sorted, fitting_df_UpscaledEC_unscaled_background_ct, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ct'))
+
+color = 'blue'
+labelname = f"Carbon Tracker"
+
+plt.scatter(fitting_df_TRENDYv11_merge_ct[f'{stat_var}_background_ct'], fitting_df_TRENDYv11_merge_ct['model_name'], marker='o', color=color, facecolors='none', label=labelname, s=70)
+plt.scatter(fitting_df_inversions_merge_ct[f'{stat_var}_background_ct'], fitting_df_inversions_merge_ct['model_name'], marker='o', color=color, facecolors='none', s=70)
+plt.scatter(fitting_df_UpscaledEC_merge_ct[f'{stat_var}_background_ct'], fitting_df_UpscaledEC_merge_ct['model_name'], marker='o', color=color, facecolors='none', s=70)
+
+
+##############################################################
+# overlay with results for empirical backgrounds
+
+# unscaled variables (without linear regression)
+fitting_df_TRENDYv11_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ebg.csv')
+# fitting_df_TRENDYv11_unscaled_background_ebg = fitting_df_TRENDYv11_unscaled_background_ebg.loc[~fitting_df_TRENDYv11_unscaled_background_ebg['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
+fitting_df_inversions_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ebg.csv')
+fitting_df_inversions_unscaled_background_ebg = fitting_df_inversions_unscaled_background_ebg.loc[~fitting_df_inversions_unscaled_background_ebg['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
+fitting_df_inversions_unscaled_background_ebg.loc[fitting_df_inversions_unscaled_background_ebg['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
+fitting_df_UpscaledEC_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ebg.csv')
+
+# scaled variables (with linear regression)
+fitting_df_reference_scaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ebg.csv')
+fitting_df_reference_scaled_background_ebg = fitting_df_reference_scaled_background_ebg.loc[fitting_df_reference_scaled_background_ebg['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
+fitting_df_reference_scaled_background_ebg.loc[fitting_df_reference_scaled_background_ebg['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
+
+fitting_df_TRENDYv11_merge_ebg = pd.merge(fitting_df_TRENDYv11_sorted, fitting_df_TRENDYv11_unscaled_background_ebg, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ebg'))
+fitting_df_inversions_merge_ebg = pd.merge(fitting_df_inversions_sorted, fitting_df_inversions_unscaled_background_ebg, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ebg'))
+fitting_df_UpscaledEC_merge_ebg = pd.merge(fitting_df_UpscaledEC_sorted, fitting_df_UpscaledEC_unscaled_background_ebg, on='model_name', how='outer', suffixes=('_airborne_profiles', '_background_ebg'))
+
+color = 'red'
+labelname = f"Empirical Background"
+
+plt.scatter(fitting_df_TRENDYv11_merge_ebg[f'{stat_var}_background_ebg'], fitting_df_TRENDYv11_merge_ebg['model_name'], marker='o', color=color, facecolors='none', label=labelname, s=70)
+plt.scatter(fitting_df_inversions_merge_ebg[f'{stat_var}_background_ebg'], fitting_df_inversions_merge_ebg['model_name'], marker='o', color=color, facecolors='none', s=70)
+plt.scatter(fitting_df_UpscaledEC_merge_ebg[f'{stat_var}_background_ebg'], fitting_df_UpscaledEC_merge_ebg['model_name'], marker='o', color=color, facecolors='none', s=70)
+
+plt.legend(loc='best', fontsize=14)
+
+fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.pdf', dpi=300, bbox_inches='tight')
+plt.show()

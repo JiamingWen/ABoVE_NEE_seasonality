@@ -42,7 +42,7 @@ for year in [2012, 2013, 2014, 2017]:
                 CO2_change_NEE += constant0 * seasonal_df_multiyear_individual[month-1]
 
         
-        result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
+        result_df_NEE[f'{data_name}'] = CO2_change_NEE
 
     result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_TRENDYv11_only_seasonal.csv', encoding='utf-8', index=False)
 
@@ -78,14 +78,14 @@ for year in [2012, 2013, 2014, 2017]:
                 CO2_change_NEE += constant0 * seasonal_df_multiyear_individual[month-1]
 
         
-        result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
+        result_df_NEE[f'{data_name}'] = CO2_change_NEE
 
     result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversionsNEE_only_seasonal.csv', encoding='utf-8', index=False)
 
 
-# NEE observations
-NEEobservations_names = ['FluxCOM-X-NEE', 'ABCflux-NEE']
-seasonal_df_multiyear = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_ABoVEcore_alllc_unweighted.csv')
+# Upscaled EC datasets
+UpscaledEC_names = ['X-BASE', 'ABCflux']
+seasonal_df_multiyear = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_ABoVEcore_alllc_unweighted.csv')
 
 for year in [2012, 2013, 2014, 2017]:
     print(year)
@@ -94,7 +94,7 @@ for year in [2012, 2013, 2014, 2017]:
 
     result_df_NEE = pd.DataFrame()
 
-    for data_name in NEEobservations_names:
+    for data_name in UpscaledEC_names:
         print(data_name)
 
         # read X matrix
@@ -113,9 +113,9 @@ for year in [2012, 2013, 2014, 2017]:
                 CO2_change_NEE += constant0 * seasonal_df_multiyear_individual[month-1]
 
         
-        result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
+        result_df_NEE[f'{data_name}'] = CO2_change_NEE
 
-    result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_NEEobservations_only_seasonal.csv', encoding='utf-8', index=False)
+    result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_UpscaledEC_only_seasonal.csv', encoding='utf-8', index=False)
 
 
 # reference
@@ -141,6 +141,7 @@ for year in [2012, 2013, 2014, 2017]:
             constant0 = pd.read_csv(filename)
 
             seasonal_df_multiyear_individual = seasonal_df_multiyear[data_name]
+            seasonal_df_multiyear_individual[pd.isna(seasonal_df_multiyear_individual)] = 0
             
             if month == start_month:
                 CO2_change_NEE = constant0 * seasonal_df_multiyear_individual[month-1]
@@ -148,7 +149,7 @@ for year in [2012, 2013, 2014, 2017]:
                 CO2_change_NEE += constant0 * seasonal_df_multiyear_individual[month-1]
 
         
-        result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
+        result_df_NEE[f'{data_name}'] = CO2_change_NEE
 
     result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_reference_only_seasonal.csv', encoding='utf-8', index=False)
 
@@ -183,7 +184,7 @@ for year in [2012, 2013, 2014, 2017]:
                 CO2_change_NEE += constant0 * seasonal_df_multiyear_individual[month-1]
 
         
-        result_df_NEE[f'{data_name}_CO2_change'] = CO2_change_NEE
+        result_df_NEE[f'{data_name}'] = CO2_change_NEE
 
     result_df_NEE.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversionsNEE-prior_only_seasonal.csv', encoding='utf-8', index=False)
 

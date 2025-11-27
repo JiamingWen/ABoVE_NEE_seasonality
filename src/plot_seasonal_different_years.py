@@ -41,7 +41,7 @@ for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions'
 
         for year, color in zip([2012, 2013, 2014, 2017], ['blue', 'orange', 'green', 'purple']):
 
-            start_month, end_month, campaign_name = get_campaign_info(year)
+            campaign_name = get_campaign_info(year)[2]
             dir0 = "/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal"
             
             seasonal_df = pd.read_csv(f'{dir0}/seasonal_{year}_{model_type}_{regionname}_{lcname}_{weightname}.csv')
@@ -74,9 +74,9 @@ for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions'
     plt.subplots_adjust(wspace=0.3, hspace=0.3)
     plt.savefig(f'{dir0}/plot/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=100, bbox_inches='tight')
     
-    if model_type == 'inversionsNEE':
-        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=300, bbox_inches='tight')
-        plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.pdf', dpi=300, bbox_inches='tight')
+    # if model_type == 'inversionsNEE':
+    #     plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.png', dpi=300, bbox_inches='tight')
+    #     plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_different_years_{model_type}_{regionname}_{lcname}_{weightname}.pdf', dpi=300, bbox_inches='tight')
         
     plt.show()
 

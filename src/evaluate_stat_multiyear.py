@@ -34,31 +34,45 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 
 # model types
 # all types
-model_types = ['TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'] #'TRENDYv11', 'inversionsNEE', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'
+model_types = ['TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'] #'TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'
 # only one variable (i.e., not regression like CRU or LC)
-model_types_single = ['TRENDYv11', 'inversionsNEE', 'reference', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'NEEobservations', 'GPPobservations', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'NEEobservations_only_seasonal', 'reference_only_seasonal', 'inversionsNEE', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal']
+model_types_single = ['TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal']
 
 for model_type in model_types:
+
+    print(model_type)
+
     if model_type in ['TRENDYv11', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'TRENDYv11_only_seasonal']:
         model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
+        figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
     elif model_type in ['inversionsNEE','inversionsNEE_only_seasonal']:
         # model_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
         model_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # remove the five satellite-based inversions
+        figsize = (20, 14); rownum = 3; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
     elif model_type in ['inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal']:
         model_names = ['CAMS', 'CMS-Flux', 'CTE', 'MIROC', 'NISMON-CO2'] # remove inversions without providing priors
-    elif model_type in ['NEEobservations', 'NEEobservations_only_seasonal']:
-        model_names = ['FluxCOM-X-NEE', 'ABCflux-NEE']
+    elif model_type in ['UpscaledEC', 'UpscaledEC_only_seasonal', 'UpscaledEC_GPP']:
+        model_names = ['X-BASE', 'ABCflux']
+        figsize = (12, 6); rownum = 1; colnum = 2; axislabelsize = 20; xlabel_loc = (0.5, 0.03); ylabel_loc = (0.04, 0.5)
+    elif model_type == 'UpscaledEC_Reco':
+        model_names = ['X-BASE', 'ABCflux', 'ABCflux_upscaled']
+        figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
     elif model_type == 'GPPobservations':
-        model_names = ['GOSIF-GPP', 'FluxCOM-X-GPP', 'ABCflux-GPP']
+        model_names = ['GOSIF-GPP']
+        figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
     elif model_type in ['reference', 'reference_only_seasonal']:
         model_names = ['APAR', 'LAI', 'FPAR', 'PAR', 'NDVI', 'EVI', 'GOME2_SIF']
+        figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
     elif model_type == 'regression':
         model_names = ['CRU', 'constant', 'LC']
+        figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
 
     if model_type in model_types_single:
-        fig = plt.figure(figsize=(20, 5 * (len(model_names) // 4 + 1)))
+        fig = plt.figure(figsize=figsize)
 
     for (model_id, model_name) in enumerate(model_names):
+
+        print(model_name)
 
         # specify covariates if they are not constant + model_name
         if model_name == 'CRU':
@@ -66,7 +80,7 @@ for model_type in model_types:
         elif model_name == 'LC':
             variable_names = ['constant_forest', 'constant_shrub', 'constant_tundra', 'constant_others'] # do no need to include "constant" - adding "constant" results in the same statistics
         else:
-            variable_names = ['constant'] # for constant, reference, and TRENDYv11 or inversionsNEE or NEEobservations (transported NEE or variables will be added later)
+            variable_names = ['constant'] # for constant, reference, and TRENDYv11 or inversionsNEE or UpscaledEC (transported NEE or variables will be added later)
 
         for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
 
@@ -79,10 +93,8 @@ for model_type in model_types:
 
             # filters for airborne observations
             mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
-                # (local_hour.isin([13, 14, 15, 16])) &
                 (df_influence['ABoVE_influence_fraction'] > 0.5) &
                 (df_influence['ocean_influence_fraction'] < 0.3) &
-                # (df_influence['ABoVE_land_influence_fraction'] > 0.5)) and
                 (df_airborne['CO2_change'] < 30) &
                 (df_airborne['CO_change'] < 40))[0]
 
@@ -119,10 +131,11 @@ for model_type in model_types:
 
 
             # influence from fossil and fire emissions
-            df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+            df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+            df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
             # derive biogenic CO2 drawdown/enhancement from fossil and fire emissions
-            y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
+            y0 = df_airborne['CO2_change'] - df_fossil['odiac2022'] - df_fire['gfed4.1']
             y_year = y0.loc[mask_id]
 
 
@@ -153,11 +166,11 @@ for model_type in model_types:
                         df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
                     elif model_type == 'inversionsNEE-prior':
                         df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions-prior.csv')
-                    X_year_NEE = df_model[f"{model_name}_CO2_change"].loc[mask_id] - df_fossil_fire['fire_CO2_change'].loc[mask_id]
+                    X_year_NEE = df_model[f"{model_name}"].loc[mask_id] - df_fire['gfed4.1'].loc[mask_id]
                     X_year = pd.concat((X_year_NEE, X_year), axis=1)
                 else:
                     df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_type}.csv')
-                    X_year_NEE = df_model[f"{model_name}_CO2_change"].loc[mask_id]
+                    X_year_NEE = df_model[f"{model_name}"].loc[mask_id]
                     X_year = pd.concat((X_year_NEE, X_year), axis=1)
 
             if year == 2012:
@@ -179,6 +192,10 @@ for model_type in model_types:
             # method = stats.BootstrapMethod(method='BCa', random_state=rng)
             # pearson_res.confidence_interval(confidence_level=0.95, method=method)
 
+            # mean bias and rmse
+            mean_bias = np.mean(X.iloc[:,0] - y)
+            rmse = np.sqrt(np.mean((X.iloc[:,0] - y)**2))
+
             # regression 1: HX ~ y
             # constant term in y, but no constant term in X
             # to directly evaluate the consistency between modeled and observed CO2 enhancement
@@ -190,25 +207,42 @@ for model_type in model_types:
 
 
             # Make scatterplot between observed and modeled CO2 enhancement
-            plt.subplot(np.ceil(len(model_names)/4).astype(int),4,model_id+1,aspect='equal')
-            plt.scatter(y, X.iloc[:,0], s=60, alpha=0.7, edgecolors="k")
-            x_line = np.arange(-30,30,0.1)
+            plt.subplot(rownum,colnum,model_id+1,aspect='equal')
+            # plt.scatter(y, X.iloc[:,0], s=60, alpha=0.3, edgecolors="none", color='tab:blue')
+            
+            # density scatter plot
+            xy = np.vstack([y, X.iloc[:,0]])
+            z = stats.gaussian_kde(xy)(xy)
+            idx = z.argsort()
+            x_sorted, y_sorted, z_sorted = y.iloc[idx], X.iloc[:,0].iloc[idx], z[idx]
+            plt.scatter(x_sorted, y_sorted, c=z_sorted, s=60, alpha=0.3, edgecolors="none", cmap='viridis')
+
+            x_line = np.arange(-50,50,0.1)
             plt.plot(x_line, x_line, color='black', linestyle='dashed') # Plot 1:1 line
             y_line = x_line * slope + intercept
             plt.plot(x_line, y_line, color='red', linestyle='dashed') # regression line
-            plt.annotate(r"$Cor$ = {:.2f}".format(cor), (-28, 25), fontsize=20)
-            plt.annotate('y={:.2f}x+{:.2f}'.format(slope, intercept), (-28, 21), fontsize=20)
+            # plt.annotate(r"$Cor$ = {:.2f}".format(cor), (45, -32), fontsize=20, ha='right', va='bottom')
+            # plt.annotate('Bias = {:.2f}'.format(mean_bias), (45, -40), fontsize=20, ha='right', va='bottom')
+            # plt.annotate('y={:.2f}x{:+.2f}'.format(slope, intercept), (45, -48), fontsize=20, ha='right', va='bottom')
 
-            plt.xlim(-30, 30)
-            plt.ylim(-30, 30)
+            plt.xlim(-50, 50)
+            plt.ylim(-50, 50)
+            plt.xticks(fontsize=18)
+            plt.yticks(fontsize=18)
             ax = plt.gca()
             ax.set_aspect('equal', adjustable='box')
             # plt.xlabel('Observed CO2 change (removing fossil and fire emissions)', fontsize=20)
             # plt.ylabel('Modeled CO2 change due to NEE', fontsize=15)
-            plt.title(model_name, fontsize=25)
 
-            fitting_df_unscaled0 = pd.DataFrame([[model_name, cor, cor_CI_low, cor_CI_high, slope, intercept]], 
-                                    columns=['model_name', 'cor', 'cor_CI_low', 'cor_CI_high', 'slope', 'intercept'])
+            if model_name == 'MIROC':
+                model_name_label = 'MIROC-ACTM'
+            else:
+                model_name_label = model_name
+            plt.text(-48, 48, f"({chr(97 + model_id)}) {model_name_label}", fontsize=25, va='top', ha='left')
+
+            fitting_df_unscaled0 = pd.DataFrame([[model_name, cor, cor_CI_low, cor_CI_high, slope, intercept, mean_bias, rmse]],
+                                                columns=['model_name', 'cor', 'cor_CI_low', 'cor_CI_high', 'slope', 'intercept', 'mean_bias', 'rmse']) 
+
             if model_id == 0:
                 fitting_df_unscaled = fitting_df_unscaled0
             else:
@@ -258,9 +292,14 @@ for model_type in model_types:
             fitting_df = pd.concat((fitting_df, fitting_df0))
 
     if model_type in model_types_single:
-        fig.text(0.5, 0.07, 'Observed CO2 enhancement (ppm)', fontsize=25, ha='center')
-        fig.text(0.08, 0.5, 'Transported surface field', fontsize=25, va='center', rotation='vertical')
+        fig.text(xlabel_loc[0], xlabel_loc[1], 'Observed CO$_2$ enhancement (ppm)', fontsize=axislabelsize, ha='center')
+        fig.text(ylabel_loc[0], ylabel_loc[1], 'Modeled CO$_2$ enhancement (ppm)', fontsize=axislabelsize, va='center', rotation='vertical')
         plt.savefig(f"{dir0}evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
+        
+        # if model_type in ['TRENDYv11', 'inversionsNEE', 'UpscaledEC']:
+        #     plt.savefig(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
+        #     plt.savefig(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.pdf", dpi=100, bbox_inches='tight')
+        
         plt.show()
         
     fitting_df.to_csv(f"{dir0}evaluation_stat_scaled_{model_type}{lc_filestr}.csv", encoding='utf-8', index=False)

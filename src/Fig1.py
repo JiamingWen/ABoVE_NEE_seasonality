@@ -20,7 +20,7 @@ ccrs_plot = ccrs.PlateCarree()
 
 def add_above_boundaries(ax):
     above_domain = geopandas.read_file(
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/domain/ABoVE_reference_grid_v2_1527/data/ABoVE_Study_Domain/ABoVE_Study_Domain.shp"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/domain/ABoVE_reference_grid_v2_1527/data/ABoVE_Study_Domain/ABoVE_Study_Domain.shp"
     )
     above_core_geometry = above_domain.loc[
         above_domain["Region"] == "Core Region", "geometry"
@@ -122,10 +122,10 @@ for year, color in zip([2012, 2013, 2014, 2017], ['blue', 'orange', 'green', 'pu
     df_year = pd.concat((df_airborne, df_influence), axis=1)
     df_year = df_year.loc[mask_id]
 
-    ax.scatter(df_year['airborne_lon'], df_year['airborne_lat'], color=color, s=3, label=year)
+    ax.scatter(df_year['airborne_lon'], df_year['airborne_lat'], color=color, s=0.2, label=year)
 
 add_above_boundaries(ax)
-ax.legend(loc='lower center', fontsize=14, ncol=2, columnspacing=0.5, bbox_to_anchor=(0.5, -0.6), markerscale=3)
+ax.legend(loc='lower center', fontsize=14, ncol=2, columnspacing=0.5, bbox_to_anchor=(0.5, -0.6), markerscale=15)
 
 
 # Fig 1c: Aggregated footprint sensitivity
@@ -133,26 +133,33 @@ ax = axs[2]
 ax = setup_plot(ax, region_extent, ccrs_plot, axes=False)
 ax.text(subtitle_loc[0], subtitle_loc[1], '(c)', fontsize=15)
 
+# averaged influence from all years
 filestr = '_selected'
-for year in [2012, 2013, 2014, 2017]:
-    start_month, end_month, campaign_name = get_campaign_info(year)
-    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}{filestr}.nc').influence
+influence_all_year = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean_allyears{filestr}.nc').influence
 
-    if year == 2012:
-        influence_sum = influence
-    else:
-        influence_sum = influence_sum + influence
-
-lons = influence_sum["longitude"].values
-lats = influence_sum["latitude"].values
+lons = influence_all_year["longitude"].values
+lats = influence_all_year["latitude"].values
 lon_grid, lat_grid = np.meshgrid(lons, lats)
-cp = ax.pcolormesh(lon_grid, lat_grid, np.log10(influence_sum), vmin=0, vmax=2, cmap='Purples')
-cax = fig.add_axes([0.7, 0.1, 0.2, 0.03])
+cp = ax.pcolormesh(lon_grid, lat_grid, np.log10(influence_all_year), vmin=-4, vmax=-2, cmap='Purples')
+
+# cax = fig.add_axes([0.7, 0.01, 0.2, 0.03])
+cax = fig.add_axes([0.69, 0.05, 0.2, 0.03])
+
 cb = fig.colorbar(cp, cax=cax, orientation="horizontal")
 cb.ax.tick_params(labelsize=14)
-cb.set_label("Footprint sensitivity\n(arbitrary unit)", fontsize=15)
-cb.set_ticks([0, 1, 2])
-cb.set_ticklabels(['$10^0$', '$10^1$', '$10^2$'])
+
+# cb.ax.text(0.5, 2.8, "(Normalized unit)", fontsize=11, ha='center', va='top', transform=cb.ax.transAxes)
+# cb.set_label("log (footprint sensitivity)", fontsize=15)
+cb.set_label(r"ppm $(\mu mol\ m^{-2}\ s^{-1})^{-1}$", fontsize=15, labelpad=10)
+
+# cb.ax.xaxis.set_label_coords(0.5, 4.5)
+cb.ax.xaxis.set_label_coords(0.5, 3.5)
+
+# cb.set_ticks([0, 1, 2])
+# cb.set_ticklabels(['$10^0$', '$10^1$', '$10^2$'])
+# cb.set_ticklabels([0, 0.5, 1])
+cb.set_ticks([-4, -3, -2])
+cb.set_ticklabels([ r'$10^{-4}$', r'$10^{-3}$', r'$10^{-2}$'])
 
 add_above_boundaries(ax)
 

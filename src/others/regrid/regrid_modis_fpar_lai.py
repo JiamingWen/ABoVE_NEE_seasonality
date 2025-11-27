@@ -77,7 +77,7 @@ def regrid_fpar_lai(varname, year) -> None:
 if __name__ == "__main__":
     start_time: float = time.time()
     for varname in ['Fpar', 'Lai']:
-        for year in [2012, 2013, 2014]: #, 2017
+        for year in [2012, 2013, 2014, 2017]: #, 2017
             print(year, varname)
             regrid_fpar_lai(varname=varname, year=year)
 

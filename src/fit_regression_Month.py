@@ -1,5 +1,6 @@
 '''
 fit a linear regression with Month as the only covariate
+assuming surface fluxes are spatially-uniform and seasonally varying
 '''
 
 import os
@@ -83,10 +84,11 @@ for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
         mask_id = [i for i in mask_id if i in mask_id_lc]   
 
     # influence from fossil and fire emissions
-    df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+    df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+    df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
     # derive CO2 drawdown/enhancement from fossil and fire emissions
-    y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
+    y0 = df_airborne['CO2_change'].values - df_fossil['odiac2022'] - df_fire['gfed4.1']
     y_year = y0.loc[mask_id]
 
     for month in np.arange(4, 12):
@@ -113,10 +115,7 @@ for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
         y = pd.concat((y, y_year), axis=0)
 
 
-'''evaluate consistency between scaled surface fields (with regression) and atmospheric observations'''
-# regression 2: y ~ HX
-# constant term in X, but no constant term in HX (eq. 2)
-# to properly scale remote sensing or CRU variables to NEE
+'''fit a regression'''
 model = sm.OLS(y,X)
 results2 = model.fit()
 results2.save(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
@@ -150,25 +149,25 @@ fitting_df = pd.DataFrame([[model_name, cor1, cor_CI_low, cor_CI_high, r2_1, r2_
 fitting_df.to_csv(f"{dir0}evaluation_stat_{model_name}{lc_filestr}.csv", encoding='utf-8', index=False)
 
 
-#########################################################################
-# plot seasonal vairations (i.e., fitted beta)
-# standardize with maximum
-def scale_maximum (vec):
-    return vec / np.max(abs(vec))
+# #########################################################################
+# # plot seasonal vairations (i.e., fitted beta)
+# # standardize with maximum
+# def scale_maximum (vec):
+#     return vec / np.max(abs(vec))
 
-# plot month-specific parameters
-fig, ax = plt.subplots(figsize=(4,3))
-scaling_factor = np.max(abs(results2.params))
-# plt.plot(np.arange(4,12), results.params / scaling_factor, linestyle='-',color='black')
-plt.errorbar(np.arange(4,12), results2.params / scaling_factor, yerr = results2.bse / scaling_factor,color='black', ecolor='red', elinewidth=3, capsize=5)
-plt.xlim(4,11)
-plt.ylim(-1.2,1)
-ax.set_xticks(np.arange(4,12))
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=12)
-ax.tick_params(axis ='x', length = 7, direction ='in')
-plt.xlabel('Month', fontsize=15)
-plt.ylabel(f'Rescaled NEE from "Month" ' + '\n($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=15)
-plt.title(lcname, fontsize=20)
+# # plot month-specific parameters
+# fig, ax = plt.subplots(figsize=(4,3))
+# scaling_factor = np.max(abs(results2.params))
+# # plt.plot(np.arange(4,12), results.params / scaling_factor, linestyle='-',color='black')
+# plt.errorbar(np.arange(4,12), results2.params / scaling_factor, yerr = results2.bse / scaling_factor,color='black', ecolor='red', elinewidth=3, capsize=5)
+# plt.xlim(4,11)
+# plt.ylim(-1.2,1)
+# ax.set_xticks(np.arange(4,12))
+# plt.xticks(fontsize=15)
+# plt.yticks(fontsize=12)
+# ax.tick_params(axis ='x', length = 7, direction ='in')
+# plt.xlabel('Month', fontsize=15)
+# plt.ylabel(f'Rescaled NEE from "Month" ' + '\n($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=15)
+# plt.title(lcname, fontsize=20)
 
 

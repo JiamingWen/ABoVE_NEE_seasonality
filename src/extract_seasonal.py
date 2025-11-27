@@ -5,7 +5,7 @@ import pandas as pd
 import xarray as xr
 import os
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
-from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv9, read_inversions, read_inversions_prior, read_remote_sensing, read_gosif_gpp, read_fluxcom_x, read_abcflux, read_fossil_fire, read_MODIS_VI, read_GOME2_SIF
+from functions import get_campaign_info, subset_30N_90N, read_TRENDYv11, read_TRENDYv9, read_inversions, read_inversions_prior, read_remote_sensing, read_gosif_gpp, read_x_base_monthly, read_abcflux, read_fossil, read_fire, read_MODIS_VI, read_GOME2_SIF
 
 
 # year = 2012 # 2012 2013 2014 2017
@@ -24,7 +24,7 @@ for year in [2012, 2013, 2014, 2017]:
     cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 
     # footprint sensitivity map
-    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_selected.nc')
+    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean{year}_selected.nc')
 
     for regionname in ['ABoVEcore']: #, 'ABoVEcoreextended'
 
@@ -33,11 +33,9 @@ for year in [2012, 2013, 2014, 2017]:
         elif regionname == 'ABoVEcoreextended':
             region_mask = np.where(cell_id_table['ABoVE'] != 255)[0]
 
-        for lcname in ['alllc', 'forest', 'shrub', 'tundra']: #'alllc', 'forest', 'shrub', 'tundra'
+        for lcname in ['alllc']: #'alllc', 'forest', 'shrub', 'tundra'
             if lcname == 'alllc':
                 lc_mask = cell_id_table['cell_id']
-            elif lcname == 'forestshrub':
-                lc_mask = [i for i, val in enumerate(cell_id_table['lc']) if val in [5,7]]
             elif lcname == 'forest':
                 lc_mask = [i for i, val in enumerate(cell_id_table['lc']) if val in [5]]
             elif lcname == 'shrub':
@@ -51,7 +49,7 @@ for year in [2012, 2013, 2014, 2017]:
                 elif weightname == 'weighted':
                     weight = influence.influence.values.flatten()
                 
-                for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl', 'inversions-prior', 'inversionsNEE-prior']: #'TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'GPPobservations', 'NEEobservations', 'Recoobservations', 'Fires', 'inversionsNEE', 'TRENDYv11tsl', 'inversions-prior', 'inversionsNEE-prior'
+                for model_type in ['TRENDYv11', 'inversions', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'fossil', 'fire', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior']: #'TRENDYv11', 'inversions', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'fossil', 'fire', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior'
                     print(year, regionname, lcname, weightname, model_type)
                     if model_type in ['TRENDYv11', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI']:
                         model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
@@ -59,16 +57,18 @@ for year in [2012, 2013, 2014, 2017]:
                         model_names = ['CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT']
                     elif model_type in ['inversions', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior']:
                         model_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
+                    elif model_type in ['UpscaledEC', 'UpscaledEC_GPP']:
+                        model_names = ['X-BASE', 'ABCflux']
+                    elif model_type == 'UpscaledEC_Reco':
+                        model_names = ['X-BASE', 'ABCflux', 'ABCflux_upscaled']
                     elif model_type in ['reference']:
                         model_names = ['APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF']
                     elif model_type == 'GPPobservations':
-                        model_names = ['GOSIF-GPP', 'FluxCOM-X-GPP', 'ABCflux-GPP']
-                    elif model_type == 'NEEobservations':
-                        model_names = ['FluxCOM-X-NEE', 'ABCflux-NEE']
-                    elif model_type == 'Recoobservations':
-                        model_names = ['ABCflux-Reco']
-                    elif model_type == 'Fires':
-                        model_names = ['Fires']
+                        model_names = ['GOSIF-GPP']
+                    elif model_type == 'fossil':
+                        model_names = ['odiac2022']
+                    elif model_type == 'fire':
+                        model_names = ['gfed4.1', 'gfed5']
                     elif model_type == 'TRENDYv11tsl':
                         model_names = ['CLASSIC', 'ISBA-CTRIP',  'JSBACH', 'JULES','CABLE-POP']  #, 'ISAM'
 
@@ -81,53 +81,39 @@ for year in [2012, 2013, 2014, 2017]:
                             if model_type == 'TRENDYv11':
                                 # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
                                 # same order as in the cell_id_table.csv
-                                gpp_vec = read_TRENDYv11(model_name, 'gpp', year, month).values.flatten()  #unit: kgC m-2 s-1
-                                ra_vec = read_TRENDYv11(model_name, 'ra', year, month).values.flatten()
-                                rh_vec = read_TRENDYv11(model_name, 'rh', year, month).values.flatten()
+                                gpp_vec = subset_30N_90N(read_TRENDYv11(model_name, 'gpp', year, month)).values.flatten()  #unit: kgC m-2 s-1
+                                ra_vec = subset_30N_90N(read_TRENDYv11(model_name, 'ra', year, month)).values.flatten()
+                                rh_vec = subset_30N_90N(read_TRENDYv11(model_name, 'rh', year, month)).values.flatten()
                                 nee_vec = ra_vec + rh_vec - gpp_vec
                                 nee = nee_vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(nee, nan=0)
 
                             elif model_type == 'TRENDYv9':
-                                gpp_vec = read_TRENDYv9(model_name, 'gpp', year, month).values.flatten()  #unit: kgC m-2 s-1
-                                ra_vec = read_TRENDYv9(model_name, 'ra', year, month).values.flatten()
-                                rh_vec = read_TRENDYv9(model_name, 'rh', year, month).values.flatten()
+                                gpp_vec = subset_30N_90N(read_TRENDYv9(model_name, 'gpp', year, month)).values.flatten()  #unit: kgC m-2 s-1
+                                ra_vec = subset_30N_90N(read_TRENDYv9(model_name, 'ra', year, month)).values.flatten()
+                                rh_vec = subset_30N_90N(read_TRENDYv9(model_name, 'rh', year, month)).values.flatten()
                                 nee_vec = ra_vec + rh_vec - gpp_vec
                                 nee = nee_vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(nee, nan=0)
 
-                            elif model_type in ['inversions', 'inversions-prior']:
-                                # nbe
-                                if model_type == 'inversions':
-                                    nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
-                                else:
-                                    nbe_vec = read_inversions_prior(model_name, 'prior_flux_land', year, month).values.flatten()
-                                
-                                nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
-                                
-                                if np.isnan(nbe).all():
-                                    continue
-                                else:
-                                    variable = np.nan_to_num(nbe, nan=0)
-
                             elif model_type == 'TRENDYv11GPP':
                                 # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
                                 # same order as in the cell_id_table.csv
-                                vec = read_TRENDYv11(model_name, 'gpp', year, month).values.flatten()  #unit: kgC m-2 s-1
+                                vec = subset_30N_90N(read_TRENDYv11(model_name, 'gpp', year, month)).values.flatten()  #unit: kgC m-2 s-1
                                 variable = vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(variable, nan=0)
                             
                             elif model_type == 'TRENDYv11Ra':
                                 # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
                                 # same order as in the cell_id_table.csv
-                                vec = read_TRENDYv11(model_name, 'ra', year, month).values.flatten()  #unit: kgC m-2 s-1
+                                vec = subset_30N_90N(read_TRENDYv11(model_name, 'ra', year, month)).values.flatten()  #unit: kgC m-2 s-1
                                 variable = vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(variable, nan=0)
                             
                             elif model_type == 'TRENDYv11Rh':
                                 # by lat starting from 30.25N (-179.75, ..., 179.75), then 30.75N
                                 # same order as in the cell_id_table.csv
-                                vec = read_TRENDYv11(model_name, 'rh', year, month).values.flatten()  #unit: kgC m-2 s-1
+                                vec = subset_30N_90N(read_TRENDYv11(model_name, 'rh', year, month)).values.flatten()  #unit: kgC m-2 s-1
                                 variable = vec*1000/12*1e6 #convert unit to μmol m-2 s-1
                                 variable = np.nan_to_num(variable, nan=0)
                                 
@@ -138,94 +124,129 @@ for year in [2012, 2013, 2014, 2017]:
                                     variable = np.empty((86400))
                                     variable[:] = np.nan
                                 else:
-                                    variable = read_TRENDYv11(model_name, 'lai', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_TRENDYv11(model_name, 'lai', year, month)).values.flatten()
                                     variable = np.nan_to_num(variable, nan=0)
+
+                            elif model_type == 'TRENDYv11tsl':
+                                variable = subset_30N_90N(read_TRENDYv11(model_name, 'tsl', year, month)).values.flatten()
+                                if model_name == 'CABLE-POP':
+                                    variable[variable<-1000] = np.nan
+
+
+                            elif model_type in ['inversions', 'inversions-prior']:
+                                # nbe
+                                if model_type == 'inversions':
+                                    nbe_vec = subset_30N_90N(read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month)).values.flatten() #unit: PgC/m2/yr
+                                else:
+                                    nbe_vec = subset_30N_90N(read_inversions_prior(model_name, 'prior_flux_land', year, month)).values.flatten()
+                                
+                                nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
+                                
+                                if np.isnan(nbe).all():
+                                    variable = nbe
+                                else:
+                                    variable = np.nan_to_num(nbe, nan=0)
+
+                            elif model_type in ['inversionsNEE', 'inversionsNEE-prior']:
+                                # nbe
+                                if model_type == 'inversionsNEE':
+                                    nbe_vec = subset_30N_90N(read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month)).values.flatten() #unit: PgC/m2/yr
+                                else:
+                                    nbe_vec = subset_30N_90N(read_inversions_prior(model_name, 'prior_flux_land', year, month)).values.flatten()
+                                
+                                nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
+                                
+                                if np.isnan(nbe).all():
+                                    variable = nbe
+                                else:
+                                    variable = np.nan_to_num(nbe, nan=0)
+
+                                # fire
+                                fire = subset_30N_90N(read_fire('gfed4.1', year, month)).values.flatten() #unit: gCO2 m-2 month-1
+                                fire = fire/30/24/3600/44*1e6 #convert unit to μmol m-2 s-1
+
+                                variable = variable - fire
+
+
+                            elif model_type == 'UpscaledEC':
+                                if model_name == 'X-BASE':
+                                    variable = subset_30N_90N(read_x_base_monthly('NEE', year, month)).values.flatten() # unit gC m-2 d-1
+                                    variable = variable/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+                                    variable = np.nan_to_num(variable, nan=0)
+                                elif model_name == 'ABCflux':
+                                    variable = subset_30N_90N(read_abcflux('NEE', year, month)).values.flatten() # unit gC m-2 mo-1
+                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+                            
+                            elif model_type == 'UpscaledEC_GPP':
+                                if model_name == 'X-BASE':
+                                    variable = subset_30N_90N(read_x_base_monthly('GPP', year, month)).values.flatten() # unit gC m-2 d-1
+                                    variable = variable/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+                                    variable = np.nan_to_num(variable, nan=0)
+                                elif model_name == 'ABCflux':
+                                    variable = subset_30N_90N(read_abcflux('GPP', year, month)).values.flatten() # unit gC m-2 mo-1
+                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+
+                            elif model_type == 'UpscaledEC_Reco':
+                                if model_name == 'X-BASE':
+                                    variable_NEE = subset_30N_90N(read_x_base_monthly('NEE', year, month)).values.flatten() # unit gC m-2 d-1
+                                    variable_GPP = subset_30N_90N(read_x_base_monthly('GPP', year, month)).values.flatten()
+                                    variable = variable_GPP + variable_NEE
+                                    variable = variable/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+                                    variable = np.nan_to_num(variable, nan=0)
+
+                                elif model_name == 'ABCflux':
+                                    variable_NEE = subset_30N_90N(read_abcflux('NEE', year, month)).values.flatten() # unit gC m-2 mo-1
+                                    variable_GPP = subset_30N_90N(read_abcflux('GPP', year, month)).values.flatten()
+                                    variable = variable_GPP + variable_NEE
+                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+
+                                elif model_name == 'ABCflux_upscaled':
+                                    variable = subset_30N_90N(read_abcflux('Reco', year, month)).values.flatten() # unit gC m-2 mo-1
+                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
 
                             elif model_type == 'reference':
                                 if model_name == 'PAR':
-                                    variable = read_remote_sensing('par', 'PAR', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_remote_sensing('par', 'PAR', year, month)).values.flatten()
                                 elif model_name == 'FPAR':
-                                    variable = read_remote_sensing('fpar', 'Fpar', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_remote_sensing('fpar', 'Fpar', year, month)).values.flatten()
                                     if len(variable) == 0:
                                         variable = np.empty((86400))
                                         variable[:] = np.nan
                                 elif model_name == 'LAI':
-                                    variable = read_remote_sensing('lai', 'Lai', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_remote_sensing('lai', 'Lai', year, month)).values.flatten()
                                     if len(variable) == 0:
                                         variable = np.empty((86400))
                                         variable[:] = np.nan
                                 elif model_name == 'APAR':
-                                    par_vec = read_remote_sensing('par', 'PAR', year, month).values.flatten()
-                                    fpar_vec = read_remote_sensing('fpar', 'Fpar', year, month).values.flatten()
+                                    par_vec = subset_30N_90N(read_remote_sensing('par', 'PAR', year, month)).values.flatten()
+                                    fpar_vec = subset_30N_90N(read_remote_sensing('fpar', 'Fpar', year, month)).values.flatten()
                                     if len(fpar_vec) == 0:
                                         fpar_vec = np.empty((par_vec.shape))
                                         fpar_vec[:] = np.nan
                                     variable = par_vec * fpar_vec
                                 elif model_name == 'NDVI':
-                                    variable = read_MODIS_VI('NDVI', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_MODIS_VI('NDVI', year, month)).values.flatten()
                                     variable = np.nan_to_num(variable, nan=0)
                                 elif model_name == 'EVI':
-                                    variable = read_MODIS_VI('EVI', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_MODIS_VI('EVI', year, month)).values.flatten()
                                     variable = np.nan_to_num(variable, nan=0)
                                 elif model_name == 'GOME2_SIF':
-                                    variable = read_GOME2_SIF('dcSIF', year, month).values.flatten()
+                                    variable = subset_30N_90N(read_GOME2_SIF('dcSIF', year, month)).values.flatten()
                                     variable = np.nan_to_num(variable, nan=0)
 
                             elif model_type == 'GPPobservations':
                                 if model_name == 'GOSIF-GPP':
-                                    variable = read_gosif_gpp(year, month).values.flatten() # unit: g C m-2 mo-1
+                                    variable = subset_30N_90N(read_gosif_gpp(year, month)).values.flatten() # unit: g C m-2 mo-1
                                     variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
                                     variable = np.nan_to_num(variable, nan=0)
-                                elif model_name == 'FluxCOM-X-GPP':
-                                    variable = read_fluxcom_x('GPP', year, month).values.flatten() # unit gC m-2 d-1
-                                    variable = variable/24/3600/12*1e6 # convert unit to μmol m-2 s-1
-                                    variable = np.nan_to_num(variable, nan=0)
-                                elif model_name == 'ABCflux-GPP':
-                                    variable = read_abcflux('GPP', year, month).values.flatten() # unit gC m-2 mo-1
-                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
 
-                            elif model_type == 'NEEobservations':
-                                if model_name == 'FluxCOM-X-NEE':
-                                    variable = read_fluxcom_x('NEE', year, month).values.flatten() # unit gC m-2 d-1
-                                    variable = variable/24/3600/12*1e6 # convert unit to μmol m-2 s-1
-                                    variable = np.nan_to_num(variable, nan=0)
-                                elif model_name == 'ABCflux-NEE':
-                                    variable = read_abcflux('NEE', year, month).values.flatten() # unit gC m-2 mo-1
-                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
+                            elif model_type == 'fossil':
+                                variable = subset_30N_90N(read_fossil(model_name, year, month)).values.flatten() #unit: gC/m2/d
+                                variable = variable/24/3600/12*1e6 #convert unit to μmol m-2 s-1
 
-                            elif model_type == 'Recoobservations':
-                                if model_name == 'ABCflux-Reco':
-                                    variable = read_abcflux('Reco', year, month).values.flatten() # unit gC m-2 mo-1
-                                    variable = variable/30/24/3600/12*1e6 # convert unit to μmol m-2 s-1
-                                
-                            elif model_type == 'Fires':
-                                variable = read_fossil_fire('fire', 'CO2_emission', year, month).values.flatten() #unit: gCO2 m-2 month-1
+                            elif model_type == 'fire':
+                                variable = subset_30N_90N(read_fire(model_name, year, month)).values.flatten() #unit: gCO2 m-2 month-1
                                 variable = variable/30/24/3600/44*1e6 #convert unit to μmol m-2 s-1
-                            
-                            elif model_type in ['inversionsNEE', 'inversionsNEE-prior']:
-                                # nbe
-                                if model_type == 'inversionsNEE':
-                                    nbe_vec = read_inversions(model_name, 'land_flux_only_fossil_cement_adjusted', year, month).values.flatten() #unit: PgC/m2/yr
-                                else:
-                                    nbe_vec = read_inversions_prior(model_name, 'prior_flux_land', year, month).values.flatten()
-                                
-                                nbe = nbe_vec*1e15/12*1e6/365/24/3600 #convert unit to μmol m-2 s-1
-                                
-                                if np.isnan(nbe).all():
-                                    continue
-                                else:
-                                    variable = np.nan_to_num(nbe, nan=0)
-
-                                # fire
-                                fire = read_fossil_fire('fire', 'CO2_emission', year, month).values.flatten() #unit: gCO2 m-2 month-1
-                                fire = fire/30/24/3600/44*1e6 #convert unit to μmol m-2 s-1
-
-                                variable = nbe - fire
-
-                            elif model_type == 'TRENDYv11tsl':
-                                variable = read_TRENDYv11(model_name, 'tsl', year, month).values.flatten()
-                                if model_name == 'CABLE-POP':
-                                    variable[variable<-1000] = np.nan
 
 
                             mask_id0 = [value for value in region_mask if value in lc_mask]

@@ -31,9 +31,7 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
         fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
         fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.set_index('model_name').reindex(inversion_names).reset_index()
         fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-        fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
-        fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
-        fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
+        fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
         fitting_df_reference_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}.csv')
         fitting_df_reference_scaled = fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
         fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
@@ -41,7 +39,7 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
         # sort for each category
         fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.sort_values(f'{stat_var}')
         fitting_df_inversions_sorted = fitting_df_inversions_unscaled.sort_values(f'{stat_var}', na_position='first')
-        fitting_df_NEEobservations_sorted = fitting_df_NEEobservations_unscaled.sort_values(f'{stat_var}')
+        fitting_df_UpscaledEC_sorted = fitting_df_UpscaledEC_unscaled.sort_values(f'{stat_var}')
         fitting_df_reference_sorted = fitting_df_reference_scaled.sort_values(f'{stat_var}')
 
         facecolors = 'None'# 'black'
@@ -52,16 +50,14 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
 
         TRENDYv11_list = fitting_df_TRENDYv11_sorted['model_name'].tolist()
         inversions_list = fitting_df_inversions_sorted['model_name'].tolist()
-        NEEobservations_list = fitting_df_NEEobservations_sorted['model_name'].tolist()
+        UpscaledEC_list = fitting_df_UpscaledEC_sorted['model_name'].tolist()
         reference_list = fitting_df_reference_sorted['model_name'].tolist()
 
     else:
         fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_{year}.csv')
         fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_{year}.csv')
         fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-        fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_{year}.csv')
-        fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
-        fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
+        fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_{year}.csv')
         fitting_df_reference_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_{year}.csv')
         fitting_df_reference_scaled = fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
         fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
@@ -70,7 +66,7 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
         fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.set_index('model_name').loc[TRENDYv11_list].reset_index()
         fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.set_index('model_name').reindex(inversions_list).reset_index()
         fitting_df_inversions_sorted = fitting_df_inversions_unscaled.set_index('model_name').loc[inversions_list].reset_index()
-        fitting_df_NEEobservations_sorted = fitting_df_NEEobservations_unscaled.set_index('model_name').loc[NEEobservations_list].reset_index()
+        fitting_df_UpscaledEC_sorted = fitting_df_UpscaledEC_unscaled.set_index('model_name').loc[UpscaledEC_list].reset_index()
         fitting_df_reference_sorted = fitting_df_reference_scaled.set_index('model_name').loc[reference_list].reset_index()
 
         facecolors = 'None'
@@ -96,28 +92,28 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
     fitting_df_TRENDYv11_sorted.loc[fitting_df_TRENDYv11_sorted['model_name'].isin (['IBIS']),'color'] = 'grey' ## models with negative Rh
 
     plt.scatter(fitting_df_TRENDYv11_sorted[f'{stat_var}'], fitting_df_TRENDYv11_sorted['model_name'], marker='o', color=color, facecolors=facecolors, label=labelname, s=70, linewidths=linewidths)
-    plt.scatter(fitting_df_NEEobservations_sorted[f'{stat_var}'], fitting_df_NEEobservations_sorted['model_name'], marker='o', color=color, facecolors=facecolors, s=70, linewidths=linewidths)
+    plt.scatter(fitting_df_UpscaledEC_sorted[f'{stat_var}'], fitting_df_UpscaledEC_sorted['model_name'], marker='o', color=color, facecolors=facecolors, s=70, linewidths=linewidths)
     plt.scatter(fitting_df_inversions_sorted[f'{stat_var}'], fitting_df_inversions_sorted['model_name'], marker='o', color=color, facecolors=facecolors, s=70, linewidths=linewidths)
     plt.scatter(fitting_df_reference_sorted[f'{stat_var}'], fitting_df_reference_sorted['model_name'], marker='o', color=color, facecolor=facecolors, s=70, linewidths=linewidths)
     
 plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
-plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
-plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
 
 plt.xlim(xlim)
-plt.ylim(-1, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5)
+plt.ylim(-1, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5)
 plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=18)
 plt.xticks(ticks=np.arange(-0.2, 0.9, 0.1), fontsize=15) #np.arange(-0.2, 1, 0.2), 
 plt.yticks(fontsize=15)
 
 
-colors = fitting_df_TRENDYv11_sorted['color'].values.tolist() + ['#6db753']*fitting_df_NEEobservations_unscaled.shape[0] + ['black']*fitting_df_inversions_sorted.shape[0] + ['purple']*fitting_df_reference_sorted.shape[0]
+colors = fitting_df_TRENDYv11_sorted['color'].values.tolist() + ['#6db753']*fitting_df_UpscaledEC_unscaled.shape[0] + ['black']*fitting_df_inversions_sorted.shape[0] + ['purple']*fitting_df_reference_sorted.shape[0]
 for ytick, color in zip(ax.get_yticklabels(), colors):
     ytick.set_color(color)
 
-ax.annotate("Remote Sensing", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-1.5), fontsize=15)
-ax.annotate("Atmospheric Inversions", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_unscaled.shape[0]+fitting_df_inversions_sorted.shape[0]-1.5), fontsize=15)
-ax.annotate("Upscaled EC", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_unscaled.shape[0]-1.3), fontsize=15)
+ax.annotate("Remote Sensing", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-1.5), fontsize=15)
+ax.annotate("Atmospheric Inversions", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_unscaled.shape[0]+fitting_df_inversions_sorted.shape[0]-1.5), fontsize=15)
+ax.annotate("Upscaled EC", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_unscaled.shape[0]-1.3), fontsize=15)
 ax.annotate("TRENDY TBMs", (-0.18, fitting_df_TRENDYv11_sorted.shape[0]-1.5), fontsize=15)
 
 plt.legend(bbox_to_anchor=(0.4, 0.75), fontsize=12)

@@ -52,7 +52,7 @@ y3 = -annual_sum_NEE[model_sorted] / annual_sum_GPP[model_sorted]
 # make plots 
 fig, ax = plt.subplots(figsize=(5, 4))
 plt.bar(x, y1, color='#c0ac1a', label='$\it{R}_{a}$')
-plt.bar(x, y2, bottom=y1, color='#a68179', label='$\it{R}_{h}$')
+plt.bar(x, y2, bottom=y1, color='#e573d5', label='$\it{R}_{h}$')
 # plt.bar(x, y3, bottom=y1+y2, color='y', label='-NEE')
 # plt.xlabel("Models")
 plt.ylabel("Ratio to GPP", fontsize=14)

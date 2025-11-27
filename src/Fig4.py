@@ -20,7 +20,7 @@ fitting_df_TRENDYv11_low = fitting_df_TRENDYv11_low.sort_values('model_name', as
 '''plot in four separate panels'''
 fig, ax = plt.subplots(2, 2, figsize=(16, 15))
 
-colors = ['#438382', '#c0ac1a', '#a68179', '#e573d5', '#a68179']
+colors = ['#438382', '#c0ac1a', '#e573d5', '#a68179', 'grey']
 
 markers = ['x', 'x', 'x', 'x', 'x']
 sizes = [80, 80, 80, 80, 80]

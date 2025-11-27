@@ -39,21 +39,24 @@ import pandas as pd
 import math
 import utils
 
-receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
-list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
-footprint_dir = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
+year = 2014 # 2012 2013 2014
 
-config = utils.getConfig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/config_arctic_cap2017.ini')
+receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
+list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
+footprint_dir = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
+
+config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config/config_carve{year}_monthly.ini')
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
 hdir = f'{config["workdir"]}/{config["hdir"]}'
-# if os.path.exists(hdir):
-# 	# remove any files in hdir
-# 	shutil.rmtree(hdir)
+if os.path.exists(hdir):
+	# remove any files in hdir
+	shutil.rmtree(hdir)
 
-# # create hdir
-# os.makedirs(hdir)
+# create hdir
+if not os.path.exists(hdir):
+	os.makedirs(hdir)
 
 # Loop through each of the footprint files
 for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - filename
@@ -107,6 +110,7 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 				xx[(ntimestep, cellnum)] += val
 
 
+
 	# make a dict that is indexed by timestep only,
 	# i.e. contains aggregated nonzero sensitivity of each pixel for each timestep for this observation
 	b = {}
@@ -137,9 +141,10 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 
 # # may consider storing them into hdf5 files to reduce size
 # # utils.py also have some functions to store the files in other formats, e.g., *.npz - save ~50% space
-# year = 2017
-# for month in np.arange(4,12):
-# 	h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+# start_month = int(config['start_month'].split('-')[1])
+# end_month = int(config['end_month'].split('-')[1]) 
+# for month in np.arange(start_month,end_month+1):
+# 	h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/carve_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
 # 					sep="\s+", index_col=False, header=None,
 # 					names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
 # 	tmpfile = "%s/H%d_%d.npz" % (hdir, year, month)

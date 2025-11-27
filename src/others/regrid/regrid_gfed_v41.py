@@ -1,4 +1,4 @@
-"""Regrid GFEDv4 fire emissions."""
+"""Regrid GFEDv4.1 fire emissions."""
 import xarray as xr
 import numpy as np
 import pandas as pd
@@ -7,7 +7,7 @@ import time
 import h5py
 
 def regrid_gfed(year: int) -> None:
-    """Regrid GFEDv4 fire emissions."""
+    """Regrid GFEDv4.1 fire emissions."""
     input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/gfed/v4.1s/"
     compression = dict(zlib=True, complevel=5)
 

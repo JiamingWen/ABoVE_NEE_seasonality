@@ -83,10 +83,11 @@ for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
         mask_id = [i for i in mask_id if i in mask_id_lc]   
 
     # influence from fossil and fire emissions
-    df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+    df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+    df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
     # derive CO2 drawdown/enhancement from fossil and fire emissions
-    y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
+    y0 = df_airborne['CO2_change'].values - df_fossil['odiac2022'] - df_fire['gfed4.1']
     y_year = y0.loc[mask_id]
 
     for month in np.arange(4, 12):
@@ -157,22 +158,22 @@ fitting_df.to_csv(f"{dir0}evaluation_stat_{model_name}{lc_filestr}.csv", encodin
 
 
 
-#########################################################################
-# plot seasonal vairations of each land cover (i.e., fitted beta)
-fig, ax = plt.subplots(figsize=(4,3))
-plt.plot(np.arange(4,12), results2.params[0:8], linestyle='-',color='black',label='forest')
-plt.plot(np.arange(4,12), results2.params[8:16], linestyle='-',color='blue',label='shrub')
-plt.plot(np.arange(4,12), results2.params[16:24], linestyle='-',color='red',label='tundra')
-plt.plot(np.arange(4,12), results2.params[24:32], linestyle='-',color='green',label='others')
-plt.xlim(4,11)
-# plt.ylim(-1.2,1)
-ax.set_xticks(np.arange(4,12))
-plt.xticks(fontsize=15)
-plt.yticks(fontsize=12)
-ax.tick_params(axis ='x', length = 7, direction ='in')
-plt.xlabel('Month', fontsize=15)
-plt.legend()
-plt.ylabel(f'NEE estimate' + '\n($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=15)
+# #########################################################################
+# # plot seasonal vairations of each land cover (i.e., fitted beta)
+# fig, ax = plt.subplots(figsize=(4,3))
+# plt.plot(np.arange(4,12), results2.params[0:8], linestyle='-',color='black',label='forest')
+# plt.plot(np.arange(4,12), results2.params[8:16], linestyle='-',color='blue',label='shrub')
+# plt.plot(np.arange(4,12), results2.params[16:24], linestyle='-',color='red',label='tundra')
+# plt.plot(np.arange(4,12), results2.params[24:32], linestyle='-',color='green',label='others')
+# plt.xlim(4,11)
+# # plt.ylim(-1.2,1)
+# ax.set_xticks(np.arange(4,12))
+# plt.xticks(fontsize=15)
+# plt.yticks(fontsize=12)
+# ax.tick_params(axis ='x', length = 7, direction ='in')
+# plt.xlabel('Month', fontsize=15)
+# plt.legend()
+# plt.ylabel(f'NEE estimate' + '\n($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=15)
 
 
 

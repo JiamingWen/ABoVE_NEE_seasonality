@@ -42,10 +42,11 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
             (df_airborne['CO_change'] < 40))[0]
         
         # influence from fossil and fire emissions
-        df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+        df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+        df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
         # derive CO2 drawdown/enhancement from fossil and fire emissions
-        y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
+        y0 = df_airborne['CO2_change'].values - df_fossil['odiac2022'] - df_fire['gfed4.1']
         y_year = y0.loc[mask_id]
         result_df_NEE_year[f'CO2_change_obs'] = y_year
 
@@ -137,11 +138,11 @@ seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoV
 seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11Rh = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
 
-# only select growing seasons (Apr-Nov)
-seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[3:10]
-seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[3:10]
-seasonal_df_TRENDYv11Ra = seasonal_df_TRENDYv11Ra.loc[3:10]
-seasonal_df_TRENDYv11Rh = seasonal_df_TRENDYv11Rh.loc[3:10]
+# only select growing seasons (Apr-Nov) + Mar (because 2013 needs March data)
+seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[2:10]
+seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[2:10]
+seasonal_df_TRENDYv11Ra = seasonal_df_TRENDYv11Ra.loc[2:10]
+seasonal_df_TRENDYv11Rh = seasonal_df_TRENDYv11Rh.loc[2:10]
 
 
 

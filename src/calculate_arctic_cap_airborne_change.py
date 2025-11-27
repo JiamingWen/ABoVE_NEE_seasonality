@@ -27,7 +27,7 @@ for index, row in data_near_surface.iterrows():
     id = data_background.index[data_background['date'] == date].tolist()
     if len(id) == 1:
         print(id)
-        row_background = data_background.loc[data_background.index[id]]
+        row_background = data_background.iloc[data_background.index[id]]
         row['background_CO2'] = float(row_background['CO2'].iloc[0])
         row['background_CO2_std'] = float(row_background['CO2_std'].iloc[0])
         row['background_CO2_n'] = float(row_background['n'].iloc[0])

@@ -9,9 +9,9 @@ import xarray as xr
 from scipy.sparse import csr_matrix
 import os
 os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
-from functions import get_campaign_info, read_remote_sensing, read_cru, read_MODIS_VI, read_GOME2_SIF
+from functions import get_campaign_info, subset_30N_90N, read_remote_sensing, read_cru, read_MODIS_VI, read_GOME2_SIF
 
-year = 2012 # 2012 2013 2014 2017
+year = 2017 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 
@@ -27,12 +27,11 @@ dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{ca
 if not os.path.exists(dir0):
     os. makedirs(dir0)
 
-
 for month in np.arange(start_month,end_month+1):
     print(year, month)
 
     # read H matrix
-    h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+    h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
                     sep="\s+", index_col=False, header=None,
                     names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
     #  \s+ is the expression for "any amount of whitespace"
@@ -55,23 +54,23 @@ for month in np.arange(start_month,end_month+1):
     # remote-sensing variables
     for data_name in ['APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF']: #'APAR', 'PAR', 'FPAR', 'LAI', 'NDVI', 'EVI', 'GOME2_SIF'
         if data_name == 'PAR':
-            variable = read_remote_sensing('par', 'PAR', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_remote_sensing('par', 'PAR', year, month)).values.flatten()[land_cellnum_list]
         elif data_name == 'FPAR':
-            variable = read_remote_sensing('fpar', 'Fpar', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_remote_sensing('fpar', 'Fpar', year, month)).values.flatten()[land_cellnum_list]
         elif data_name == 'LAI':
-            variable = read_remote_sensing('lai', 'Lai', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_remote_sensing('lai', 'Lai', year, month)).values.flatten()[land_cellnum_list]
         elif data_name == 'APAR':
-            par_vec = read_remote_sensing('par', 'PAR', year, month).values.flatten()[land_cellnum_list]
-            fpar_vec = read_remote_sensing('fpar', 'Fpar', year, month).values.flatten()[land_cellnum_list]
+            par_vec = subset_30N_90N(read_remote_sensing('par', 'PAR', year, month)).values.flatten()[land_cellnum_list]
+            fpar_vec = subset_30N_90N(read_remote_sensing('fpar', 'Fpar', year, month)).values.flatten()[land_cellnum_list]
             variable = par_vec * fpar_vec
         elif data_name == 'NDVI':
-            variable = read_MODIS_VI('NDVI', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_MODIS_VI('NDVI', year, month)).values.flatten()[land_cellnum_list]
             variable = np.nan_to_num(variable, nan=0)
         elif data_name == 'EVI':
-            variable = read_MODIS_VI('EVI', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_MODIS_VI('EVI', year, month)).values.flatten()[land_cellnum_list]
             variable = np.nan_to_num(variable, nan=0)
         elif data_name == 'GOME2_SIF':
-            variable = read_GOME2_SIF('dcSIF', year, month).values.flatten()[land_cellnum_list]
+            variable = subset_30N_90N(read_GOME2_SIF('dcSIF', year, month)).values.flatten()[land_cellnum_list]
             variable = np.nan_to_num(variable, nan=0)
 
         covariate = h_matrix0_subset @ variable
@@ -81,7 +80,7 @@ for month in np.arange(start_month,end_month+1):
         
     # cru variables
     for data_name in ['dswrf', 'pre', 'spfh', 'tmp']: 
-        variable = read_cru(data_name, data_name, year, month).values.flatten()[land_cellnum_list]
+        variable = subset_30N_90N(read_cru(data_name, data_name, year, month)).values.flatten()[land_cellnum_list]
         variable = np.nan_to_num(variable, nan=0)
 
         covariate = h_matrix0_subset @ variable

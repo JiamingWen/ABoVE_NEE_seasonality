@@ -6,7 +6,7 @@ import xarray as xr
 import pytz
 
 #airborne data
-fn = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/arctic-cap/ABoVE_Arctic_CAP_1658/data/ABoVE_2017_insitu_10sec.nc'
+fn = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/arctic-cap/ABoVE_Arctic_CAP_1658/data/ABoVE_2017_insitu_10sec.nc'
 airborne_data = xr.open_dataset(filename_or_obj  = fn)
 airborne_df = pd.DataFrame({'airborne_time_UTC': airborne_data.time, 
                             'airborne_latitude': airborne_data.latitude, 
@@ -22,7 +22,7 @@ airborne_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonali
 
 
 #read footprint data (20s intervals) and combine with airborne data (10s intervals)
-footprint_path = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
+footprint_path = "/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
 footprint_list = sorted(os.listdir(footprint_path))
 
 combined_df = pd.DataFrame([])

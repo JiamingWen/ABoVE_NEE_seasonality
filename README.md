@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains code for analyzing the seasonality of Net Ecosystem Exchange (NEE) in the ABoVE (Arctic-Boreal Vulnerability Experiment) study area. We evaluated NEE estimates derived from three distinct approaches: atmospheric inversions, upscaled flux measurements, and terrestrial biosphere models (TBMs), using atmospheric CO2 observations collected during airborne campaigns organized as part of the Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) and the Arctic Carbon Atmospheric Profiles (Arctic-CAP) campaigns during 2012-2014 and 2017, respectively.
+This repository contains code for analyzing the seasonality of Net Ecosystem Exchange (NEE) in the ABoVE (Arctic-Boreal Vulnerability Experiment) study area. We evaluated NEE estimates derived from three distinct approaches: atmospheric inversions, upscaled eddy-covariance (EC) flux tower measurements, and terrestrial biosphere models (TBMs), using atmospheric CO2 observations collected during airborne campaigns organized as part of the Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) and the Arctic Carbon Atmospheric Profiles (Arctic-CAP) campaigns during 2012-2014 and 2017, respectively.
 
 ## Contents
 
@@ -14,7 +14,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 ## Data
 - Atmospheric CO2 concentration measurements and footprints: CARVE and Arctic-CAP
 - Atmospheric inversions: GCB 2023
-- Upscaled flux tower measurements: X-BASE, Upscaled ABCflux
+- Upscaled EC datasets: X-BASE, Upscaled ABCflux
 - TBM outputs: TRENDY (v11, v9)
 - Remote sensing data: APAR (calculated from MODIS FPAR and CERES PAR), GOME-2 SIF, GOSIF GPP
 
@@ -31,9 +31,10 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `calculate_arctic_cap_airborne_change.py`
         - `calculate_carve_airborne_change.py`
     - Create H matrix
-        - `derive_h_matrix_arctic_cap.py`
-        - `derive_h_matrix_carve.py`
-        - ancillary scripts: `utils.py`; `config_carve2012.ini`; `config_carve2013.ini`; `config_carve2014.ini`; `config_arctic_cap2017.ini`
+        - `derive_h_matrix_arctic_cap_monthly.py`
+        - `derive_h_matrix_carve_monthly.py`
+        - ancillary scripts: `utils.py`
+        - additional scripts for finer temporal resolutions (3-hourly and daily): `derive_h_matrix_3hourly.py`, `aggregate_footprint_3hourly_daily_monthly.py`
     - Summarize/Aggregate footprint sensitivity: 
     (1) for each atmospheric observation, summarize footprint sensitivity from different regions (e.g., land vs ocean; within vs out of ABoVE; forests vs shrubs vs tundra)
     (2) Aggregate footprint sensitivity over all atmospheric observations for each month/year
@@ -45,22 +46,21 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `create_cellid_table.py`
     - Determine the dominant land cover of each 0.5 degree pixel based on land cover area fraction
         - `select_esa_cci_dominant_landcover.R`
-    - Create a bbox shapefile that contains the ABoVE region, used to download MODIS FPAR from AppEEARS
-        -  `create_ABoVE_bbox.R`
-    - Download MODIS data from AppEEARS
-        - `download_AppEEARS.R`
     - Aggregate MODIS FPAR/LAI from 8-day to monthly
         - `aggregate_monthly_modis_fpar_lai.py`
     - Regriding all datasets to 0.5 degree, monthly resolution
         - `regrid_abcflux.py`
         - `regrid_ceres_par.py`
-        - `regrid_gfed_v4.py`
+        - `regrid_gfed_v41.py`
+        - `regrid_gfed_v5.py`
         - `regrid_gosif_gpp.py`
         - `regrid_inversion_GCP2023.py`
+        - `regrid_inversions_highres.py`
         - `regrid_modis_fpar_lai.py`
         - `regrid_odiac_FF.py`
         - `regrid_trendy_v9.py`
         - `regrid_trendy_v11.py`
+        - `regrid_x_base_highres.py`
 
 3. **Model Evaluation**:
     - Convert NEE surface flux or remote sensing fields to concentration space
@@ -86,7 +86,6 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Modify NEE season cycle and examine its consistency with atmospheric observations
         - `modify_TRENDY_component_seasonal_example.py`
         - `modify_TRENDY_component_seasonal_groupH.py`
-        - `modify_TRENDY_component_seasonal_obs.py`
         - `modify_X_BASE_component_seasonal_groupH.py`
     - Compute Mean Absolute Deviation of seasonality compared to reference data
         - `Fig3.py`
@@ -98,6 +97,9 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `examine_mad_across_lc.py`
 
 5. **Other scripts for additional analyses**:
+    - Sensitivity tests for model evaluation
+        - Use afternoon-only data: `evaluate_stat_multiyear_afternoon.py`, `Fig2_afternoon.py`
+        - Use finer temporal resolution NEE: `aggregate_inversions_3hourly_daily_monthly.py`, `convert_flux_to_concentration_3hourly.py`, `convert_flux_to_concentration_daily.py`, `convert_flux_to_concentration_monthly.py`, `convert_flux_to_concentration_diurnal_cycle_x_base.py`, `evaluate_stat_multiyear_highres.py`, `evaluate_stat_multiyear_highres_plot.py`, `evaluate_stat_multiyear_diurnal_x_base.py`, `Fig2_diurnal_x_base.py`
     - Compare relative proportion of carbon component (Ra, Rh to GPP)
         - `compare_component_flux_ratio.py`
     - Evaluate seasonality difference between each pair of TRENDY models

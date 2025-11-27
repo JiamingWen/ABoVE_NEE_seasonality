@@ -9,7 +9,6 @@ lcname = 'alllc' #alllc forest shrub tundra
 lc_filestr = ''
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
-dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/result/modify_NEE/'
 
 seasonal_df_TRENDYv11NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
@@ -55,7 +54,8 @@ seasonal_Rh_ref = seasonal_df_TRENDYv11Rh[model_name_ref]
 
 
 labels_adjustment = ['Adjusting GPP seasonality', 'Adjusting $\it{R}_{a}$ seasonality', 'Adjusting $\it{R}_{h}$ seasonality', 'Adjusting relative proportion']
-colors = ['#50c878', '#d4bf1d', '#1367e9']
+# colors = ['#50c878', '#d4bf1d', '#1367e9']
+colors = ['#438382', '#c0ac1a', '#e573d5']
 subtitles = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)', '(g)', '(h)']
 
 fig, ax = plt.subplots(4, 2, figsize=(10, 18))

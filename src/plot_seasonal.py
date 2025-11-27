@@ -15,7 +15,7 @@ ylim2 = 2.5
 
 for year in [2012, 2013, 2014, 2017]: #
 
-    start_month, end_month, campaign_name = get_campaign_info(year)
+    campaign_name = get_campaign_info(year)[2]
     dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal'
 
     for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions

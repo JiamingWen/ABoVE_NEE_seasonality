@@ -40,10 +40,11 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
             (df_airborne['CO_change'] < 40))[0]
         
         # influence from fossil and fire emissions
-        df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+        df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+        df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
         # derive CO2 drawdown/enhancement from fossil and fire emissions
-        y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
+        y0 = df_airborne['CO2_change'].values - df_fossil['odiac2022'] - df_fire['gfed4.1']
         y_year = y0.loc[mask_id]
         result_df_NEE_year[f'CO2_change_obs'] = y_year
 
@@ -101,15 +102,13 @@ fitting_df_TRENDYv11_unscaled_only_seasonal = fitting_df_TRENDYv11_unscaled_only
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted = fitting_df_TRENDYv11_unscaled_only_seasonal.sort_values('cor')
 high_model_subset = fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['cor']>0.63, 'model_name'].tolist()
 
-fitting_df_NEEobservations_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations_only_seasonal.csv')
+fitting_df_UpscaledEC_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC_only_seasonal.csv')
 
 
 # read original simulated carbon fluxes
 # X-BASE
-seasonal_df_NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")[['FluxCOM-X-NEE']]
-seasonal_df_NEE.columns = ['X-BASE']
-seasonal_df_GPP = pd.read_csv(f"//central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")[['FluxCOM-X-GPP']]
-seasonal_df_GPP.columns = ['X-BASE']
+seasonal_df_NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")[['X-BASE']]
+seasonal_df_GPP = pd.read_csv(f"//central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")[['X-BASE']]
 seasonal_df_Reco = seasonal_df_NEE + seasonal_df_GPP
 
 # TRENDY
@@ -118,22 +117,19 @@ seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoV
 seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11NEE + seasonal_df_TRENDYv11GPP
 
 # ABCflux
-seasonal_df_ABCfluxNEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")[['ABCflux-NEE']]
-seasonal_df_ABCfluxNEE.columns = ['ABCflux']
-seasonal_df_ABCfluxGPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")[['ABCflux-GPP']]
-seasonal_df_ABCfluxGPP.columns = ['ABCflux']
-# seasonal_df_ABCfluxReco = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_Recoobservations_{regionname}_{lcname}_{weightname}.csv")[['ABCflux-Reco']]
-# seasonal_df_ABCfluxReco.columns = ['ABCflux']
+seasonal_df_ABCfluxNEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")[['ABCflux']]
+seasonal_df_ABCfluxGPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")[['ABCflux']]
+# seasonal_df_ABCfluxReco = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_Recoobservations_{regionname}_{lcname}_{weightname}.csv")[['ABCflux']]
 seasonal_df_ABCfluxReco = seasonal_df_ABCfluxNEE + seasonal_df_ABCfluxGPP
 
-# only select growing seasons (Apr-Nov)
-seasonal_df_NEE = seasonal_df_NEE.loc[3:10]
-seasonal_df_GPP = seasonal_df_GPP.loc[3:10]
-seasonal_df_Reco = seasonal_df_Reco.loc[3:10]
+# only select growing seasons (Apr-Nov) + Mar (because 2013 needs March data)
+seasonal_df_NEE = seasonal_df_NEE.loc[2:10]
+seasonal_df_GPP = seasonal_df_GPP.loc[2:10]
+seasonal_df_Reco = seasonal_df_Reco.loc[2:10]
 
-seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[3:10]
-seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[3:10]
-seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11Reco.loc[3:10]
+seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[2:10]
+seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[2:10]
+seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11Reco.loc[2:10]
 
 
 
@@ -160,14 +156,14 @@ for model_name_ref in high_model_subset:
 
 cor_modified_case_GPP = pd.concat((cor_modified_case_GPP, pd.DataFrame(cor_list, columns=['X-BASE'])), axis=1)
 cor_modified_case_GPP.to_csv(f"{dir0}cor_modified_GPP_seasonality_X-BASE_groupH.csv", encoding='utf-8', index=False)
-np.median(cor_modified_case_GPP) # 0.5680596348177078
+np.median(cor_modified_case_GPP) # 0.5662969750641214
 
 # using ABCflux as reference
 seasonal_GPP_model_modified = modify_seasonality(seasonal_GPP_model, seasonal_df_ABCfluxGPP['ABCflux'])
 seasonal_Reco_model_modified = seasonal_Reco_model
 seasonal_NEE_model_modified = seasonal_Reco_model_modified - seasonal_GPP_model_modified
 cor = evaluate_seasonal_cycle_cor(seasonal_NEE_model_modified)
-print(cor) # 0.5893361766247602
+print(cor) # 0.5886706497393405
 
 
 '''case 2: modify the seasonality of Reco'''
@@ -193,14 +189,14 @@ for model_name_ref in high_model_subset:
 
 cor_modified_case_Reco = pd.concat((cor_modified_case_Reco, pd.DataFrame(cor_list, columns=['X-BASE'])), axis=1)
 cor_modified_case_Reco.to_csv(f"{dir0}cor_modified_Reco_seasonality_X-BASE_groupH.csv", encoding='utf-8', index=False)
-np.median(cor_modified_case_Reco) # 0.6404764996137242
+np.median(cor_modified_case_Reco) # 0.6430052824915442
 
 # using ABCflux as reference
 seasonal_GPP_model_modified = seasonal_GPP_model
 seasonal_Reco_model_modified = modify_seasonality(seasonal_Reco_model, seasonal_df_ABCfluxReco['ABCflux']) 
 seasonal_NEE_model_modified = seasonal_Reco_model_modified - seasonal_GPP_model_modified
 cor = evaluate_seasonal_cycle_cor(seasonal_NEE_model_modified)
-print(cor) # 0.5848613128939828 - much lower than using higher-cor TBMs as reference
+print(cor) # 0.5860969504080284 - much lower than using higher-cor TBMs as reference
 
 
 '''case 3: modify the relative magnitude of component fluxes'''
@@ -226,16 +222,16 @@ for model_name_ref in high_model_subset:
 
 cor_modified_case_Magnitude = pd.concat((cor_modified_case_Magnitude, pd.DataFrame(cor_list, columns=['X-BASE'])), axis=1)
 cor_modified_case_Magnitude.to_csv(f"{dir0}cor_modified_relative_proportion_X-BASE_groupH.csv", encoding='utf-8', index=False)
-np.median(cor_modified_case_Magnitude) # 0.5658683717004105
+np.median(cor_modified_case_Magnitude) # 0.5651814444980734
 
 # using ABCflux as reference
 seasonal_GPP_model_modified = modify_magnitude(seasonal_GPP_model, seasonal_df_ABCfluxGPP['ABCflux'])
 seasonal_Reco_model_modified = modify_magnitude(seasonal_Reco_model, seasonal_df_ABCfluxReco['ABCflux']) 
-sum(seasonal_Reco_model) / sum(seasonal_GPP_model) #0.83
+sum(seasonal_Reco_model) / sum(seasonal_GPP_model) #0.85
 sum(seasonal_df_ABCfluxReco['ABCflux']) / sum(seasonal_df_ABCfluxGPP['ABCflux']) # 0.97
 seasonal_NEE_model_modified = seasonal_Reco_model_modified - seasonal_GPP_model_modified
 cor = evaluate_seasonal_cycle_cor(seasonal_NEE_model_modified)
-print(cor) # 0.5618297879966226
+print(cor) # 0.5638286449027919
 
 
 # try magnitude and seasonality together for ABCflux reference
@@ -244,11 +240,11 @@ seasonal_GPP_model_modified = modify_seasonality(modify_magnitude(seasonal_GPP_m
 seasonal_Reco_model_modified = modify_magnitude(seasonal_Reco_model, seasonal_df_ABCfluxReco['ABCflux']) 
 seasonal_NEE_model_modified = seasonal_Reco_model_modified - seasonal_GPP_model_modified
 cor = evaluate_seasonal_cycle_cor(seasonal_NEE_model_modified)
-print(cor) # 0.581243757523703
+print(cor) # 0.586041000816082
 
 # magnitude + Reco seasonality
 seasonal_GPP_model_modified = modify_magnitude(seasonal_GPP_model, seasonal_df_ABCfluxGPP['ABCflux'])
 seasonal_Reco_model_modified = modify_seasonality(modify_magnitude(seasonal_Reco_model, seasonal_df_ABCfluxReco['ABCflux']) , seasonal_df_ABCfluxReco['ABCflux'])
 seasonal_NEE_model_modified = seasonal_Reco_model_modified - seasonal_GPP_model_modified
 cor = evaluate_seasonal_cycle_cor(seasonal_NEE_model_modified)
-print(cor) # 0.6056122309838794
+print(cor) # 0.6034694635923228

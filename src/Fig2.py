@@ -23,9 +23,7 @@ fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2
 fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
-fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
-fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
+fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
 
 # scaled variables (with linear regression)
 fitting_df_reference_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}.csv')
@@ -42,7 +40,7 @@ fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'] == 'GO
 # in alphabetical order
 fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.sort_values('model_name', ascending=False)
 fitting_df_inversions_sorted = fitting_df_inversions_unscaled.sort_values('model_name', ascending=False)
-fitting_df_NEEobservations_sorted = fitting_df_NEEobservations_unscaled.sort_values('model_name', ascending=False)
+fitting_df_UpscaledEC_sorted = fitting_df_UpscaledEC_unscaled.sort_values('model_name', ascending=False)
 fitting_df_reference_sorted = fitting_df_reference_scaled.sort_values('model_name', ascending=False)
 
 # set colors
@@ -54,30 +52,30 @@ fitting_df_TRENDYv11_sorted.loc[fitting_df_TRENDYv11_sorted['model_name'].isin (
 
 fig, ax = plt.subplots(figsize=(7,10))
 p1a = plt.scatter(fitting_df_TRENDYv11_sorted[f'{stat_var}'], fitting_df_TRENDYv11_sorted['model_name'], marker='o', edgecolor=fitting_df_TRENDYv11_sorted['color'], facecolor='none', s=70)
-p2a = plt.scatter(fitting_df_NEEobservations_sorted[f'{stat_var}'], fitting_df_NEEobservations_sorted['model_name'], marker='d', color='#56983f', facecolor='none', s=80)
+p2a = plt.scatter(fitting_df_UpscaledEC_sorted[f'{stat_var}'], fitting_df_UpscaledEC_sorted['model_name'], marker='d', color='#56983f', facecolor='none', s=80)
 p3a = plt.scatter(fitting_df_inversions_sorted[f'{stat_var}'], fitting_df_inversions_sorted['model_name'], marker='s', color='black', facecolor='none', s=60)
 p4a = plt.scatter(fitting_df_reference_sorted[f'{stat_var}'], fitting_df_reference_sorted['model_name'], marker='^', color='purple', facecolor='none', s=80)
 
 # section lines
 plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
-plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
-plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
-plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
+plt.axhline(y = fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5, color = 'grey', linestyle = '--')
 
 plt.xlim(xlim)
-plt.ylim(-1, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5) #+fitting_df_regression_all_sorted.shape[0]
+plt.ylim(-1, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-0.5) #+fitting_df_regression_all_sorted.shape[0]
 plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=18)
 plt.xticks(ticks=np.arange(xlim[0], xlim[1], 0.1), fontsize=15) #np.arange(-0.2, 1, 0.2), 
 plt.yticks(fontsize=15)
 
 
-colors = fitting_df_TRENDYv11_sorted['color'].values.tolist() + ['#56983f']*fitting_df_NEEobservations_sorted.shape[0] + ['black']*fitting_df_inversions_sorted.shape[0] + ['purple']*fitting_df_reference_sorted.shape[0] # + ['olive']*fitting_df_regression_all_sorted.shape[0]
+colors = fitting_df_TRENDYv11_sorted['color'].values.tolist() + ['#56983f']*fitting_df_UpscaledEC_sorted.shape[0] + ['black']*fitting_df_inversions_sorted.shape[0] + ['purple']*fitting_df_reference_sorted.shape[0] # + ['olive']*fitting_df_regression_all_sorted.shape[0]
 for ytick, color in zip(ax.get_yticklabels(), colors):
     ytick.set_color(color)
 
-ax.annotate("Remote Sensing", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-1.5), fontsize=15)
-ax.annotate("Atmospheric Inversions", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-1.5), fontsize=15)
-ax.annotate("Upscaled EC", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_NEEobservations_sorted.shape[0]-1.3), fontsize=15)
+ax.annotate("Remote Sensing", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]+fitting_df_reference_sorted.shape[0]-1.5), fontsize=15)
+ax.annotate("Atmospheric Inversions", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]+fitting_df_inversions_sorted.shape[0]-1.5), fontsize=15)
+ax.annotate("Upscaled EC", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]+fitting_df_UpscaledEC_sorted.shape[0]-1.3), fontsize=15)
 ax.annotate("TRENDY TBMs", (-0.08, fitting_df_TRENDYv11_sorted.shape[0]-2.5), fontsize=15)
 
 
@@ -88,21 +86,19 @@ fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carn
 fitting_df_inversions_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
 fitting_df_inversions_unscaled_only_seasonal = fitting_df_inversions_unscaled_only_seasonal.loc[~fitting_df_inversions_unscaled_only_seasonal['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled_only_seasonal.loc[fitting_df_inversions_unscaled_only_seasonal['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_NEEobservations_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
-fitting_df_NEEobservations_unscaled_only_seasonal.loc[fitting_df_NEEobservations_unscaled_only_seasonal['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
-fitting_df_NEEobservations_unscaled_only_seasonal.loc[fitting_df_NEEobservations_unscaled_only_seasonal['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
+fitting_df_UpscaledEC_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_only_seasonal.csv')
 fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference_only_seasonal{lc_filestr}.csv')
 fitting_df_reference_scaled_only_seasonal = fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name'].isin(['APAR', 'GOME2_SIF']), :] #, 'PAR', 'FPAR'
 fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
 
 fitting_df_TRENDYv11_merge = pd.merge(fitting_df_TRENDYv11_sorted, fitting_df_TRENDYv11_unscaled_only_seasonal, on='model_name', how='outer', suffixes=('_original', '_only_seasonal'))
 fitting_df_inversions_merge = pd.merge(fitting_df_inversions_sorted, fitting_df_inversions_unscaled_only_seasonal, on='model_name', how='outer', suffixes=('_original', '_only_seasonal'))
-fitting_df_NEEobservations_merge = pd.merge(fitting_df_NEEobservations_sorted, fitting_df_NEEobservations_unscaled_only_seasonal, on='model_name', how='outer', suffixes=('_original', '_only_seasonal'))
+fitting_df_UpscaledEC_merge = pd.merge(fitting_df_UpscaledEC_sorted, fitting_df_UpscaledEC_unscaled_only_seasonal, on='model_name', how='outer', suffixes=('_original', '_only_seasonal'))
 fitting_df_reference_merge = pd.merge(fitting_df_reference_sorted, fitting_df_reference_scaled_only_seasonal, on='model_name', how='outer', suffixes=('_original', '_only_seasonal'))
 
 
 p1b = plt.scatter(fitting_df_TRENDYv11_merge[f'{stat_var}_only_seasonal'], fitting_df_TRENDYv11_merge['model_name'], marker='o', color=fitting_df_TRENDYv11_sorted['color'], s=70) #, alpha=0.8
-p2b = plt.scatter(fitting_df_NEEobservations_merge[f'{stat_var}_only_seasonal'], fitting_df_NEEobservations_merge['model_name'], marker='d', color='#56983f', s=80)
+p2b = plt.scatter(fitting_df_UpscaledEC_merge[f'{stat_var}_only_seasonal'], fitting_df_UpscaledEC_merge['model_name'], marker='d', color='#56983f', s=80)
 p3b = plt.scatter(fitting_df_inversions_merge[f'{stat_var}_only_seasonal'], fitting_df_inversions_merge['model_name'], marker='s', color='black', s=60) #, label='Mean seasonal cycle'
 p4b = plt.scatter(fitting_df_reference_merge[f'{stat_var}_only_seasonal'], fitting_df_reference_merge['model_name'], marker='^', color='purple', s=80)
 

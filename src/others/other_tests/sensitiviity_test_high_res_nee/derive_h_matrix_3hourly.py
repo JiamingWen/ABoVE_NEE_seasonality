@@ -30,33 +30,41 @@ Output:
 	H text files.  There is one file for each timestep.
 """
 
-from __future__ import print_function
+import pandas as pd
 import os
 import datetime
 import shutil
-import numpy as np
-import pandas as pd
-import math
 import utils
+import numpy as np
+import math
 
-year = 2014 # 2012 2013 2014
+year = 2017 # 2012 2013 2014 2017
 
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
-list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
-footprint_dir = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
+if year in [2012, 2013, 2014]:
 
-config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config_carve{year}.ini')
+    receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
+    footprint_dir = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
+    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config/config_carve{year}_3hourly.ini')
+
+else: # year == 2017
+	receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
+	footprint_dir = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
+	config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/config/config_arctic_cap{year}_3hourly.ini')
+
+list_footprint_files = receptor_df['footprint_filename'].tolist()
+
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
 hdir = f'{config["workdir"]}/{config["hdir"]}'
-# if os.path.exists(hdir):
-# 	# remove any files in hdir
-# 	shutil.rmtree(hdir)
+if os.path.exists(hdir):
+	# remove any files in hdir
+	shutil.rmtree(hdir)
 
-# # create hdir
-# if not os.path.exists(hdir):
-# 	os.makedirs(hdir)
+# create hdir
+if not os.path.exists(hdir):
+	os.makedirs(hdir)
+
 
 # Loop through each of the footprint files
 for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - filename
@@ -96,9 +104,11 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 		if gd < config["sdate"]: break
 		if gd >= config["edate"]: continue
 
-		nmonths = (gd.year - config["sdate"].year) * 12 + gd.month - config["sdate"].month		# months since the starting month
-		ntimestep = math.floor(nmonths / config["timestep_in_months"]) + 1  	# timestep number, starting from 1
+		td = gd - config["sdate"]			# time since inversion start date,
+		nhours = td.days*24 + td.seconds/3600		# in number of hours
+		ntimestep = math.floor(nhours / config["hrsperstep"]) + 1  	# inversion timestep number
 		nz = grid[gidx].nonzero()[0]			# location of non zero data points
+        
 		for cellnum in nz:
 			val = grid[gidx, cellnum]
 			if val > -3e34:
@@ -108,7 +118,6 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 
 				# add value to this timestep, cellnum
 				xx[(ntimestep, cellnum)] += val
-
 
 
 	# make a dict that is indexed by timestep only,
@@ -125,10 +134,8 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 
 	# write data to text files,
 	for ntimestep in b:
-		time_tmp = config["sdate"].year * 12 + config["sdate"].month + ntimestep - 1
-		current_year = time_tmp//12
-		current_month = time_tmp%12
-		tmpfile = "%s/H%d_%d.txt" % (hdir, current_year, current_month)
+		time_tmp = config["sdate"] + datetime.timedelta(hours=(ntimestep-1) * 3) # starting time of the timestep
+		tmpfile = "%s/H%d_%d_%d_%d.txt" % (hdir, time_tmp.year, time_tmp.month, time_tmp.day, time_tmp.hour)
 		f = open(tmpfile, "a")
 		for (nobs, cellnum, lat_id, lon_id, lat_val, lon_val, val) in b[ntimestep]:
 			f.write("%d %d %d %d %.2f %.2f %15.8e\n" % (nobs, cellnum, lat_id, lon_id, lat_val, lon_val, val))
@@ -137,15 +144,3 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 
 	t2 = datetime.datetime.now()
 	print("Finished obs num ", obsnum, t2-t1, t2-t0)
-
-
-# # may consider storing them into hdf5 files to reduce size
-# # utils.py also have some functions to store the files in other formats, e.g., *.npz - save ~50% space
-# start_month = int(config['start_month'].split('-')[1])
-# end_month = int(config['end_month'].split('-')[1]) 
-# for month in np.arange(start_month,end_month+1):
-# 	h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/carve_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
-# 					sep="\s+", index_col=False, header=None,
-# 					names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
-# 	tmpfile = "%s/H%d_%d.npz" % (hdir, year, month)
-# 	np.savez(tmpfile, rows=h_df['obs_id'], cols=h_df['cell_id'], vals=h_df['val'], shape=(26128, 86400))

@@ -33,6 +33,9 @@ def regrid_gosif_gpp(year, geotiff_list) -> None:
     scaling_factor = 0.01
     ds = geotiffs_ds * scaling_factor # unit: g C m-2 mo-1
 
+    # change nan to zero - otherwise the value at coarse grids will be zero if any nan value falls into it
+    ds = ds.fillna(0)
+
     print('combined into a single xarray dataset, now doing the regridding')
     
     """Regrid GOSIF GPP."""
