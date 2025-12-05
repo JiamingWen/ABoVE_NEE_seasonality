@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
 import os
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 import utils
 from functions import get_campaign_info
 
@@ -24,15 +24,15 @@ from functions import get_campaign_info
 # year = 2014 # 2012 2013 2014 2017
 
 # campaign_name = get_campaign_info(year)[2]
-# config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+# config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
 
 # # read observations
-# receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+# receptor_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
 # n_receptor = receptor_df.shape[0]
 
 
 # # mask for land pixels
-# cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+# cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 # land_cellnum_list = np.where(cell_id_table['land']==1)[0]
 
 # # create a data frame for output
@@ -43,12 +43,12 @@ from functions import get_campaign_info
 # )
 
 # # read H matrix
-# config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+# config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
 # for ntimestep in np.arange(0, config["ntimesteps"]):
     
 #     print(ntimestep)
 #     timestep = config["sdate"] + ntimestep * config["timestep"]
-#     h_matrix_dir= f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
+#     h_matrix_dir= f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
 #     h_matrix_file = f'{h_matrix_dir}/H{timestep.year}_{timestep.month}_{timestep.day}_{timestep.hour}.txt'
     
 #     if os.path.exists(h_matrix_file):
@@ -76,7 +76,7 @@ from functions import get_campaign_info
 
 #     output_df[f'UTC_hour_{timestep.hour}'] += np.array(influence).flatten()
 
-# dir_output = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/diurnal_distribution'
+# dir_output = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/diurnal_distribution'
 # os.makedirs(dir_output, exist_ok=True)
 # output_df.to_csv(f'{dir_output}/footprint_diurnal_distribution_{campaign_name}_{year}_3hourly.csv', index=False)
 
@@ -84,12 +84,12 @@ from functions import get_campaign_info
 '''plot daytime - nighttime footprint difference'''
 for year in [2012, 2013, 2014, 2017]:
     campaign_name = get_campaign_info(year)[2]
-    dir_input = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/diurnal_distribution'
+    dir_input = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/diurnal_distribution'
     df_footprint = pd.read_csv(f'{dir_input}/footprint_diurnal_distribution_{campaign_name}_{year}_3hourly.csv')
 
     # read atmospheric observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
     # filters for airborne observations
     mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
@@ -174,8 +174,8 @@ plt.xlim(-15, 15)
 mean_diff = df_footprint_all['day_night_diff'].mean()
 plt.text(0.05, 0.95, f"mean: {mean_diff:.2f}", transform=plt.gca().transAxes,
             fontsize=16, verticalalignment='top', color='black')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_histogram.png', dpi=300)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_histogram.pdf', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_histogram.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_histogram.pdf', dpi=300)
 plt.show()
 
 
@@ -239,8 +239,8 @@ plt.xlim(-100, 100)
 mean_diff_frac = df_footprint_all['day_night_diff_frac'].mean()
 plt.text(0.05, 0.95, f"mean: {int(mean_diff_frac*100)}%", transform=plt.gca().transAxes,
             fontsize=16, verticalalignment='top', color='black')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_percent_histogram.png', dpi=300)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_percent_histogram.pdf', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_percent_histogram.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/day_night_footprint_difference_percent_histogram.pdf', dpi=300)
 plt.show()
 
 

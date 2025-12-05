@@ -13,21 +13,21 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 stat_var = 'cor'; xlim = [-0.1, 0.75]
 
 # # evaluation on the original data (without linear regression)
-# fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
-# fitting_df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+# fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+# fitting_df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 # fitting_df_inversions = fitting_df_inversions.loc[~fitting_df_inversions['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 # fitting_df_inversions.loc[fitting_df_inversions['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-# fitting_df_NEEobservations = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
+# fitting_df_NEEobservations = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
 # fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 # fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
 
 # evaluation only on the mean seasonal cycles
-fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
+fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
 # fitting_df_TRENDYv11 = fitting_df_TRENDYv11.loc[~fitting_df_TRENDYv11['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
+fitting_df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
 fitting_df_inversions = fitting_df_inversions.loc[~fitting_df_inversions['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions.loc[fitting_df_inversions['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_NEEobservations = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
+fitting_df_NEEobservations = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
 fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 
 
@@ -101,21 +101,21 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 stat_var = 'cor'; ylim = [-0.1, 0.75]
 
 # # evaluation on the original data (without linear regression)
-# fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
-# fitting_df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+# fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+# fitting_df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 # fitting_df_inversions = fitting_df_inversions.loc[~fitting_df_inversions['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 # fitting_df_inversions.loc[fitting_df_inversions['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-# fitting_df_NEEobservations = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
+# fitting_df_NEEobservations = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
 # fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 # fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'ABCflux-NEE','model_name'] = 'ABCflux'
 
 # evaluation only on the mean seasonal cycles
-fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
+fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
 # fitting_df_TRENDYv11 = fitting_df_TRENDYv11.loc[~fitting_df_TRENDYv11['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
+fitting_df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
 fitting_df_inversions = fitting_df_inversions.loc[~fitting_df_inversions['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions.loc[fitting_df_inversions['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_NEEobservations = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
+fitting_df_NEEobservations = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
 fitting_df_NEEobservations.loc[fitting_df_NEEobservations['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE'
 
 
@@ -205,10 +205,10 @@ yticks = np.arange(-1, 1.2, 0.5)
 filestr = ''
 ylabel = varname
 
-seasonal_df_TRENDYv11 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
-seasonal_NEEobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
+seasonal_NEEobservations = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_NEEobservations_{regionname}_{lcname}_{weightname}.csv")
 seasonal_NEEobservations.rename(columns={'FluxCOM-X-NEE': 'X-BASE', 'ABCflux-NEE': 'ABCflux'}, inplace=True)
-seasonal_df_inversions = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_inversions = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 inversion_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # excluding models without CARVE coverage
 seasonal_df_subset_inversion = seasonal_df_inversions[inversion_names]
 

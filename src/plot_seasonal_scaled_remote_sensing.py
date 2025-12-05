@@ -21,13 +21,13 @@ def scale_minumum (vec):
 scale_fun = scale_minumum
 ylim = [-1.2,1.2]
 
-seasonal_reference = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_reference_{regionname}_{lcname}_{weightname}.csv')
-fitting_df_reference_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_only_seasonal.csv')
+seasonal_reference = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_reference_{regionname}_{lcname}_{weightname}.csv')
+fitting_df_reference_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_only_seasonal.csv')
 reference_names = ['APAR', 'GOME2_SIF'] # 'PAR', 'FPAR', 
 titlename = ['APAR', 'SIF'] #'PAR', 'FPAR', 
 
 # reference
-seasonal_df_inversions = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_inversions = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 inversion_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # excluding models without CARVE coverage
 seasonal_df_subset_inversion = seasonal_df_inversions[inversion_names]
 seasonal_df_subset_inversion = seasonal_df_subset_inversion.apply(scale_fun, axis=0)
@@ -41,7 +41,7 @@ subplot_id = 0
 for i in np.arange(len(reference_names)):
 
     seasonal_vec = seasonal_reference[reference_names[i]]
-    results1 = OLSResults.load(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/regression/reference_only_seasonal_{reference_names[i]}{lc_filestr}.pickle")
+    results1 = OLSResults.load(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/regression/reference_only_seasonal_{reference_names[i]}{lc_filestr}.pickle")
     fitted_slope = results1.params[0]
     fitted_intercept = results1.params[1]
     seasonal_vec_scaled = seasonal_vec * fitted_slope + fitted_intercept
@@ -72,6 +72,6 @@ for i in np.arange(len(reference_names)):
 
 plt.subplots_adjust(wspace=0.4, hspace=0.35)
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.png', dpi=300, bbox_inches='tight')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.pdf', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_scaled_remote_sensing.pdf', dpi=300, bbox_inches='tight')
 plt.show()

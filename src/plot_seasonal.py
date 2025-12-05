@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 
@@ -16,7 +16,7 @@ ylim2 = 2.5
 for year in [2012, 2013, 2014, 2017]: #
 
     campaign_name = get_campaign_info(year)[2]
-    dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal'
+    dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal'
 
     for model_type in ['TRENDYv11', 'inversionsNEE']: #, 'TRENDYv9', 'inversions
         if model_type == 'TRENDYv11':

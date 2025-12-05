@@ -22,8 +22,8 @@ elif yearstr == '_2017': # 2017
     model_names = ['CAMS', 'CAMS-Satellite', 'CMS-Flux', 'CTE', 'GCASv2', 'GONGGA', 'MIROC', 'NISMON-CO2', 'THU']
 
 for (model_id, model_name) in enumerate(model_names):
-    seasonal_df_prior = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal{yearstr}_inversionsNEE-prior_{regionname}_{lcname}_{weightname}.csv")
-    seasonal_df_posterior = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal{yearstr}_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_prior = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal{yearstr}_inversionsNEE-prior_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_posterior = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal{yearstr}_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 
     if period == 'growing_season':
         # prior = np.mean(seasonal_df_prior.loc[[3,4,5,6,7,8,9,10], model_name])

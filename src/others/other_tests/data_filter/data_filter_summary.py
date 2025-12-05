@@ -8,7 +8,7 @@ from scipy import stats
 from scipy.stats import pearsonr
 from statsmodels.regression.linear_model import OLSResults
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 
@@ -26,8 +26,8 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
     month_num = end_month - start_month + 1
 
     # read atmospheric observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
 
     # filters for airborne observations
@@ -91,7 +91,7 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
 df_sum = df.sum(numeric_only=True).to_frame().T
 df_sum['year'] = 'all years'
 df = pd.concat([df, df_sum], ignore_index=True)
-df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary.csv', index=False)
+df.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary.csv', index=False)
 
 # barplots
 fig, axes = plt.subplots(2, 2, figsize=(6, 6), sharey=True)
@@ -108,8 +108,8 @@ for i, year in enumerate([2012, 2013, 2014, 2017]):
     axes[row, col].tick_params(axis='x', rotation=45)
 
 plt.tight_layout()
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_individual_years.png')
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_individual_years.pdf')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_individual_years.png')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_individual_years.pdf')
 plt.show()
 
 
@@ -121,6 +121,6 @@ ax.set_xlabel('Filter')
 ax.set_ylabel('Count')
 ax.tick_params(axis='x', rotation=45)
 plt.tight_layout()
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_all_years.png')
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_all_years.pdf')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_all_years.png')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/data_filter/data_filter_summary_all_years.pdf')
 plt.show()

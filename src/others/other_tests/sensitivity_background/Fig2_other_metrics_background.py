@@ -21,12 +21,12 @@ stat_var = 'cor'; xlim = [-0.2, 0.85]; xlabel = r'Correlation with CO$_{2}$ obse
 # stat_var = 'rmse'; xlim = [0, 15]; xlabel = r'RMSE compared to CO$_{2}$ observations'
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
 # fitting_df_TRENDYv11_unscaled = fitting_df_TRENDYv11_unscaled.loc[~fitting_df_TRENDYv11_unscaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+fitting_df_inversions_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
+fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
 
 # sort for each category
 fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.sort_values('model_name', ascending=False)
@@ -74,15 +74,15 @@ ax.annotate("TRENDY TBMs", (xlim[0]+(xlim[1]-xlim[0])/20, fitting_df_TRENDYv11_s
 # overlay with results for CT backgrounds
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ct.csv')
+fitting_df_TRENDYv11_unscaled_background_ct = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ct.csv')
 # fitting_df_TRENDYv11_unscaled_background_ct = fitting_df_TRENDYv11_unscaled_background_ct.loc[~fitting_df_TRENDYv11_unscaled_background_ct['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ct.csv')
+fitting_df_inversions_unscaled_background_ct = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ct.csv')
 fitting_df_inversions_unscaled_background_ct = fitting_df_inversions_unscaled_background_ct.loc[~fitting_df_inversions_unscaled_background_ct['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled_background_ct.loc[fitting_df_inversions_unscaled_background_ct['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_UpscaledEC_unscaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ct.csv')
+fitting_df_UpscaledEC_unscaled_background_ct = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ct.csv')
 
 # scaled variables (with linear regression)
-fitting_df_reference_scaled_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ct.csv')
+fitting_df_reference_scaled_background_ct = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ct.csv')
 fitting_df_reference_scaled_background_ct = fitting_df_reference_scaled_background_ct.loc[fitting_df_reference_scaled_background_ct['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
 fitting_df_reference_scaled_background_ct.loc[fitting_df_reference_scaled_background_ct['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
 
@@ -102,15 +102,15 @@ plt.scatter(fitting_df_UpscaledEC_merge_ct[f'{stat_var}_background_ct'], fitting
 # overlay with results for empirical backgrounds
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ebg.csv')
+fitting_df_TRENDYv11_unscaled_background_ebg = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_background-ebg.csv')
 # fitting_df_TRENDYv11_unscaled_background_ebg = fitting_df_TRENDYv11_unscaled_background_ebg.loc[~fitting_df_TRENDYv11_unscaled_background_ebg['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ebg.csv')
+fitting_df_inversions_unscaled_background_ebg = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_background-ebg.csv')
 fitting_df_inversions_unscaled_background_ebg = fitting_df_inversions_unscaled_background_ebg.loc[~fitting_df_inversions_unscaled_background_ebg['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled_background_ebg.loc[fitting_df_inversions_unscaled_background_ebg['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_UpscaledEC_unscaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ebg.csv')
+fitting_df_UpscaledEC_unscaled_background_ebg = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_background-ebg.csv')
 
 # scaled variables (with linear regression)
-fitting_df_reference_scaled_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ebg.csv')
+fitting_df_reference_scaled_background_ebg = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference{lc_filestr}_background-ebg.csv')
 fitting_df_reference_scaled_background_ebg = fitting_df_reference_scaled_background_ebg.loc[fitting_df_reference_scaled_background_ebg['model_name'].isin(['APAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
 fitting_df_reference_scaled_background_ebg.loc[fitting_df_reference_scaled_background_ebg['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
 
@@ -127,6 +127,6 @@ plt.scatter(fitting_df_UpscaledEC_merge_ebg[f'{stat_var}_background_ebg'], fitti
 
 plt.legend(loc='best', fontsize=14)
 
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.pdf', dpi=300, bbox_inches='tight')
 plt.show()

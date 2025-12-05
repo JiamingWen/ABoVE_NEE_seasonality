@@ -41,7 +41,7 @@ time_diff_tmp = footprint_info['footprint_time_UTC']
 time_diff = (pd.to_datetime(time_diff_tmp) - start_time).dt.total_seconds()
 footprint_info['time_diff'] = time_diff
 footprint_info_sorted = footprint_info.sort_values(['footprint_time_UTC'], ascending=[True])
-footprint_info_sorted.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_footprint_info.csv', encoding='utf-8', index=False)
+footprint_info_sorted.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_footprint_info.csv', encoding='utf-8', index=False)
 
 # combine footprints with corresponding airborne measurements
 # the matching between airborne measurements and footprints is not as clear as for Arctic-CAP data
@@ -166,7 +166,7 @@ for footprint_num in np.arange(footprint_info_sorted.shape[0]): # iterate throug
 
     start_time = end_time + datetime.timedelta(seconds=5)
 
-combined_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint.csv', encoding='utf-8', index=False)
+combined_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint.csv', encoding='utf-8', index=False)
 
 # #check the coordinate matching
 # np.sum(abs(combined_df.footprint_lat - combined_df.airborne_lat) > 0.0005)

@@ -20,7 +20,7 @@ ds2_proj = ds2.rio.reproject("EPSG:4326")
 
 ds2_proj_2 = ds2_proj
 ds2_proj_2 = ds2_proj_2.rename({"x": "lon", "y": "lat"})
-output_file = "/central/groups/carnegie_poc/jwen2/ABoVE/test.nc"
+output_file = "/resnick/groups/carnegie_poc/jwen2/ABoVE/test.nc"
 ds2_proj_2.attrs.pop('grid_mapping', None)
 ds2_proj_2.to_netcdf(output_file)
 
@@ -36,11 +36,11 @@ ax = plt.axes(projection=ccrs.PlateCarree())
 ds2_proj_2.plot(ax=ax, transform=ccrs.PlateCarree())
 # ax.set_aspect(2)
 plt.show()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/test.png', dpi=100, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/test.png', dpi=100, bbox_inches='tight')
 
 
 
-output_file = "/central/groups/carnegie_poc/jwen2/ABoVE/test.nc"
+output_file = "/resnick/groups/carnegie_poc/jwen2/ABoVE/test.nc"
 ds_new = xr.open_dataset(output_file)
 
 fig = plt.figure(figsize=(9,6))
@@ -55,7 +55,7 @@ ax = plt.axes(projection=ccrs.PlateCarree())
 ds_new['NEE'].plot(ax=ax, transform=ccrs.PlateCarree())
 # ax.set_aspect(2)
 plt.show()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/test.png', dpi=100, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/test.png', dpi=100, bbox_inches='tight')
 
 
 

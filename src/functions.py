@@ -42,7 +42,7 @@ def read_H_matrix(year, n_receptor, cell_id):
 
         # read stored H sparse matrix
         h_df = pd.read_csv(
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
             sep="\s+", index_col=False, header=None,
             names=["obs_id", "cell_id", "lat_id", "lon_id", "lat", "lon", "val"]
         )
@@ -73,14 +73,14 @@ def read_H_matrix_3hourly(year, n_receptor, cell_id):
     # cell_id - a vector consisting of id of certain grids, e.g., only land grids (cell id can be found in the cell_id_table.csv)
 
     campaign_name = get_campaign_info(year)[2]
-    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+    config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
     
     h_matrix = None
     for ntimestep in np.arange(0, config["ntimesteps"]):
         
         print(ntimestep)
         timestep = config["sdate"] + ntimestep * config["timestep"]
-        h_matrix_dir= f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
+        h_matrix_dir= f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
         h_matrix_file = f'{h_matrix_dir}/H{timestep.year}_{timestep.month}_{timestep.day}_{timestep.hour}.txt'
         
         if os.path.exists(h_matrix_file):
@@ -121,14 +121,14 @@ def read_H_matrix_daily(year, n_receptor, cell_id):
     # cell_id - a vector consisting of id of certain grids, e.g., only land grids (cell id can be found in the cell_id_table.csv)
 
     campaign_name = get_campaign_info(year)[2]
-    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+    config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
 
     h_matrix = None
     for nday in np.arange(0, config["ndays"]):
         
         print(nday)
         timestep = config["sdate"] + nday * datetime.timedelta(days=1)
-        h_matrix_dir= f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/daily'
+        h_matrix_dir= f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/daily'
         h_matrix_file = f'{h_matrix_dir}/H{timestep.year}_{timestep.month}_{timestep.day}.txt'
         
         if os.path.exists(h_matrix_file):
@@ -169,7 +169,7 @@ def read_H_matrix_monthly(year, n_receptor, cell_id):
     # cell_id - a vector consisting of id of certain grids, e.g., only land grids (cell id can be found in the cell_id_table.csv)
 
     campaign_name = get_campaign_info(year)[2]
-    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+    config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
 
     start_month = config["sdate"].month
     end_month = config["edate"].month
@@ -178,7 +178,7 @@ def read_H_matrix_monthly(year, n_receptor, cell_id):
     for month in np.arange(start_month, end_month+1):
         
         print(month)
-        h_matrix_dir= f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly'
+        h_matrix_dir= f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly'
         h_matrix_file = f'{h_matrix_dir}/H{year}_{month}.txt'
         
         if os.path.exists(h_matrix_file):
@@ -323,7 +323,7 @@ def read_remote_sensing (data_name, var_name, year, month):
     if data_name == 'par':
         f = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/ceres-par/CERES_PAR-half-degree.nc"
     elif data_name in ['fpar', 'lai']:
-        f = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{var_name}-half-degree-monthly-{year}04-{year}11.nc"
+        f = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{var_name}-half-degree-monthly-{year}04-{year}11.nc"
 
     ds = xr.open_dataset(f)
 
@@ -365,7 +365,7 @@ def read_MODIS_VI (var_name, year, month):
 def read_GOME2_SIF (var_name, year, month):
     # var_name: dcSIF
 
-    f = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gome2/gome2_monthly_2012_2017_CF08.nc"
+    f = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gome2/gome2_monthly_2012_2017_CF08.nc"
     
     ds = xr.open_dataset(f)
     ds = ds.rename({'lat': 'latitude', 'lon': 'longitude'})

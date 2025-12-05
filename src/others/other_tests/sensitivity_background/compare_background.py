@@ -13,15 +13,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 year = 2012 # 2012 2013 2014 2017
 campaign_name = get_campaign_info(year)[2]
 
-data = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-data_background_ct = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change_background-ct.csv')
-data_background_ebg = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change_background-ebg.csv')
+data = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+data_background_ct = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change_background-ct.csv')
+data_background_ebg = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change_background-ebg.csv')
 
 data['footprint_time_AKT'] = pd.to_datetime(data['footprint_time_AKT'])
 
@@ -36,7 +36,7 @@ ax2.set_ylabel('Background CO$_2$ (ppm)')
 ax2.set_title(f'Background CO$_2$ Time Series: {campaign_name} {year}')
 ax2.legend()
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_timeseries_{year}.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_timeseries_{year}.png', dpi=300)
 plt.show()
 
 
@@ -77,5 +77,5 @@ create_scatter_plot(axs[2], data_background_ct['background_CO2'], data_backgroun
 
 fig.suptitle(f'{campaign_name} {year}', fontsize=20)
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_scatterplot_{year}.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_scatterplot_{year}.png', dpi=300)
 plt.show()

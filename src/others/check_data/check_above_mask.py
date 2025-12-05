@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 
 # regional mask
-ABoVE_mask_original = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
+ABoVE_mask_original = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
 ABoVE_mask_original = ABoVE_mask_original['ids']
 ABoVE_mask = ABoVE_mask_original
 ABoVE_mask = xr.where(ABoVE_mask_original == 255, 2, ABoVE_mask_original)
@@ -24,4 +24,4 @@ ax.set_aspect(2)
 ABoVE_mask.plot(ax=ax, transform=ccrs.PlateCarree(),
          cbar_kwargs={'shrink': 0.4})
 plt.show()
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/plot_above_mask.png', dpi=100, bbox_inches='tight')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/plot_above_mask.png', dpi=100, bbox_inches='tight')

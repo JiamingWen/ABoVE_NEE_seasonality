@@ -30,7 +30,7 @@ def scale_maximum_minimum (vec):
     return (vec - np.min(vec)) / (np.max(vec) - np.min(vec))
 
 # stat
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted = fitting_df_TRENDYv11_unscaled_only_seasonal.sort_values('cor', ascending=False)
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['model_name'].isin(high_model_subset),'color'] = '#5986cb'
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['model_name'].isin(low_model_subset),'color'] = '#e57f3f'
@@ -42,10 +42,10 @@ fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unsc
 scale_fun = scale_minumum
 ylim = [-1.2,1.2]
 
-seasonal_df_TRENDYv11NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11NEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.apply(scale_fun, axis=0)
 
-seasonal_df_inversions = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_inversions = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 inversion_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # excluding models without CARVE coverage
 seasonal_df_subset_inversion = seasonal_df_inversions[inversion_names]
 seasonal_df_subset_inversion = seasonal_df_subset_inversion.apply(scale_fun, axis=0)
@@ -91,7 +91,7 @@ for i in np.arange(fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.shape[0]):
     mean_seasonal_NEE_diff_df = pd.concat((mean_seasonal_NEE_diff_df, pd.DataFrame([[model_name, cor, mean_seasonal_NEE_diff]], columns=['model_name', 'cor', 'mean_seasonal_diff'])))
 
 plt.subplots_adjust(wspace=0.4, hspace=0.35)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/seasonal_order_obs_{regionname}_{lcname}_{weightname}_poster.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/figures/seasonal_order_obs_{regionname}_{lcname}_{weightname}_poster.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 ########################################################
@@ -112,5 +112,5 @@ plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=13)
 plt.ylabel('MAD of standardized seasonal cycle', fontsize=13)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/cor_MAD_poster.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/figures/cor_MAD_poster.png', dpi=300, bbox_inches='tight')
 plt.show()

@@ -11,15 +11,15 @@ background = '_background-ebg' # '' '_background-ct' '_background-ebg'
 seasonal = '' # '' _only_seasonal
 
 # statistical metrics
-fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv')
-fitting_df_upscaledEC = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv')
-fitting_df_inversionsNEE = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv')
+fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv')
+fitting_df_upscaledEC = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv')
+fitting_df_inversionsNEE = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv')
 fitting_df = pd.concat([fitting_df_TRENDYv11, fitting_df_upscaledEC, fitting_df_inversionsNEE], ignore_index=True)
 
 # mean NEE
-seasonal_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_ABoVEcore_alllc_unweighted.csv')
-seasonal_df_upscaledEC = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_ABoVEcore_alllc_unweighted.csv')
-seasonal_df_inversionsNEE = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_upscaledEC = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_inversionsNEE = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_ABoVEcore_alllc_unweighted.csv')
 seasonal_df = pd.concat([seasonal_df_TRENDYv11, seasonal_df_upscaledEC, seasonal_df_inversionsNEE], axis=1)
 seasonal_mean = seasonal_df.iloc[3:11, :].mean() # seasonal mean for Apr - Nov
 
@@ -65,7 +65,7 @@ plt.xlabel(r'Mean bias compared to CO$_{2}$ observations', fontsize=13)
 plt.ylabel('Growing season mean NEE '+ '($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=13)
 plt.axvline(x=0, color='gray', linestyle=':', linewidth=1.5)
 
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/mean_bias_mean_NEE{background}{seasonal}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/mean_bias_mean_NEE{background}{seasonal}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/mean_bias_mean_NEE{background}{seasonal}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/mean_bias_mean_NEE{background}{seasonal}.pdf', dpi=300, bbox_inches='tight')
 
 plt.show()

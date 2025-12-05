@@ -15,8 +15,8 @@ for year in [2012, 2013, 2014, 2017]:
         model_names = ['CAMS', 'CAMS-Satellite', 'CMS-Flux', 'CTE', 'GCASv2', 'GONGGA', 'MIROC', 'NISMON-CO2', 'THU']
 
     for (model_id, model_name) in enumerate(model_names):
-        seasonal_df_prior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/seasonal/seasonal_{year}_inversionsNEE-prior_{regionname}.csv')
-        seasonal_df_posterior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/seasonal//seasonal_{year}_inversionsNEE_{regionname}.csv')
+        seasonal_df_prior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/seasonal/seasonal_{year}_inversionsNEE-prior_{regionname}.csv')
+        seasonal_df_posterior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/seasonal//seasonal_{year}_inversionsNEE_{regionname}.csv')
 
         # May - Oct
         prior = np.mean(seasonal_df_prior.loc[[4,5,6,7,8,9], model_name])

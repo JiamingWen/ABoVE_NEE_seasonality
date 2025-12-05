@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info
 
 regionname = 'ABoVEcore'
@@ -55,10 +55,10 @@ for j, varname in enumerate(['NEE', 'NPP', 'Rh', 'tsl']):
 
     # read data
     if varname in ['NEE', 'Rh', 'tsl']:
-        seasonal_df_TRENDYv11 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
     else:
-        seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
-        seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11GPP = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11Ra = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
         seasonal_df_TRENDYv11 = seasonal_df_TRENDYv11GPP - seasonal_df_TRENDYv11Ra
 
     seasonal_df_TRENDYv11 = seasonal_df_TRENDYv11.apply(scale_fun, axis=0)

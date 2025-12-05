@@ -10,7 +10,7 @@ from matplotlib.colors import ListedColormap
 import geopandas
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 from matplotlib.lines import Line2D
 
@@ -74,13 +74,13 @@ ax = axs[0]
 ax = setup_plot(ax, region_extent, ccrs_plot, axes=True)
 ax.text(subtitle_loc[0], subtitle_loc[1], '(a)', fontsize=15)
 
-lc = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/esa_cci_landcover/esa-cci-dominant-landcover-2017.nc').layer
+lc = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/esa_cci_landcover/esa-cci-dominant-landcover-2017.nc').layer
 lc_reclassify = xr.where(lc > -999, 0, np.nan)
 lc_reclassify = xr.where(lc == 5, 1, lc_reclassify)  # ENF
 lc_reclassify = xr.where(lc == 7, 2, lc_reclassify)  # shrub
 lc_reclassify = xr.where((lc >= 8) & (lc <= 10), 3, lc_reclassify)  # grass
 
-ABoVE_mask = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
+ABoVE_mask = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
 ABoVE_mask = ABoVE_mask.rename({'lat': 'latitude', 'lon': 'longitude'})
 lc_reclassify = lc_reclassify.where(ABoVE_mask['ids'] == 0)
 
@@ -108,8 +108,8 @@ ax.text(subtitle_loc[0], subtitle_loc[1], '(b)', fontsize=15)
 
 for year, color in zip([2012, 2013, 2014, 2017], ['blue', 'orange', 'green', 'purple']):
     start_month, end_month, campaign_name = get_campaign_info(year)
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
     local_hour = pd.to_datetime(df_airborne['footprint_time_AKT'], utc=True).dt.tz_convert('America/Anchorage').dt.hour
 
@@ -135,7 +135,7 @@ ax.text(subtitle_loc[0], subtitle_loc[1], '(c)', fontsize=15)
 
 # averaged influence from all years
 filestr = '_selected'
-influence_all_year = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean_allyears{filestr}.nc').influence
+influence_all_year = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean_allyears{filestr}.nc').influence
 
 lons = influence_all_year["longitude"].values
 lats = influence_all_year["latitude"].values
@@ -165,6 +165,6 @@ add_above_boundaries(ax)
 
 plt.subplots_adjust(wspace=0.2)
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.png', dpi=300, bbox_inches='tight')
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.pdf', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.png', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig1.pdf', dpi=300, bbox_inches='tight')
 plt.show()

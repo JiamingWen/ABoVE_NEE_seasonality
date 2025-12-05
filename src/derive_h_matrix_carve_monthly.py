@@ -41,11 +41,11 @@ import utils
 
 year = 2014 # 2012 2013 2014
 
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
+receptor_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
 list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
 footprint_dir = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/"
 
-config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config/config_carve{year}_monthly.ini')
+config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/h_matrix/config/config_carve{year}_monthly.ini')
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
@@ -144,7 +144,7 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 # start_month = int(config['start_month'].split('-')[1])
 # end_month = int(config['end_month'].split('-')[1]) 
 # for month in np.arange(start_month,end_month+1):
-# 	h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/carve_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+# 	h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/carve_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
 # 					sep="\s+", index_col=False, header=None,
 # 					names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
 # 	tmpfile = "%s/H%d_%d.npz" % (hdir, year, month)

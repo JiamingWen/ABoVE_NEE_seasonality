@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from statsmodels.regression.linear_model import OLSResults
 from scipy import stats
 
@@ -18,15 +18,15 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 stat_var = 'cor'; xlim = [-0.1, 0.75]
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
 # fitting_df_TRENDYv11_unscaled = fitting_df_TRENDYv11_unscaled.loc[~fitting_df_TRENDYv11_unscaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_inversions{lc_filestr}.csv')
+fitting_df_inversions_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_inversions{lc_filestr}.csv')
 fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
-fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
+fitting_df_NEEobservations_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations{lc_filestr}.csv')
 fitting_df_NEEobservations_unscaled.loc[fitting_df_NEEobservations_unscaled['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE NEE'
 
 # scaled variables (with linear regression)
-fitting_df_reference_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference{lc_filestr}.csv')
+fitting_df_reference_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference{lc_filestr}.csv')
 fitting_df_reference_scaled = fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'].isin(['APAR', 'PAR', 'FPAR', 'GOME2_SIF']), :]  #'APAR', 'FPAR', 'LAI', 'PAR'
 fitting_df_reference_scaled.loc[fitting_df_reference_scaled['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
 
@@ -58,7 +58,7 @@ plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=18)
 plt.xticks(ticks=np.arange(-0.1, 0.8, 0.1), fontsize=15) #np.arange(-0.2, 1, 0.2), 
 plt.yticks(fontsize=15)
 
-# results = OLSResults.load(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/TRENDYv11_CLM5.0{lc_filestr}.pickle")
+# results = OLSResults.load(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/TRENDYv11_CLM5.0{lc_filestr}.pickle")
 # n = results.summary2().tables[0].loc[3,1] # number of observations
 # # plt.title(f'{lcname}(n={n})', fontsize=20)
 
@@ -75,13 +75,13 @@ plt.annotate("TRENDY", (-0.05, fitting_df_TRENDYv11_sorted.shape[0]-1.5), fontsi
 
 # add additional evaluation with mean seasonal cycle
     
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_only_seasonal.csv')
 # fitting_df_TRENDYv11_unscaled_only_seasonal = fitting_df_TRENDYv11_unscaled_only_seasonal.loc[~fitting_df_TRENDYv11_unscaled_only_seasonal['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
+fitting_df_inversions_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_only_seasonal.csv')
 fitting_df_inversions_unscaled_only_seasonal = fitting_df_inversions_unscaled_only_seasonal.loc[~fitting_df_inversions_unscaled_only_seasonal['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
-fitting_df_NEEobservations_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
+fitting_df_NEEobservations_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations{lc_filestr}_only_seasonal.csv')
 fitting_df_NEEobservations_unscaled_only_seasonal.loc[fitting_df_NEEobservations_unscaled_only_seasonal['model_name'] == 'FluxCOM-X-NEE','model_name'] = 'X-BASE NEE'
-fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
+fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
 fitting_df_reference_scaled_only_seasonal = fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name'].isin(['APAR', 'PAR', 'FPAR', 'GOME2_SIF']), :]
 fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name'] == 'GOME2_SIF','model_name'] = 'SIF'
 
@@ -100,4 +100,4 @@ plt.axvspan(fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_s
 plt.legend(bbox_to_anchor=(0.45, 0.25), fontsize=12, handletextpad=0.2)
 
 plt.show()
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig_model_performance_only_seasonal{lc_filestr}_poster.png', bbox_inches='tight', dpi=300)
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/figures/Fig_model_performance_only_seasonal{lc_filestr}_poster.png', bbox_inches='tight', dpi=300)

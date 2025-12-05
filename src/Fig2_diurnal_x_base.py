@@ -17,12 +17,12 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 stat_var = 'cor'; xlim = [-0.2, 0.85]
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
+fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}.csv')
 # fitting_df_TRENDYv11_unscaled = fitting_df_TRENDYv11_unscaled.loc[~fitting_df_TRENDYv11_unscaled['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+fitting_df_inversions_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_unscaled = fitting_df_inversions_unscaled.loc[~fitting_df_inversions_unscaled['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
+fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}.csv')
 
 # sort for each category
 fitting_df_TRENDYv11_sorted = fitting_df_TRENDYv11_unscaled.sort_values(f'{stat_var}')
@@ -72,12 +72,12 @@ elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
 # unscaled variables (without linear regression)
-fitting_df_TRENDYv11_unscaled_diurnal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_diurnal_x_base.csv')
+fitting_df_TRENDYv11_unscaled_diurnal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{lc_filestr}_diurnal_x_base.csv')
 # fitting_df_TRENDYv11_unscaled_diurnal = fitting_df_TRENDYv11_unscaled_diurnal.loc[~fitting_df_TRENDYv11_unscaled_diurnal['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
-fitting_df_inversions_unscaled_diurnal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_diurnal_x_base.csv')
+fitting_df_inversions_unscaled_diurnal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_diurnal_x_base.csv')
 fitting_df_inversions_unscaled_diurnal = fitting_df_inversions_unscaled_diurnal.loc[~fitting_df_inversions_unscaled_diurnal['model_name'].isin(['CAMS-Satellite', 'COLA', 'GCASv2', 'GONGGA', 'THU']), :] ## for models with no coverage of CARVE years
 fitting_df_inversions_unscaled_diurnal.loc[fitting_df_inversions_unscaled_diurnal['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
-fitting_df_UpscaledEC_unscaled_diurnal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_diurnal_x_base.csv')
+fitting_df_UpscaledEC_unscaled_diurnal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{lc_filestr}_diurnal_x_base.csv')
 
 
 fitting_df_TRENDYv11_merge = pd.merge(fitting_df_TRENDYv11_sorted, fitting_df_TRENDYv11_unscaled_diurnal, on='model_name', how='outer', suffixes=('_monthly', '_diurnal_x_base'))
@@ -94,6 +94,6 @@ plt.scatter(fitting_df_UpscaledEC_merge[f'{stat_var}_diurnal_x_base'], fitting_d
 
 plt.legend(bbox_to_anchor=(0.75, 0.8), fontsize=14)
 
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_diurnal_x_base.png', dpi=300, bbox_inches='tight')
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_diurnal_x_base.pdf', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_diurnal_x_base.png', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2_diurnal_x_base.pdf', dpi=300, bbox_inches='tight')
 plt.show()

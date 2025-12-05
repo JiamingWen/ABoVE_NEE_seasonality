@@ -13,11 +13,11 @@ from scipy import stats
 from scipy.stats import pearsonr
 from statsmodels.regression.linear_model import OLSResults
 
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
-dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/"
-dir1 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/regression/"
+dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/"
+dir1 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/regression/"
 
 # whether to filter observations based on land covers they are most sensitive to
 lcname = 'alllc' #alllc forest shrub tundra
@@ -45,8 +45,8 @@ for model_type in model_types:
             month_num = end_month - start_month + 1
 
             # read atmospheric observations
-            df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-            df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+            df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+            df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
             # filters for airborne observations
             mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
@@ -88,8 +88,8 @@ for model_type in model_types:
 
 
             # influence from fossil and fire emissions
-            df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
-            df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
+            df_fossil = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+            df_fire = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
             # derive biogenic CO2 drawdown/enhancement from fossil and fire emissions
             y0 = df_airborne['CO2_change'] - df_fossil['odiac2022'] - df_fire['gfed4.1']
@@ -103,7 +103,7 @@ for model_type in model_types:
 
                 for (variable_id, variable_name) in enumerate(variable_names):
                     
-                    variable0 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/regression_covariates/{variable_name}_{year}_{month}.csv')
+                    variable0 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/regression_covariates/{variable_name}_{year}_{month}.csv')
                     variable_month = variable0.loc[mask_id]
 
                     if variable_id == 0:
@@ -119,11 +119,11 @@ for model_type in model_types:
 
             '''add transported carbon fluxes or variables'''
             if model_type in ['CT-NOAA', 'CTE']:
-                df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_name}.csv')
+                df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_name}.csv')
                 X_year_NEE = df_model[f"{model_type}"].loc[mask_id] - df_fire['gfed4.1'].loc[mask_id]
                 X_year = pd.concat((X_year_NEE, X_year), axis=1)
             elif model_type == 'X-BASE':
-                df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_name}.csv')
+                df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_name}.csv')
                 X_year_NEE = df_model[f"{model_type}"].loc[mask_id]
                 X_year = pd.concat((X_year_NEE, X_year), axis=1)               
             else:
@@ -258,8 +258,8 @@ for model_type in model_types:
     plt.savefig(f"{dir0}evaluation_stat_{model_type}{lc_filestr}_highres_scatterplot.png", dpi=100, bbox_inches='tight')
     
     if model_type in ['CT-NOAA', 'CTE', 'X-BASE']:
-        plt.savefig(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitiviity_test_high_res_nee/evaluation_stat_{model_type}{lc_filestr}_highres_scatterplot.png", dpi=100, bbox_inches='tight')
-        plt.savefig(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitiviity_test_high_res_nee/evaluation_stat_{model_type}{lc_filestr}_highres_scatterplot.pdf", dpi=100, bbox_inches='tight')
+        plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitiviity_test_high_res_nee/evaluation_stat_{model_type}{lc_filestr}_highres_scatterplot.png", dpi=100, bbox_inches='tight')
+        plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitiviity_test_high_res_nee/evaluation_stat_{model_type}{lc_filestr}_highres_scatterplot.pdf", dpi=100, bbox_inches='tight')
     plt.show()
         
     fitting_df.to_csv(f"{dir0}evaluation_stat_scaled_{model_type}{lc_filestr}_highres.csv", encoding='utf-8', index=False)

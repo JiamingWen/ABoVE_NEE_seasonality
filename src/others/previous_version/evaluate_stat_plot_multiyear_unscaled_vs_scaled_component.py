@@ -8,15 +8,15 @@ stat_var = 'cor'; xlim = [0, 1]
 
 # unscaled variables (without linear regression)
 fitting_df = pd.DataFrame()
-fitting_df_TRENDYv11NEE_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11.csv')
+fitting_df_TRENDYv11NEE_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11.csv')
 
-fitting_df_TRENDYv11GPP_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11GPP.csv')
+fitting_df_TRENDYv11GPP_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11GPP.csv')
 fitting_df_TRENDYv11GPP_unscaled[stat_var] = abs(fitting_df_TRENDYv11GPP_unscaled[stat_var])
 
-fitting_df_TRENDYv11NPP_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11NPP.csv')
+fitting_df_TRENDYv11NPP_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11NPP.csv')
 fitting_df_TRENDYv11NPP_unscaled[stat_var] = abs(fitting_df_TRENDYv11NPP_unscaled[stat_var])
 
-fitting_df_TRENDYv11Reco_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11Reco.csv')
+fitting_df_TRENDYv11Reco_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11Reco.csv')
 
 fitting_df_TRENDY_unscaled = pd.concat([fitting_df_TRENDYv11NEE_unscaled['model_name'], 
                                 fitting_df_TRENDYv11NEE_unscaled[stat_var].rename(f'{stat_var}_NEE'), 
@@ -26,12 +26,12 @@ fitting_df_TRENDY_unscaled = pd.concat([fitting_df_TRENDYv11NEE_unscaled['model_
 
 
 # other datasets
-fitting_df_NEEobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations.csv')
+fitting_df_NEEobservations_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_NEEobservations.csv')
 
-fitting_df_GPPobservations_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_GPPobservations.csv')
+fitting_df_GPPobservations_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_GPPobservations.csv')
 fitting_df_GPPobservations_unscaled[stat_var] = abs(fitting_df_GPPobservations_unscaled[stat_var])
 
-fitting_df_reference_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_reference.csv')
+fitting_df_reference_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_reference.csv')
 fitting_df_reference_unscaled[stat_var] = abs(fitting_df_reference_unscaled[stat_var])
 
 fitting_df_unscaled = pd.concat([fitting_df_NEEobservations_unscaled[['model_name', stat_var]], 
@@ -40,10 +40,10 @@ fitting_df_unscaled = pd.concat([fitting_df_NEEobservations_unscaled[['model_nam
 
 
 # scaled variables (with linear regression)
-fitting_df_TRENDYv11NEE_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11.csv')
-fitting_df_TRENDYv11GPP_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11GPP.csv')
-fitting_df_TRENDYv11NPP_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11NPP.csv')
-fitting_df_TRENDYv11Reco_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11Reco.csv')
+fitting_df_TRENDYv11NEE_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11.csv')
+fitting_df_TRENDYv11GPP_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11GPP.csv')
+fitting_df_TRENDYv11NPP_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11NPP.csv')
+fitting_df_TRENDYv11Reco_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_TRENDYv11Reco.csv')
 
 fitting_df_TRENDY_scaled = pd.concat([fitting_df_TRENDYv11NEE_scaled['model_name'], 
                                 fitting_df_TRENDYv11NEE_scaled[stat_var].rename(f'{stat_var}_NEE'), 
@@ -52,10 +52,10 @@ fitting_df_TRENDY_scaled = pd.concat([fitting_df_TRENDYv11NEE_scaled['model_name
                                 fitting_df_TRENDYv11Reco_scaled[stat_var].rename(f'{stat_var}_Reco')], axis=1)
 
 # other datasets
-fitting_df_NEEobservations_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_NEEobservations.csv')
-fitting_df_GPPobservations_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_GPPobservations.csv')
+fitting_df_NEEobservations_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_NEEobservations.csv')
+fitting_df_GPPobservations_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_GPPobservations.csv')
 
-fitting_df_reference_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference.csv')
+fitting_df_reference_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference.csv')
 
 fitting_df_scaled = pd.concat([fitting_df_NEEobservations_scaled[['model_name', stat_var]], 
                                  fitting_df_GPPobservations_scaled[['model_name', stat_var]], 
@@ -103,5 +103,5 @@ plt.yticks(fontsize=15)
 plt.legend(loc='lower right')
 
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/evaluation_stat_multiyear_component_{stat_var}.png', dpi=100, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/evaluation_stat_multiyear_component_{stat_var}.png', dpi=100, bbox_inches='tight')
 plt.show()

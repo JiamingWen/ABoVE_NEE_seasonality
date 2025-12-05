@@ -9,10 +9,10 @@ from scipy.sparse import csr_matrix
 import xarray as xr
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
-cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 ABoVEcore_cellnum_list = np.where(cell_id_table['ABoVE'] == 0)[0]
 ABoVE_cellnum_list = np.where(cell_id_table['ABoVE'].isin ([0,1]))[0]
 ocean_cellnum_list = np.where(cell_id_table['land'] == 0)[0]
@@ -24,10 +24,10 @@ tundra_cellnum_list = np.where(cell_id_table['lc'].isin([8,9,10]))[0]
 for year in [2012, 2013, 2014, 2017]:
 
     start_month, end_month, campaign_name = get_campaign_info(year)
-    output_dir = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/'
+    output_dir = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    receptor_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
     n_receptor = receptor_df.shape[0]
     del receptor_df
 
@@ -38,7 +38,7 @@ for year in [2012, 2013, 2014, 2017]:
         print(month)
         
         # read stored H sparse matrix
-        h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
+        h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
                         sep="\s+", index_col=False, header=None,
                         names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
         #  \s+ is the expression for "any amount of whitespace"
@@ -97,7 +97,7 @@ for year in [2012, 2013, 2014, 2017]:
         result_df['ABoVE_influence_fraction'] = result_df['ABoVE_influence'] / result_df['total_influence']
         result_df['ABoVE_land_influence_fraction'] = result_df['ABoVE_influence'] / result_df['land_influence']
         result_df['ocean_influence_fraction'] = result_df['ocean_influence'] / result_df['total_influence']
-        result_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv', encoding='utf-8', index=False)
+        result_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv', encoding='utf-8', index=False)
 
     # average across observations for the year
     h_matrix_year_mean = h_matrix_year.mean(axis=0)  # average across the observations

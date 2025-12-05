@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import xarray as xr
 import numpy as np
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv9, read_inversions, read_fossil_fire
 
 
@@ -15,7 +15,7 @@ from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv9, read_inv
 model_names = ['CLASSIC', 'ISBA-CTRIP',  'JSBACH', 'JULES','CABLE-POP'] #, 'ISAM'
 
 # regional mask
-ABoVE_mask = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/above_mask/above_ext.nc')
+ABoVE_mask = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/above_mask/above_ext.nc')
 ABoVE_mask_subset = ABoVE_mask.isel(
                     lat=(ABoVE_mask.lat >= 30) & (ABoVE_mask.lat <= 90),
                     )
@@ -39,7 +39,7 @@ for var_name in ['tsl', 'NEE', 'GPP']:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
         # create dir
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/spatial/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/spatial/"
         if not os.path.exists(dir0):
             os.makedirs(dir0)
             

@@ -11,7 +11,7 @@ import numpy as np
 year = 2014 # 2012 2013 2014 2017
 
 varname = 'Fpar' #Fpar Lai
-input_dir = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/data_{year}'
+input_dir = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/data_{year}'
 
 # read filenames into a list
 geotiff_list: List[str] = sorted(
@@ -59,7 +59,7 @@ geotiffs_ds_subset: xr.Dataset = geotiffs_ds.isel(
 # Export as a NetCDF file - it is a large (1.8 GB) file, so I decide not to export it.
 # compression = dict(zlib=True, complevel=5)
 # geotiffs_ds_subset.to_netcdf(
-#     f"/central/groups/carnegie_poc/jwen2/ABoVE/modis_fpar/{varname}-500m-8day-20170407-20171125.nc",
+#     f"/resnick/groups/carnegie_poc/jwen2/ABoVE/modis_fpar/{varname}-500m-8day-20170407-20171125.nc",
 #     engine="netcdf4",
 #     encoding={v: compression for v in geotiffs_ds_subset.data_vars},
 # )
@@ -75,7 +75,7 @@ ds_monthly = geotiffs_ds_subset.groupby("time.month").mean("time") # this takes 
 # export file
 compression = dict(zlib=True, complevel=5)
 ds_monthly.to_netcdf(
-    f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{varname}-500m-monthly-{year}04-{year}11.nc",
+    f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/{varname}-500m-monthly-{year}04-{year}11.nc",
     engine="netcdf4",
     encoding={v: compression for v in ds_monthly.data_vars},
 )

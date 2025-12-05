@@ -25,7 +25,7 @@ for year in [2012, 2013, 2014, 2017]:
                 }
             }
             ds_day.to_netcdf(
-                f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/X-BASE_NEE_hourly_{year}_{month:02d}_{day:02d}.nc',
+                f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/X-BASE_NEE_hourly_{year}_{month:02d}_{day:02d}.nc',
                 encoding=encoding,
             )
             print(f"Saved X-BASE_NEE_hourly_{year}_{month:02d}_{day:02d}.nc")

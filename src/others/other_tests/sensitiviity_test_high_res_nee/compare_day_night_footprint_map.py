@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix, vstack
 import os
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 import utils
 from functions import get_campaign_info
 
@@ -35,11 +35,11 @@ for year in [2012, 2013, 2014, 2017]:
     print(year)
 
     campaign_name = get_campaign_info(year)[2]
-    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+    config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
 
     # read observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
     df = pd.concat((df_airborne, df_influence), axis=1)
     n_receptor = df.shape[0]
 
@@ -56,12 +56,12 @@ for year in [2012, 2013, 2014, 2017]:
     h_matrix_nighttime = csr_matrix((len(mask_id), 720 * 120))
 
     # read H matrix
-    config = utils.getConfig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
+    config = utils.getConfig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/config/config_{campaign_name}{year}_3hourly.ini')
     for ntimestep in np.arange(0, config["ntimesteps"]):
         
         print(ntimestep)
         timestep = config["sdate"] + ntimestep * config["timestep"]
-        h_matrix_dir= f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
+        h_matrix_dir= f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/3hourly'
         h_matrix_file = f'{h_matrix_dir}/H{timestep.year}_{timestep.month}_{timestep.day}_{timestep.hour}.txt'
         
         if os.path.exists(h_matrix_file):
@@ -118,7 +118,7 @@ ds_daytime_all = xr.Dataset(
 )
 
 ds_daytime_all.to_netcdf(
-    f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/influence_mean_daytime_allyears_selected.nc',
+    f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/influence_mean_daytime_allyears_selected.nc',
     engine="netcdf4",
     encoding={v: compression for v in ds_daytime_all.data_vars},
 )
@@ -135,7 +135,7 @@ ds_nighttime_all = xr.Dataset(
 )
 
 ds_nighttime_all.to_netcdf(
-    f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/influence_mean_nighttime_allyears_selected.nc',
+    f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/influence_mean_nighttime_allyears_selected.nc',
     engine="netcdf4",
     encoding={v: compression for v in ds_nighttime_all.data_vars},
 )
@@ -192,7 +192,7 @@ def setup_plot(ax, region_extent, ccrs_plot, axes=True):
 
     return ax
 
-dir = '/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime'
+dir = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime'
 region_extent = [-170, -100, 50, 75]
 subtitle_loc = [-165, 72]
 ccrs_plot = ccrs.PlateCarree()
@@ -220,5 +220,5 @@ cb.ax.xaxis.set_label_coords(0.5, 3.5)
 cb.set_ticks([-4, -3, -2])
 cb.set_ticklabels([ r'$10^{-4}$', r'$10^{-3}$', r'$10^{-2}$'])
 
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/footprint_daytime_nighttime_map.png', dpi=300, bbox_inches='tight')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/footprint_daytime_nightime/footprint_daytime_nighttime_map.png', dpi=300, bbox_inches='tight')
 plt.show()

@@ -3,9 +3,9 @@
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv')
+data = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv')
 data_near_surface = data[data['footprint_agl'] <= 2000]
-data_background = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
+data_background = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
 
 # for Apr 27, 2017, use the average of Apr 26 and 28 as background values
 CO2 = (float(data_background['CO2'][data_background['date'] == '2017-04-26']) + 
@@ -40,7 +40,7 @@ for index, row in data_near_surface.iterrows():
     list_of_dataframes.append(row)
 
 CO2_change_df = pd.DataFrame(list_of_dataframes)
-CO2_change_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv', encoding='utf-8', index=False)
+CO2_change_df.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv', encoding='utf-8', index=False)
 
 
 # # check the calculation
@@ -51,7 +51,7 @@ CO2_change_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasona
 # from matplotlib import pyplot as plt
 # from datetime import datetime
 # import pandas as pd
-# CO2_change_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
+# CO2_change_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
 # CO2_change_df['hour'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").hour for index, row in CO2_change_df.iterrows()]
 # CO2_change_df['minute'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").minute for index, row in CO2_change_df.iterrows()]
 # CO2_change_df['month'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").month for index, row in CO2_change_df.iterrows()]

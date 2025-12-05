@@ -77,10 +77,10 @@ if __name__ == "__main__":
     ds = ds[['CO2']]
     # regridder = xe.Regridder(ds, grid_out, "conservative")
     # ds.close()
-    # fn = regridder.to_netcdf('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gfed/regridder_gfedv5.nc')
+    # fn = regridder.to_netcdf('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gfed/regridder_gfedv5.nc')
 
     # read saved regridder
-    fn = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gfed/regridder_gfedv5.nc')
+    fn = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/gfed/regridder_gfedv5.nc')
     regridder = xe.Regridder(ds, grid_out, 'conservative', weights=fn)
 
     year_start: int = 2002

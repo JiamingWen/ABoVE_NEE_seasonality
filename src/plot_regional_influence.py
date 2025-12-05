@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 obs_mode = 'all' # all selected
@@ -58,11 +58,11 @@ for year in [2012,2013,2014,2017]:
 
     for month in np.arange(start_month, end_month+1):
         print(month)
-        ds_influence_month = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}_{month}{filestr}.nc').influence
-        plot_influence_map(ds_influence_month, f'{year}/{month:02d} {obs_mode} observations', f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}_{month}{filestr}.png')
+        ds_influence_month = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}_{month}{filestr}.nc').influence
+        plot_influence_map(ds_influence_month, f'{year}/{month:02d} {obs_mode} observations', f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}_{month}{filestr}.png')
 
-    ds_influence_year = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}{filestr}.nc').influence
-    plot_influence_map(ds_influence_year, f'{year} {obs_mode} observations', f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}{filestr}.png')
+    ds_influence_year = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}{filestr}.nc').influence
+    plot_influence_map(ds_influence_year, f'{year} {obs_mode} observations', f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_{calculation_method}{year}{filestr}.png')
 
 
     # calculate fraction of each land cover and ABoVE core vs extended region
@@ -70,7 +70,7 @@ for year in [2012,2013,2014,2017]:
         latitude=(ds_influence_year.latitude >= 30) & (ds_influence_year.latitude <= 90),
         )
     influence_vec = ds_influence_year.values.flatten()
-    cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+    cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 
     allregion_cellnum_list = cell_id_table['cell_id']
     ABoVEcore_cellnum_list = np.where(cell_id_table['ABoVE'] == 0)[0]
@@ -111,4 +111,4 @@ for year in [2012,2013,2014,2017]:
         region_influence_summary_df.columns = lc_names
         influence_summary_df = pd.concat([influence_summary_df,region_influence_summary_df])
     influence_summary_df.index = region_names
-    influence_summary_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_summary_{calculation_method}{year}{filestr}.csv', encoding='utf-8')
+    influence_summary_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_summary_{calculation_method}{year}{filestr}.csv', encoding='utf-8')

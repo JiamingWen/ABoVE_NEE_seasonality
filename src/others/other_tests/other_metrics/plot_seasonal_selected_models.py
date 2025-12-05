@@ -21,13 +21,13 @@ inversion_models = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS'
 upscaled_EC_models = ['X-BASE', 'ABCflux']
 
 '''stat'''
-fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv')
-fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv')
-fitting_df_inversionsNEE_unscaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv')
+fitting_df_TRENDYv11_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv')
+fitting_df_UpscaledEC_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv')
+fitting_df_inversionsNEE_unscaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv')
 fitting_df = pd.concat((fitting_df_TRENDYv11_unscaled, fitting_df_UpscaledEC_unscaled, fitting_df_inversionsNEE_unscaled))
 
 # add co2 enhancement range calculated from percentiles
-co2_enhancement_percentile_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
+co2_enhancement_percentile_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
 upper_percentile = 0.95; lower_percentile = 0.05
 co2_enhancement_seasonal_low_obs = co2_enhancement_percentile_df[co2_enhancement_percentile_df['percentile'] == lower_percentile]['obs'].values[0]
 co2_enhancement_seasonal_high_obs = co2_enhancement_percentile_df[co2_enhancement_percentile_df['percentile'] == upper_percentile]['obs'].values[0]
@@ -64,9 +64,9 @@ print(f"Selected models: {selected_models}")
 
 
 '''plot seasonal cycle'''
-seasonal_df_TRENDYv11 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
-seasonal_UpscaledEC = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")
-seasonal_inversionsNEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
+seasonal_UpscaledEC = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")
+seasonal_inversionsNEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df = pd.concat([seasonal_df_TRENDYv11, seasonal_UpscaledEC, seasonal_inversionsNEE], axis=1)
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
@@ -102,7 +102,7 @@ axes[1].text(0.05, 0.05, 'Selected models:\n' + '\n'.join(selected_models), font
              ha='left', va='bottom', wrap=True)
 
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_cycle_selected_models{background}{seasonal}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_cycle_selected_models{background}{seasonal}.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 

@@ -17,7 +17,7 @@ from functools import partial
 import time
 from functools import lru_cache
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import read_x_base_monthlycycle
 
 def reorganize_xarray (ds):
@@ -42,7 +42,7 @@ def reorganize_xarray (ds):
     return ds_subset
 
 _OCEAN_MASK = xr.open_dataset(
-    '/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/ocean-mask-half-degree.nc'
+    '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/ocean-mask-half-degree.nc'
 )
 _OCEAN_MASK = _OCEAN_MASK.assign_coords(
     longitude=((( _OCEAN_MASK.longitude + 180) % 360) - 180)
@@ -61,8 +61,8 @@ else:
     dir_footprint = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
 
 # read atmospheric observations
-df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
 # filters for airborne observations
 mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
@@ -72,7 +72,7 @@ mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
     (df_airborne['CO_change'] < 40))[0]
 
 # Output paths
-out_csv = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv'
+out_csv = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv'
 tmp_csv = out_csv + ".tmp"
 result_df = pd.DataFrame({'X-BASE': np.nan}, index=range(len(df_airborne)))
 
@@ -204,9 +204,9 @@ if __name__ == "__main__":
 
 
 # '''check output'''
-# df_diurnal_cycle = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')
-# df_daily = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-daily.csv')
-# df_hourly = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-hourly.csv')
+# df_diurnal_cycle = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')
+# df_daily = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-daily.csv')
+# df_hourly = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-hourly.csv')
 # print(len(mask_id), np.sum(df_diurnal_cycle['X-BASE_CO2_change'].notna()), np.sum(df_daily['X-BASE_CO2_change'].notna()), np.sum(df_hourly['X-BASE_CO2_change'].notna()))
 # diff = abs(df_diurnal_cycle['X-BASE_CO2_change'] + df_daily['X-BASE_CO2_change'] - df_hourly['X-BASE_CO2_change'])
 # diff[~pd.isna(diff)]

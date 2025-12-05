@@ -15,7 +15,7 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 
 reference = 'obs' # GroupH obs
 
-fitting_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_NEE_ABoVEcore_unweighted.csv')
+fitting_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_NEE_ABoVEcore_unweighted.csv')
 
 high_skill_TRENDY = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
 low_skill_TRENDY = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM'] #
@@ -46,7 +46,7 @@ plt.yticks(fontsize=12)
 plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=13)
 plt.ylabel('MAD of rescaled seasonal cycle', fontsize=13)
 
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/cor_mad_{reference}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/cor_mad_{reference}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/cor_mad_{reference}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/cor_mad_{reference}.pdf', dpi=300, bbox_inches='tight')
 
 plt.show()

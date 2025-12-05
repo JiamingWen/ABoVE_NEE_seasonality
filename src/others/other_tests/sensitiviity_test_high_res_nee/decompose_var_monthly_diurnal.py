@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import pearsonr
 from datetime import datetime
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 model_type = 'X-BASE'
@@ -21,8 +21,8 @@ for year_id, year in enumerate([2012, 2013, 2014, 2017]):
     month_num = end_month - start_month + 1
 
     # read atmospheric observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
     # filters for airborne observations
     mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
@@ -31,8 +31,8 @@ for year_id, year in enumerate([2012, 2013, 2014, 2017]):
         (df_airborne['CO2_change'] < 30) &
         (df_airborne['CO_change'] < 40))[0]
 
-    df_airborne['co2_total'] = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')[f"{model_type}"]
-    df_airborne['co2_seasonal'] = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly.csv')[f"{model_type}"]
+    df_airborne['co2_total'] = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')[f"{model_type}"]
+    df_airborne['co2_seasonal'] = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly.csv')[f"{model_type}"]
     df_airborne['co2_diurnal'] = df_airborne['co2_total'] - df_airborne['co2_seasonal']
     
     df_year = df_airborne.loc[mask_id]
@@ -103,7 +103,7 @@ for r in range(3):
     axes[r, 4].tick_params(axis='x', labelsize=12)
 
 plt.tight_layout()
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/decompose_var_monthly_diurnal.png', dpi=300)
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/decompose_var_monthly_diurnal.png', dpi=300)
 plt.show()
 
 '''calculate correlation and variance'''

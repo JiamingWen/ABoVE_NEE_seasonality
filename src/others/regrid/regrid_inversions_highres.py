@@ -45,13 +45,13 @@ inversion_name = "CTE" # CT-NOAA, CTE
 if inversion_name == "CT-NOAA":
     input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CT-NOAA/three-hourly/"
     output_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CT-NOAA/three-hourly/"
-    regridder_dir: str = "/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/CT-NOAA/"
+    regridder_dir: str = "/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/CT-NOAA/"
     varname: str = ["bio_flux_opt"]
     yearstr_loc = list(range(15, 19))
 elif inversion_name == "CTE":
     input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CTE/three-hourly/cte2024_posterior/co2_bio_flux_opt/"
     output_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CTE/three-hourly/"
-    regridder_dir: str = "/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/CTE/"
+    regridder_dir: str = "/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/CTE/"
     varname: str = ["co2_bio_flux_opt"]
     yearstr_loc = list(range(4, 8))
 

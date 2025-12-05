@@ -82,10 +82,10 @@ if __name__ == "__main__":
 
     # # save regridder
     regridder = xe.Regridder(ds, grid_out, "conservative")
-    fn = regridder.to_netcdf('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/regridder_025_to_05.nc')
+    fn = regridder.to_netcdf('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/regridder_025_to_05.nc')
 
     # read saved regridder
-    fn = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/regridder_025_to_05.nc')
+    fn = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/x_base_hourly/regridder_025_to_05.nc')
     regridder = xe.Regridder(ds, grid_out, 'conservative', weights=fn)
 
     # loop through the variables and years

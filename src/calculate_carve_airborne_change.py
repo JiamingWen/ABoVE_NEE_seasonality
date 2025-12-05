@@ -5,9 +5,9 @@ import numpy as np
 
 year = 2014 # 2012 2013 2014
 
-data = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint.csv')
+data = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_matching_footprint.csv')
 data_near_surface = data[data['footprint_agl'] <= 2000]
-data_background = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_background.csv')
+data_background = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_background.csv')
 
 
 # for each observation, subtract the background value of that day if available
@@ -34,7 +34,7 @@ for index, row in data_near_surface.iterrows():
     list_of_dataframes.append(row)
 
 CO2_change_df = pd.DataFrame(list_of_dataframes)
-CO2_change_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv', encoding='utf-8', index=False)
+CO2_change_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv', encoding='utf-8', index=False)
 
 
 
@@ -46,7 +46,7 @@ CO2_change_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_season
 # from matplotlib import pyplot as plt
 # from datetime import datetime
 # import pandas as pd
-# CO2_change_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
+# CO2_change_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/carve_airborne/atm_obs/ABoVE_{year}_carve_airborne_change.csv')
 # CO2_change_df['hour'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").hour for index, row in CO2_change_df.iterrows()]
 # CO2_change_df['minute'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").minute for index, row in CO2_change_df.iterrows()]
 # CO2_change_df['month'] = [datetime.strptime(CO2_change_df['footprint_time_AKT'][index], "%Y-%m-%d %H:%M:%S-0%f:00").month for index, row in CO2_change_df.iterrows()]

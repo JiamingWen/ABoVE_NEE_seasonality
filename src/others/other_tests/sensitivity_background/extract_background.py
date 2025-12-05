@@ -355,21 +355,21 @@ if __name__ == "__main__":
             traj_path = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above-trajectories/ABoVE_Particles_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-particles"
         
         extract_endpts_co2_ct_airborne(
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
             traj_path,
             f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/background/co2/carbontracker-2022",
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/endpts/{year}",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/endpts/{year}",
         )
         calculate_background_co2_ct_airborne(
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/endpts/{year}",
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background-ct.csv",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/endpts/{year}",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background-ct.csv",
         )
         calculate_ebg_co2_airborne(
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv",
             traj_path,
             f"/central/groups/carnegie_poc/michalak-lab/data/noaa-gml-na-boundary-conditions/v20200302/nc/ebg_co2.nc",
-            f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background-ebg.csv",
+            f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background-ebg.csv",
         )
     end_time: float = time.time()
     print(f"Elapsed time: {time.strftime('%H:%M:%S', time.gmtime(end_time - start_time))}")

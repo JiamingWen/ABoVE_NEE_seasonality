@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 inversion_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
 
-fitting_df1 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+fitting_df1 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 fitting_df1 = fitting_df1[fitting_df1.model_name.isin(model_names)]
-fitting_df2 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_inversion.csv')
+fitting_df2 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_inversion.csv')
 
 stat_var = 'cor'; xlim = [-0.2, 1]
 fitting_df1_sorted = fitting_df1.sort_values(stat_var)
@@ -48,10 +48,10 @@ plt.show()
 # Fig 2 for Carbon Dynamics WG: standardized seasonal cycle
 colors = ['#000000', '#5986cb', '#6fb557', '#e57f3f']
 fitting_df_list = [fitting_df2_sorted, fitting_df1_sorted_high, fitting_df1_sorted_mid, fitting_df1_sorted_low]
-# seasonal_df_TRENDY = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_nee_seasonal.csv')
-seasonal_df_TRENDY = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/regression/ABoVE_2017_TRENDY_seasonal_all.csv')
+# seasonal_df_TRENDY = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_nee_seasonal.csv')
+seasonal_df_TRENDY = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/regression/ABoVE_2017_TRENDY_seasonal_all.csv')
 seasonal_df_TRENDY = seasonal_df_TRENDY[model_names]
-seasonal_df_inversion = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/inversion/ABoVE_2017_inversion_seasonal.csv')
+seasonal_df_inversion = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/inversion/ABoVE_2017_inversion_seasonal.csv')
 seasonal_df = pd.concat((seasonal_df_TRENDY, seasonal_df_inversion), axis=1)
 
 
@@ -95,7 +95,7 @@ plt.show()
 # model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 # inversion_names = ['CAMS', 'CT2022', 'NISMON']
 
-# fitting_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+# fitting_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 
 # fitting_df1 = fitting_df[fitting_df.model_name.isin(model_names)]
 # fitting_df2 = fitting_df[fitting_df.model_name.isin(inversion_names)]
@@ -133,7 +133,7 @@ plt.show()
 # # Fig 2 for Carbon Dynamics WG: standardized seasonal cycle
 # colors = ['#000000', '#5986cb', '#6fb557', '#e57f3f']
 # fitting_df_list = [fitting_df2_sorted, fitting_df1_sorted_high, fitting_df1_sorted_mid, fitting_df1_sorted_low]
-# seasonal_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/regression/ABoVE_2017_TRENDY_seasonal_all.csv')
+# seasonal_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/regression/ABoVE_2017_TRENDY_seasonal_all.csv')
 
 # # standardize with maximum
 # def scale_maximum (vec):
@@ -168,8 +168,8 @@ plt.show()
 
 ##########################################################
 # Fig 1 for Modeling WG: v9 vs v11 Correlation with Arctic-CAP
-fitting_df_v9 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
-fitting_df_v11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+fitting_df_v9 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
+fitting_df_v11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 model_names_v11 = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 fitting_df_v11 = fitting_df_v11[fitting_df_v11['model_name'].isin(model_names_v11)]
 fitting_df = pd.merge(fitting_df_v11, fitting_df_v9, on='model_name', how='outer', suffixes=('_v11', '_v9'))
@@ -198,8 +198,8 @@ import pandas as pd
 
 var_name = 'nee'
 model_names_v9 = ['CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT']
-seasonal_df_TRENDYv9 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_{var_name}_seasonal_TRENDYv9.csv')
-seasonal_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_{var_name}_seasonal_all.csv')
+seasonal_df_TRENDYv9 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_{var_name}_seasonal_TRENDYv9.csv')
+seasonal_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/TRENDY/ABoVE_2017_TRENDY_{var_name}_seasonal_all.csv')
 
 
 fig = plt.figure(figsize=(18,12))
@@ -239,10 +239,10 @@ stat_var = 'cor'; xlim = [-0.2, 1]
 TRENDYv11_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 reference_names = ['APAR', 'PAR', 'FPAR', 'LAI']
 
-fitting_df0 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+fitting_df0 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 fitting_df_TRENDY = fitting_df0[fitting_df0['model_name'].isin(TRENDYv11_names)]
 fitting_df_RS = fitting_df0[fitting_df0['model_name'].isin(reference_names)]
-fitting_df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_inversion.csv')
+fitting_df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_inversion.csv')
 
 fitting_df_TRENDY_sorted = fitting_df_TRENDY.sort_values(stat_var)
 fitting_df_RS_sorted = fitting_df_RS.sort_values(stat_var)
@@ -250,7 +250,7 @@ fitting_df_inversions_sorted = fitting_df_inversions.sort_values(stat_var)
 
 fitting_df = pd.concat([fitting_df_TRENDY_sorted, fitting_df_inversions_sorted, fitting_df_RS_sorted], axis=0)
 
-fitting_df_v9 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
+fitting_df_v9 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
 fitting_df = pd.merge(fitting_df, fitting_df_v9, on='model_name', how='outer', suffixes=('_v11', '_v9'))
 
 
@@ -281,8 +281,8 @@ plt.show()
 # import pandas as pd
 # import matplotlib.pyplot as plt
 
-# fitting_df_v9 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
-# fitting_df_v11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+# fitting_df_v9 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
+# fitting_df_v11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 
 # model_names_v11 = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 # inversion_names = ['CAMS', 'CT2022', 'NISMON']
@@ -328,8 +328,8 @@ plt.show()
 # import pandas as pd
 # import matplotlib.pyplot as plt
 
-# fitting_df_v9 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
-# fitting_df_v11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
+# fitting_df_v9 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats_TRENDYv9.csv')
+# fitting_df_v11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/ABoVE_2017_arctic_cap_airborne_original_stats.csv')
 
 # model_names_v11 = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
 # inversion_names = ['CAMS', 'CT2022', 'NISMON']

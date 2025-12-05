@@ -15,25 +15,25 @@ for year in [2012, 2013, 2014, 2017]:
         campaign_name = 'arctic_cap'
 
     # read atmospheric observations
-    df_airborne_original = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change{background}.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne_original = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change{background}.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
     # influence from fossil and fire emissions
-    df_fossil = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
-    df_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
+    df_fossil = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+    df_fire = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
     # observed CO2 enhancement
     df_airborne['obs'] = df_airborne['CO2_change'] - df_fossil['odiac2022'] - df_fire['gfed4.1']
 
     # modeled CO2 enhancement
-    df_TRENDY = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_TRENDYv11{seasonal}.csv')
+    df_TRENDY = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_TRENDYv11{seasonal}.csv')
     if seasonal == '_only_seasonal':
-        df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversionsNEE{seasonal}.csv')
+        df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversionsNEE{seasonal}.csv')
     else:
-        df_inversions = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions{seasonal}.csv')
+        df_inversions = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions{seasonal}.csv')
         df_inversions = df_inversions.subtract(df_fire['gfed4.1'], axis=0)  # account for fire emissions
-    df_upscaledEC = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_UpscaledEC{seasonal}.csv')
+    df_upscaledEC = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_UpscaledEC{seasonal}.csv')
 
     df_year = pd.concat([df_airborne, df_TRENDY, df_inversions, df_upscaledEC], axis=1)
 
@@ -64,7 +64,7 @@ for year in [2012, 2013, 2014, 2017]:
 
     df_year_cp_percentiles = df_year_cp_percentiles.reset_index().rename(columns={'index': 'percentile'})
 
-    df_year_cp_percentiles.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_{year}{seasonal}{background}.csv', index=False)
+    df_year_cp_percentiles.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_{year}{seasonal}{background}.csv', index=False)
 
     if year == 2012:
         df_combined = df_year
@@ -88,15 +88,15 @@ df_combined_percentiles = pd.concat([
 
 df_combined_percentiles = df_combined_percentiles.reset_index().rename(columns={'index': 'percentile'})
 
-df_combined_percentiles.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv', index=False)
+df_combined_percentiles.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv', index=False)
 
 
 '''plot sensonal co2 enhancement amplitude for aircraft data during 2012-2014 and 2017'''
-df_combined_percentiles = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
-df_combined_percentiles_2012 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2012{seasonal}{background}.csv')
-df_combined_percentiles_2013 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2013{seasonal}{background}.csv')
-df_combined_percentiles_2014 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2014{seasonal}{background}.csv')
-df_combined_percentiles_2017 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2017{seasonal}{background}.csv')
+df_combined_percentiles = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
+df_combined_percentiles_2012 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2012{seasonal}{background}.csv')
+df_combined_percentiles_2013 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2013{seasonal}{background}.csv')
+df_combined_percentiles_2014 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2014{seasonal}{background}.csv')
+df_combined_percentiles_2017 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_2017{seasonal}{background}.csv')
 
 fig, ax = plt.subplots(figsize=(5, 4))
 model_name = 'obs' # obs ISBA-CTRIP CLASSIC IBIS LPJ CLM5.0 CAMS CT-NOAA CMS-Flux ABCflux-NEE
@@ -116,8 +116,8 @@ plt.show()
 
 
 '''plot sensonal co2 enhancement amplitude from original data vs mean seasonal cycle'''
-df_combined_percentiles = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft.csv')
-df_combined_percentiles_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_only_seasonal.csv')
+df_combined_percentiles = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft.csv')
+df_combined_percentiles_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft_only_seasonal.csv')
 
 # Define model groups and their colors/shapes
 high_skill_TRENDY = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']

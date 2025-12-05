@@ -39,11 +39,11 @@ import pandas as pd
 import math
 import utils
 
-receptor_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
+receptor_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_change.csv')
 list_footprint_files = receptor_df['footprint_filename'].tolist() #list of the footprint files
 footprint_dir = "/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/"
 
-config = utils.getConfig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/config/config_arctic_cap2017_monthly.ini')
+config = utils.getConfig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/config/config_arctic_cap2017_monthly.ini')
 t0 = datetime.datetime.now()
 
 # Directory to store H matrix
@@ -139,7 +139,7 @@ for obsnum, line in enumerate(list_footprint_files): #obsnum - index; line - fil
 # # utils.py also have some functions to store the files in other formats, e.g., *.npz - save ~50% space
 # year = 2017
 # for month in np.arange(4,12):
-# 	h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+# 	h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/arctic_cap_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
 # 					sep="\s+", index_col=False, header=None,
 # 					names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
 # 	tmpfile = "%s/H%d_%d.npz" % (hdir, year, month)

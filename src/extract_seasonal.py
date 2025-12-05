@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, subset_30N_90N, read_TRENDYv11, read_TRENDYv9, read_inversions, read_inversions_prior, read_remote_sensing, read_gosif_gpp, read_x_base_monthly, read_abcflux, read_fossil, read_fire, read_MODIS_VI, read_GOME2_SIF
 
 
@@ -15,16 +15,16 @@ for year in [2012, 2013, 2014, 2017]:
     start_month, end_month, campaign_name = get_campaign_info(year)
 
     # create dir
-    dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/"
+    dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/"
     if not os.path.exists(dir0):
         os.makedirs(dir0)
 
     # some anciliary datasets
     # regional mask and land cover table
-    cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+    cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 
     # footprint sensitivity map
-    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean{year}_selected.nc')
+    influence = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean{year}_selected.nc')
 
     for regionname in ['ABoVEcore']: #, 'ABoVEcoreextended'
 

@@ -8,7 +8,7 @@ import pandas as pd
 import xarray as xr
 from scipy.sparse import csr_matrix
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, subset_30N_90N, read_remote_sensing, read_cru, read_MODIS_VI, read_GOME2_SIF
 
 year = 2017 # 2012 2013 2014 2017
@@ -16,14 +16,14 @@ year = 2017 # 2012 2013 2014 2017
 start_month, end_month, campaign_name = get_campaign_info(year)
 
 # read observations
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+receptor_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
 n_receptor = receptor_df.shape[0]
 
 # mask for land pixels
-cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 land_cellnum_list = np.where(cell_id_table['land']==1)[0]
 
-dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/regression_covariates/"
+dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/regression_covariates/"
 if not os.path.exists(dir0):
     os. makedirs(dir0)
 
@@ -31,7 +31,7 @@ for month in np.arange(start_month,end_month+1):
     print(year, month)
 
     # read H matrix
-    h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
+    h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
                     sep="\s+", index_col=False, header=None,
                     names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
     #  \s+ is the expression for "any amount of whitespace"

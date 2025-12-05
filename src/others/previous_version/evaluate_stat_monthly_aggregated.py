@@ -10,7 +10,7 @@ import statsmodels.api as sm
 from scipy.stats import pearsonr
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info
 
 year = 2013 # 2012 2013 2014 2017
@@ -19,9 +19,9 @@ start_month, end_month, campaign_name = get_campaign_info(year)
 
 
 # read table
-df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
-df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+df_fossil_fire = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
 
 # apply filter
 local_hour = pd.to_datetime(df_airborne['footprint_time_AKT'], utc=True).dt.tz_convert('America/Anchorage').dt.hour
@@ -63,18 +63,18 @@ for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'regressi
     
     if model_type == 'TRENDYv11':
         model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
-        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_TRENDYv11.csv')
+        df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_TRENDYv11.csv')
         fig = plt.figure(figsize=(30,30))
     
     elif model_type == 'TRENDYv9':
         model_names = ['CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT']
-        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_TRENDYv9.csv')
+        df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_TRENDYv9.csv')
         fig = plt.figure(figsize=(30,25))
     
     elif model_type == 'inversions':
         # inversions from GCB2023
         model_names = ['CAMS', 'CAMS-Satellite', 'CarboScope', 'CMS-Flux', 'COLA', 'CTE', 'CT-NOAA', 'GCASv2', 'GONGGA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'THU', 'UoE']
-        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
+        df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
         # mask columns if all values are zero - for models with no data
         df_model_columns = df_model.columns
         df_model_mask = (df_model[df_model_columns].eq(0).all(axis=0))
@@ -85,13 +85,13 @@ for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'regressi
     elif model_type == 'reference':
         # remote sensing reference
         model_names = ['APAR', 'PAR', 'FPAR', 'LAI']
-        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_reference.csv')
+        df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_reference.csv')
         fig = plt.figure(figsize=(30,5))
 
     elif model_type == 'regression':
         # regression models
         model_names = ['CRU', 'CRUxLC', 'CRUxMonth', 'Month', 'MonthxLC']
-        df_model = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regression.csv')
+        df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regression.csv')
         fig = plt.figure(figsize=(30,10))
 
 
@@ -158,8 +158,8 @@ for model_type in ['TRENDYv11', 'TRENDYv9', 'inversions', 'reference', 'regressi
     fig.text(0.5, 0.07, 'Modeled CO2 change due to NEE (ppm)', fontsize=40, ha='center')
     fig.text(0.08, 0.5, 'Observed CO2 change (ppm)', fontsize=40, va='center', rotation='vertical') #(removing fossil fuel and fire emissions) 
 
-    plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/evaluation_stat_{campaign_name}_{year}_{model_type}{lc_filestr}_scatterplot_monthly_aggregated.png', dpi=100, bbox_inches='tight')
+    plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/evaluation_stat_{campaign_name}_{year}_{model_type}{lc_filestr}_scatterplot_monthly_aggregated.png', dpi=100, bbox_inches='tight')
     plt.show()
 
-    fitting_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/evaluation_stat_{campaign_name}_{year}_{model_type}{lc_filestr}_monthly_aggregated.csv', encoding='utf-8', index=False)
+    fitting_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/evaluation_stat_{campaign_name}_{year}_{model_type}{lc_filestr}_monthly_aggregated.csv', encoding='utf-8', index=False)
 

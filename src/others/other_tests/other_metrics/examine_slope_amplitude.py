@@ -22,15 +22,15 @@ elif metric == 'co2_enhancement_seasonal_percentile_ratio':
     xlim = [0, 4]; n_intervals = 5
 
 # statistical metrics
-fitting_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv') #_only_seasonal
-fitting_df_upscaledEC = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv') #_only_seasonal
-fitting_df_inversionsNEE = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv') #_only_seasonal
+fitting_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11{seasonal}{background}.csv') #_only_seasonal
+fitting_df_upscaledEC = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC{seasonal}{background}.csv') #_only_seasonal
+fitting_df_inversionsNEE = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{seasonal}{background}.csv') #_only_seasonal
 fitting_df = pd.concat([fitting_df_TRENDYv11, fitting_df_upscaledEC, fitting_df_inversionsNEE], ignore_index=True)
 
 # seasonal cycle amplitude
-seasonal_df_TRENDYv11 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_ABoVEcore_alllc_unweighted.csv')
-seasonal_df_upscaledEC = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_ABoVEcore_alllc_unweighted.csv')
-seasonal_df_inversionsNEE = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_TRENDYv11 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_upscaledEC = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_ABoVEcore_alllc_unweighted.csv')
+seasonal_df_inversionsNEE = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_ABoVEcore_alllc_unweighted.csv')
 seasonal_df = pd.concat([seasonal_df_TRENDYv11, seasonal_df_upscaledEC, seasonal_df_inversionsNEE], axis=1)
 # seasonal_amp = seasonal_df.max() - seasonal_df.min() # seasonal amplitude for all months
 seasonal_amp = seasonal_df.iloc[3:11, :].max() - seasonal_df.iloc[3:11, :].min() # seasonal amplitude for Apr - Nov
@@ -43,7 +43,7 @@ fitting_df = fitting_df.rename(columns={0: 'seasonal_amp'})
 
 # add seasonal amplitude ratio of CO2 enhancement
 # option 1: defined by monthly aggregated CO2 enhancement
-co2_enhancement_seasonal_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_amplitude_aircraft{seasonal}{background}.csv')
+co2_enhancement_seasonal_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_amplitude_aircraft{seasonal}{background}.csv')
 co2_enhancement_seasonal_min_obs = co2_enhancement_seasonal_df['obs'].min()
 co2_enhancement_seasonal_max_obs = co2_enhancement_seasonal_df['obs'].max()
 co2_enhancement_seasonal_amp_obs = co2_enhancement_seasonal_max_obs - co2_enhancement_seasonal_min_obs
@@ -55,7 +55,7 @@ for model_name in fitting_df['model_name']:
     fitting_df.loc[fitting_df['model_name'] == model_name, 'co2_enhancement_seasonal_amp_ratio'] = co2_enhancement_seasonal_amp_ratio
 
 # option 2: defined by percentiles of CO2 enhancement
-co2_enhancement_percentile_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
+co2_enhancement_percentile_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/seasonal_amplitude/seasonal_co2_enhancement_percentiles_aircraft{seasonal}{background}.csv')
 upper_percentile = 0.95; lower_percentile = 0.05
 # upper_percentile = 0.9; lower_percentile = 0.1
 # upper_percentile = 0.75; lower_percentile = 0.25
@@ -106,7 +106,7 @@ plt.xlabel(xlabel, fontsize=13)
 plt.ylabel('Growing season NEE amplitude '+ '($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=13)
 plt.axvline(x=1, color='gray', linestyle=':', linewidth=1.5)
 
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/{metric}_NEE_amplitude{background}{seasonal}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/{metric}_NEE_amplitude{background}{seasonal}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/{metric}_NEE_amplitude{background}{seasonal}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/other_metrics/{metric}_NEE_amplitude{background}{seasonal}.pdf', dpi=300, bbox_inches='tight')
 
 plt.show()

@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 
@@ -20,11 +20,11 @@ from functions import get_campaign_info
 for year in [2012,2013,2014,2017]:
 
     start_month, end_month, campaign_name = get_campaign_info(year)
-    output_dir = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity'
+    output_dir = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity'
     
     # read observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
     df = pd.concat((df_airborne, df_influence), axis=1)
     n_receptor = df.shape[0]
 
@@ -42,7 +42,7 @@ for year in [2012,2013,2014,2017]:
         print(month)
         
         # read stored H sparse matrix
-        h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
+        h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/{year}/monthly/H{year}_{month}.txt",
                     sep="\s+", index_col=False, header=None,
                         names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
         #  \s+ is the expression for "any amount of whitespace"
@@ -145,7 +145,7 @@ ds_all_year = xr.Dataset(
 
 compression = dict(zlib=True, complevel=5)
 ds_all_year.to_netcdf(
-    f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean_allyears_selected.nc',
+    f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean_allyears_selected.nc',
     engine="netcdf4",
     encoding={v: compression for v in ds_all_year.data_vars},
 )
@@ -231,7 +231,7 @@ for i, year in enumerate([2012, 2013, 2014, 2017]):
     label = chr(97 + i)  # 'a', 'b', 'c', 'd'
     ax.text(subtitle_loc[0], subtitle_loc[1], f'({label}) {year}', fontsize=15)
 
-    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean{year}_selected.nc').influence
+    influence = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_mean{year}_selected.nc').influence
     lons = influence["longitude"].values
     lats = influence["latitude"].values
     lon_grid, lat_grid = np.meshgrid(lons, lats)
@@ -249,5 +249,5 @@ cb.ax.xaxis.set_label_coords(0.5, 2.5)
 cb.set_ticks([-4, -3, -2])
 cb.set_ticklabels([ r'$10^{-4}$', r'$10^{-3}$', r'$10^{-2}$'])
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/footprint_selected_by_year.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/h_matrix/summarized_footprint_sensitivity/footprint_selected_by_year.png', dpi=300, bbox_inches='tight')
 plt.show()

@@ -15,16 +15,16 @@ stat_var = 'cor'; xlim = [-0.1, 0.85]
 
 
 # all years
-fitting_df_inversions_posterior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
+fitting_df_inversions_posterior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}.csv')
 fitting_df_inversions_posterior = fitting_df_inversions_posterior.loc[fitting_df_inversions_posterior['model_name'].isin(['CAMS', 'CMS-Flux', 'CTE', 'MIROC', 'NISMON-CO2']), :] ## for models with no coverage of CARVE years
-fitting_df_inversions_prior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE-prior{lc_filestr}.csv')
+fitting_df_inversions_prior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE-prior{lc_filestr}.csv')
 fitting_df_inversions_prior = fitting_df_inversions_prior.loc[fitting_df_inversions_prior['model_name'].isin(['CAMS', 'CMS-Flux', 'CTE', 'MIROC', 'NISMON-CO2']), :] ## for models with no coverage of CARVE years
 fig, ax = plt.subplots(figsize=(7,3))
 
 # # only for 2017
-# fitting_df_inversions_posterior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_2017.csv') #_only_seasonal
+# fitting_df_inversions_posterior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE{lc_filestr}_2017.csv') #_only_seasonal
 # fitting_df_inversions_posterior = fitting_df_inversions_posterior.loc[fitting_df_inversions_posterior['model_name'].isin(['CAMS', 'CAMS-Satellite', 'CMS-Flux', 'CTE', 'GCASv2', 'GONGGA', 'MIROC', 'NISMON-CO2', 'THU']), :] ## for models with no coverage of CARVE years
-# fitting_df_inversions_prior = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE-prior{lc_filestr}_2017.csv')
+# fitting_df_inversions_prior = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE-prior{lc_filestr}_2017.csv')
 # fitting_df_inversions_prior = fitting_df_inversions_prior.loc[fitting_df_inversions_prior['model_name'].isin(['CAMS', 'CAMS-Satellite', 'CMS-Flux', 'CTE', 'GCASv2', 'GONGGA', 'MIROC', 'NISMON-CO2', 'THU']), :] ## for models with no coverage of CARVE years
 # fig, ax = plt.subplots(figsize=(7,4))
 

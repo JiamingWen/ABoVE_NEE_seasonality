@@ -10,7 +10,7 @@ from matplotlib.colors import ListedColormap
 import geopandas
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info
 
 region_extent = [-170, -100, 50, 75]; subtitle_loc = [-165, 72] # core
@@ -77,7 +77,7 @@ filestr = '_selected'
 for year in [2012,2013,2014,2017]:
 
     start_month, end_month, campaign_name = get_campaign_info(year)
-    influence = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/h_matrix/influence_sum{year}{filestr}.nc').influence
+    influence = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/h_matrix/influence_sum{year}{filestr}.nc').influence
 
     if year == 2012:
         influence_sum = influence
@@ -102,6 +102,6 @@ cb.set_ticklabels(['$10^0$', '$10^1$', '$10^2$'])
 add_above_boundaries(ax)
 
 plt.show()
-fig.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/aggregated_sensitivity_poster.png', dpi=300, bbox_inches='tight') # Save the figure
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/result/figures/aggregated_sensitivity_poster.png', dpi=300, bbox_inches='tight') # Save the figure
 
 

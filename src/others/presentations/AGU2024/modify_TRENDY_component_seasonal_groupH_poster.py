@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info
 from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
@@ -11,10 +11,10 @@ lcname = 'alllc' #alllc forest shrub tundra
 lc_filestr = ''
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
-dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/result/modify_NEE/'
+dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/result/modify_NEE/'
 
 # model performance with original seasonal cycle
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
 fitting_df_TRENDYv11_unscaled_only_seasonal = fitting_df_TRENDYv11_unscaled_only_seasonal.loc[~fitting_df_TRENDYv11_unscaled_only_seasonal['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted = fitting_df_TRENDYv11_unscaled_only_seasonal.sort_values('cor')
 high_model_subset = fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['cor']>0.63, 'model_name'].tolist()
@@ -53,9 +53,9 @@ for plot_id in np.arange(4):
     plt.scatter(fitting_df_TRENDYv11_low['cor'], np.arange(len(low_model_subset)), marker='x', color='#e57f3f', s=100)
     
     # add reference ribbons
-    # fitting_df_regression_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_regression{lc_filestr}.csv')
+    # fitting_df_regression_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_regression{lc_filestr}.csv')
     # plt.axvspan(fitting_df_regression_scaled.loc[fitting_df_regression_scaled['model_name']=='constant','cor_CI_low'].values[0], fitting_df_regression_scaled.loc[fitting_df_regression_scaled['model_name']=='constant','cor_CI_high'].values[0], alpha=0.2, color='olive')
-    fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
+    fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
     plt.axvspan(fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_low'].values[0], fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_high'].values[0], alpha=0.2, color='purple')
 
     # add boxplots
@@ -85,5 +85,5 @@ for plot_id in np.arange(4):
     plt.text(0.05, 0.95, f"{subtitles[plot_id]} {labels[plot_id]}", transform=ax_sub.transAxes, fontsize=20, verticalalignment='top')
 
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/figures/modify_TRENDY_component_seasonal_groupH_poster.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/figures/modify_TRENDY_component_seasonal_groupH_poster.png', dpi=300, bbox_inches='tight')
 plt.show()

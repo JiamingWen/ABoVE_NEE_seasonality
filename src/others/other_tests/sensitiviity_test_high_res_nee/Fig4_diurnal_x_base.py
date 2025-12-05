@@ -13,9 +13,9 @@ lcname = 'alllc' #alllc forest shrub tundra
 lc_filestr = ''
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
-dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/'
+dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/'
 low_model_subset = sorted(['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM'], reverse=True)
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11_only_seasonal_diurnal_x_base.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11_only_seasonal_diurnal_x_base.csv')
 fitting_df_TRENDYv11_low = fitting_df_TRENDYv11_unscaled_only_seasonal[fitting_df_TRENDYv11_unscaled_only_seasonal['model_name'].isin(low_model_subset)]
 fitting_df_TRENDYv11_low = fitting_df_TRENDYv11_low.sort_values('model_name', ascending=False)
 
@@ -34,7 +34,7 @@ for plot_id in np.arange(4):
     ax_sub = plt.subplot(2, 2,plot_id+1)
 
     # add reference ribbons
-    fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference_only_seasonal{lc_filestr}.csv')
+    fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_scaled_reference_only_seasonal{lc_filestr}.csv')
     # plt.axvspan(fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_low'].values[0], fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_high'].values[0], alpha=0.2, color='purple')
     plt.axvline(x=fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor'].values[0], color='purple', linestyle='--', linewidth=3, alpha=0.9)
 
@@ -82,6 +82,6 @@ for plot_id in np.arange(4):
 
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/Fig4_diurnal_x_base.png', dpi=300, bbox_inches='tight')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/Fig4_diurnal_x_base.pdf', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/Fig4_diurnal_x_base.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/seasonality_adjustment/Fig4_diurnal_x_base.pdf', dpi=300, bbox_inches='tight')
 plt.show()

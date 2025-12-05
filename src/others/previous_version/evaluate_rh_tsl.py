@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import gaussian_kde
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info, read_TRENDYv11, read_TRENDYv11_cPool
 
 high_model_subset = ['CLASSIC', 'ISBA-CTRIP']
@@ -15,7 +15,7 @@ low_model_subset = ['JSBACH', 'JULES'] # can add ISAM later if the data becomes 
 
 '''some anciliary datasets'''
 # regional mask and land cover table
-cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/cell_id_table/cell_id_table.csv')
+cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/cell_id_table/cell_id_table.csv')
 region_mask = np.where(cell_id_table['ABoVE'] == 0)[0]
 
 '''extract simulated Rh and tsl pairs for each pixel, each month and year'''
@@ -24,7 +24,7 @@ for year in [2012, 2013, 2014, 2017]:
     start_month, end_month, campaign_name = get_campaign_info(year)
 
     # create dir
-    dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+    dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
     if not os.path.exists(dir0):
         os.makedirs(dir0)
 
@@ -79,7 +79,7 @@ data = pd.DataFrame()
 for year in [2012, 2013, 2014, 2017]:
 
     start_month, end_month, campaign_name = get_campaign_info(year)
-    dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+    dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
     data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
     data = pd.concat((data, data_year))
 
@@ -106,7 +106,7 @@ for model_name in high_model_subset+low_model_subset:
     for year in [2012, 2013, 2014, 2017]:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
         data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
         data = pd.concat((data, data_year))
     print(data.shape)
@@ -169,7 +169,7 @@ for model_name in high_model_subset+low_model_subset:
     for year in [2012, 2013, 2014, 2017]:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
         data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
         data = pd.concat((data, data_year))
 
@@ -220,7 +220,7 @@ for model_name in high_model_subset+low_model_subset:
     for year in [2012, 2013, 2014, 2017]:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
         data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
 
         fig, ax = plt.subplots(figsize=(4, 4))
@@ -244,7 +244,7 @@ for model_name in high_model_subset+low_model_subset:
     for year in [2012, 2013, 2014, 2017]:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
         data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
         data_year = data_year[[column_name for column_name in data_year.columns if column_name not in ['cLitter_month', 'cSoil_month']]]
         data = pd.concat((data, data_year))
@@ -302,7 +302,7 @@ for model_name in high_model_subset+low_model_subset:
     for year in [2012, 2013, 2014, 2017]:
 
         start_month, end_month, campaign_name = get_campaign_info(year)
-        dir0 = f"/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
+        dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/rh_tsl/"
         data_year = pd.read_csv(f'{dir0}/rh_tsl_{model_name}_{year}.csv')
         data = pd.concat((data, data_year))
 

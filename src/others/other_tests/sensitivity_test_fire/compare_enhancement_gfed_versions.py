@@ -8,7 +8,7 @@ from scipy import stats
 from scipy.stats import pearsonr
 import statsmodels.api as sm
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
@@ -16,7 +16,7 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
     start_month, end_month, campaign_name = get_campaign_info(year)
     month_num = end_month - start_month + 1
 
-    df_fire_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
+    df_fire_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
 
     if year == 2012:
         df_fire = df_fire_year
@@ -60,5 +60,5 @@ ax.set_aspect('equal', adjustable='box')
 
 ax.set_xlabel('CO$_2$ enhancement from v4.1 (ppm)', fontsize=13.5)
 ax.set_ylabel('CO$_2$ enhancement from v5 (ppm)', fontsize=13.5)
-plt.savefig(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_fire/gfed_versions_scatterplot.png", dpi=100, bbox_inches='tight')
+plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_fire/gfed_versions_scatterplot.png", dpi=100, bbox_inches='tight')
 plt.show()

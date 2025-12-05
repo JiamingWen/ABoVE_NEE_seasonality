@@ -5,24 +5,24 @@ import pandas as pd
 import xarray as xr
 from scipy.sparse import csr_matrix
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, read_H_matrix, subset_30N_90N, read_fossil, read_fire, read_TRENDYv11, read_TRENDYv9, read_inversions, read_remote_sensing, read_x_base_monthly, read_abcflux, read_gosif_gpp, read_MODIS_VI, read_GOME2_SIF, read_inversions_prior, read_ocean_fluxes
 
 year = 2017 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 
-dir_out = f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field'
+dir_out = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field'
 if not os.path.exists(dir_out):
     os.makedirs(dir_out)
 
 # read observations
-receptor_df = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+receptor_df = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
 n_receptor = receptor_df.shape[0]
 
 
 # mask for land pixels
-cell_id_table = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
+cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 land_cellnum_list = np.where(cell_id_table['land']==1)[0]
 
 

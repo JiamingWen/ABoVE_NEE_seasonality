@@ -7,7 +7,7 @@ reference: observations from inversions and GOSIF-GPP
 import numpy as np
 import pandas as pd
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/src')
 from functions import get_campaign_info
 from scipy.stats import pearsonr
 import matplotlib.pyplot as plt
@@ -29,8 +29,8 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
 
 
         ''' read observations '''
-        df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-        df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+        df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+        df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
         # filters for airborne observations
         mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
@@ -42,7 +42,7 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
             (df_airborne['CO_change'] < 40))[0]
         
         # influence from fossil and fire emissions
-        df_fossil_fire = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
+        df_fossil_fire = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/ABoVE_{year}_{campaign_name}_airborne_fossil_fire.csv')
 
         # derive CO2 drawdown/enhancement from fossil and fire emissions
         y0 = df_airborne['CO2_change'].values - df_fossil_fire['fossil_CO2_change'] - df_fossil_fire['fire_CO2_change']
@@ -55,7 +55,7 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
             # print(year, month)
 
             # read files of CO2 change caused by a spatially uniform flux for each footprint and each month
-            filename = f'/central/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/regression_covariates/constant_{year}_{month}.csv'
+            filename = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/{campaign_name}_airborne/regression_covariates/constant_{year}_{month}.csv'
             constant0 = pd.read_csv(filename)
             constant0 = constant0.loc[mask_id]
             
@@ -116,10 +116,10 @@ lcname = 'alllc' #alllc forest shrub tundra
 lc_filestr = ''
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
-dir0 = '/central/groups/carnegie_poc/jwen2/ABoVE/result/modify_NEE/'
+dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/result/modify_NEE/'
 
 # model performance with original seasonal cycle
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
 fitting_df_TRENDYv11_unscaled_only_seasonal = fitting_df_TRENDYv11_unscaled_only_seasonal.loc[~fitting_df_TRENDYv11_unscaled_only_seasonal['model_name'].isin(['IBIS']), :] # remove IBIS because it simulates negative Rh
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted = fitting_df_TRENDYv11_unscaled_only_seasonal.sort_values('cor')
 high_model_subset = fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['cor']>0.63, 'model_name'].tolist()
@@ -130,17 +130,17 @@ fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unsc
 fitting_df_TRENDYv11_unscaled_only_seasonal_sorted.loc[fitting_df_TRENDYv11_unscaled_only_seasonal_sorted['model_name'].isin(low_model_subset),'color'] = '#e57f3f'
 
 # read original simulated carbon fluxes
-seasonal_df_TRENDYv11NEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
-seasonal_df_TRENDYv11Rh = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11NEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11GPP = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11GPP_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11Ra = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_TRENDYv11Rh = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
 seasonal_df_TRENDYv11Reco = seasonal_df_TRENDYv11Ra + seasonal_df_TRENDYv11Rh
 
 # read observations
-seasonal_df_inversionsNEE = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_inversionsNEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 inversion_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # excluding models without CARVE coverage
 seasonal_df_inversionsNEE = seasonal_df_inversionsNEE[inversion_names]
-seasonal_df_GOSIFGPP0 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")[['GOSIF-GPP']]
+seasonal_df_GOSIFGPP0 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")[['GOSIF-GPP']]
 
 # repeat GPP
 seasonal_df_GOSIFGPP  = seasonal_df_inversionsNEE.copy()
@@ -410,9 +410,9 @@ plt.errorbar((cor_modified_case_max+cor_modified_case_min)/2, np.arange(len(TREN
 
 
 # add reference ribbons
-fitting_df_regression_scaled = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_regression{lc_filestr}.csv')
+fitting_df_regression_scaled = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_regression{lc_filestr}.csv')
 plt.axvspan(fitting_df_regression_scaled.loc[fitting_df_regression_scaled['model_name']=='constant','cor_CI_low'].values[0], fitting_df_regression_scaled.loc[fitting_df_regression_scaled['model_name']=='constant','cor_CI_high'].values[0], alpha=0.2, color='olive')
-fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
+fitting_df_reference_scaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/result/regression/evaluation_stat_reference_only_seasonal{lc_filestr}.csv')
 plt.axvspan(fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_low'].values[0], fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference_scaled_only_seasonal['model_name']=='APAR','cor_CI_high'].values[0], alpha=0.2, color='purple')
 
 plt.legend(fontsize=16)

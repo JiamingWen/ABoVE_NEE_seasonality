@@ -15,11 +15,11 @@ stat_var = 'cor'; xlim = [-0.1, 0.75]; xlabel = r'Correlation with CO$_{2}$ obse
 # stat_var = 'rmse'; xlim = [0, 15]; xlabel = r'RMSE compared to CO$_{2}$ observations (ppm)'; label = '(c)'
 
 # read model performance statistics
-upscaledEC_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC.csv')
-inversion_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE.csv')
+upscaledEC_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC.csv')
+inversion_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE.csv')
 
 # X-BASE
-x_base_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_X-BASE_highres.csv')
+x_base_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_X-BASE_highres.csv')
 if replace_monthly:
 	x_base_df.loc[x_base_df['model_name'] == 'X-BASE-monthly', x_base_df.columns[1:]] = upscaledEC_df[upscaledEC_df['model_name'] == 'X-BASE'].iloc[:, 1:].values
 else:
@@ -27,7 +27,7 @@ else:
 	x_base_df['model_name'] = x_base_df['model_name'].replace('X-BASE', 'X-BASE in this study')
 
 # CTE
-cte_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_CTE_highres.csv')
+cte_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_CTE_highres.csv')
 if replace_monthly:
 	cte_df.loc[cte_df['model_name'] == 'CTE-monthly', cte_df.columns[1:]] = inversion_df[inversion_df['model_name'] == 'CTE'].iloc[:, 1:].values
 else:
@@ -35,7 +35,7 @@ else:
 	cte_df['model_name'] = cte_df['model_name'].replace('CTE', 'CTE in this study')
 
 # CT-NOAA
-ct_noaa_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_CT-NOAA_highres.csv')
+ct_noaa_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_CT-NOAA_highres.csv')
 if replace_monthly:
 	ct_noaa_df.loc[ct_noaa_df['model_name'] == 'CT-NOAA-monthly', ct_noaa_df.columns[1:]] = inversion_df[inversion_df['model_name'] == 'CT-NOAA'].iloc[:, 1:].values
 else:
@@ -78,10 +78,10 @@ plt.xticks(fontsize=15) #np.arange(-0.2, 1, 0.2),
 plt.yticks(fontsize=15)
 
 if stat_var == 'cor':
-	fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_high_res_nee_{stat_var}.png', dpi=300, bbox_inches='tight')
-	fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_high_res_nee_{stat_var}.pdf', dpi=300, bbox_inches='tight')
+	fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_high_res_nee_{stat_var}.png', dpi=300, bbox_inches='tight')
+	fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_high_res_nee_{stat_var}.pdf', dpi=300, bbox_inches='tight')
 
 ax.text(0.05, 0.95, label, transform=ax.transAxes, fontsize=18, verticalalignment='top', horizontalalignment='left')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/evaluation_stat_high_res_nee_{stat_var}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/evaluation_stat_high_res_nee_{stat_var}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/evaluation_stat_high_res_nee_{stat_var}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_high_res_nee/evaluation_stat_high_res_nee_{stat_var}.pdf', dpi=300, bbox_inches='tight')
 plt.show()

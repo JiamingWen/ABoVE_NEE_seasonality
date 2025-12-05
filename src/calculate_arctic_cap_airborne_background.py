@@ -3,9 +3,9 @@
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv')
+data = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint.csv')
 data_2000m = data[data['footprint_agl']>2000]
-data_2000m.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint_agl2000m.csv', encoding='utf-8', index=False)
+data_2000m.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_matching_footprint_agl2000m.csv', encoding='utf-8', index=False)
 
 
 # extract unique dates with measurements >2000m agl 
@@ -38,7 +38,7 @@ for date in unique_datelist:
                                 'n': n}, index=[0])
     background_df = pd.concat([background_df, single_date])
 
-background_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv', encoding='utf-8', index=False)
+background_df.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv', encoding='utf-8', index=False)
 
 
 #################################################################
@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 
-background_df = pd.read_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
+background_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
 
 background_df['date'] = pd.to_datetime(background_df['date'])
 plt.plot(background_df['date'], background_df['CO2'], c='red')

@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 stat_var = 'cor'; xlim = [0.55, 0.8]
 
 # read model performance
-fitting_df_all = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE.csv')
-fitting_df_2017 = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE_2017.csv')
+fitting_df_all = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE.csv')
+fitting_df_2017 = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_inversionsNEE_2017.csv')
 fitting_df_inversions_unscaled = pd.merge(fitting_df_all[['model_name', 'cor']], fitting_df_2017[['model_name', 'cor']], on='model_name', how='outer', suffixes=('_All', '_2017'))
 fitting_df_inversions_unscaled.loc[fitting_df_inversions_unscaled['model_name'] == 'MIROC','model_name'] = 'MIROC4-ACTM'
 fitting_df_inversions_unscaled.rename(columns={'cor_All': 'All', 'cor_2017': '2017'}, inplace=True)
@@ -74,6 +74,6 @@ for year, color in zip(['All', '2017'], ['black', 'purple']):
 plt.subplots_adjust(wspace=0.1)
 plt.tight_layout()
 
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_inv_insitu_satellite.png', dpi=300, bbox_inches='tight')
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_inv_insitu_satellite.pdf', dpi=300, bbox_inches='tight')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_inv_insitu_satellite.png', dpi=300, bbox_inches='tight')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/compare_inv_insitu_satellite.pdf', dpi=300, bbox_inches='tight')
 plt.show()

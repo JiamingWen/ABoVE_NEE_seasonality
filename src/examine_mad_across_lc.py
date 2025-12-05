@@ -13,10 +13,10 @@ high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
 low_model_subset = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM']
 
 # mad data (calculated from Fig3.py)
-mad_alllc = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_{weightname}.csv')
-mad_forest = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_forest_{weightname}.csv')
-mad_shrub = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_shrub_{weightname}.csv')
-mad_tundra = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_tundra_{weightname}.csv')
+mad_alllc = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_{weightname}.csv')
+mad_forest = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_forest_{weightname}.csv')
+mad_shrub = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_shrub_{weightname}.csv')
+mad_tundra = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}_tundra_{weightname}.csv')
 
 # set color
 mad_alllc.loc[mad_alllc['model_name'].isin(high_model_subset),'color'] = '#396BB8'
@@ -59,6 +59,6 @@ for ax, lc, mad, subtitle in zip(axs, land_covers, mad_data, subtitles):
     ax.text(0.05, 0.95, f'{subtitle} {lc}', transform=ax.transAxes, fontsize=18, va='top')
 plt.tight_layout()
 
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.png', dpi=300, bbox_inches='tight')
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.pdf', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_mad_lc_{reference}.pdf', dpi=300, bbox_inches='tight')
 plt.show()

@@ -9,7 +9,7 @@ from scipy.sparse import csr_matrix
 import xarray as xr
 
 import os
-os.chdir('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 
@@ -20,8 +20,8 @@ for year in [2012,2013,2014,2017]:
     start_month, end_month, campaign_name = get_campaign_info(year)
     
     # read observations
-    df_airborne = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_influence = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
+    df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
     df = pd.concat((df_airborne, df_influence), axis=1)
     n_receptor = df.shape[0]
 
@@ -39,7 +39,7 @@ for year in [2012,2013,2014,2017]:
         print(month)
         
         # read stored H sparse matrix
-        h_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
+        h_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/h_sparse_matrix/H{year}_{month}.txt",
                         sep="\s+", index_col=False, header=None,
                         names=["obs_id", "cell_id", "lat_id","lon_id", "lat", "lon", "val"])
         #  \s+ is the expression for "any amount of whitespace"
@@ -71,7 +71,7 @@ for year in [2012,2013,2014,2017]:
 
         compression = dict(zlib=True, complevel=5)
         ds.to_netcdf(
-            f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_{month}_selected.nc',
+            f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_{month}_selected.nc',
             engine="netcdf4",
             encoding={v: compression for v in ds.data_vars},
         )
@@ -79,7 +79,7 @@ for year in [2012,2013,2014,2017]:
 
     # sum over different months
     for month in np.arange(start_month, end_month+1):
-        ds = xr.open_dataset(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_{month}_selected.nc')
+        ds = xr.open_dataset(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_{month}_selected.nc')
         lat = ds.latitude
         lon = ds.longitude
         influence = ds.influence
@@ -103,6 +103,6 @@ for year in [2012,2013,2014,2017]:
     # export influence sum nc
     compression = dict(zlib=True, complevel=5)
     influence_sum.to_netcdf(
-        f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_selected.nc',
+        f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/h_matrix/summarized_footprint_sensitivity/influence_sum{year}_selected.nc',
         engine="netcdf4",
     )

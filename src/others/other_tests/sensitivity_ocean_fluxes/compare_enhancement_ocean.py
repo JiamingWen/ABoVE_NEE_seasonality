@@ -8,7 +8,7 @@ from scipy import stats
 from scipy.stats import pearsonr
 import statsmodels.api as sm
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
@@ -16,11 +16,11 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
     start_month, end_month, campaign_name = get_campaign_info(year)
     month_num = end_month - start_month + 1
 
-    df_ocean_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_ocean.csv')
-    df_obs_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
-    df_fire_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
-    df_fossil_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
-    df_land_year = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
+    df_ocean_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_ocean.csv')
+    df_obs_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+    df_fire_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fire.csv')
+    df_fossil_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_fossil.csv')
+    df_land_year = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions.csv')
 
     if year == 2012:
         df_ocean = df_ocean_year
@@ -48,7 +48,7 @@ plt.ylabel('CO$_2$ enhancement (ppm)', fontsize=14)
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=3)
 plt.grid()
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_ocean_fluxes.png')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_ocean_fluxes.png')
 plt.show()
 
 
@@ -77,7 +77,7 @@ for i in range(len(columns)):
         plt.text(j, i, f"{correlation_matrix.iloc[i, j]:.2f}", ha='center', va='center', color='black', fontsize=12)
 plt.yticks(rotation=0, fontsize=10)
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_ocean_fluxes_cor.png')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_ocean_fluxes_cor.png')
 plt.show()
 
 
@@ -127,5 +127,5 @@ axs[4].tick_params(axis='x', labelsize=12)
 axs[4].set_ylim(-40, 60)
 
 plt.tight_layout()
-plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_all_fluxes.png')
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_ocean_fluxes/compare_co2_enhancement_all_fluxes.png')
 plt.show()

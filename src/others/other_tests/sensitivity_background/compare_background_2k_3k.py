@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 import sys
-sys.path.append('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 from matplotlib.ticker import MaxNLocator
 
@@ -14,7 +14,7 @@ axes = axes.flatten()
 for year_id, year in enumerate([2012, 2013, 2014, 2017]):
     campaign_name = get_campaign_info(year)[2]
 
-    # data = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv')
+    # data = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_matching_footprint.csv')
     # data_3000m = data[data['footprint_agl']>3000]
 
     # # extract unique dates with measurements >3000 agl 
@@ -47,11 +47,11 @@ for year_id, year in enumerate([2012, 2013, 2014, 2017]):
     #                                 'n': n}, index=[0])
     #     background_df = pd.concat([background_df, single_date])
 
-    # background_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background_3000m.csv', encoding='utf-8', index=False)
+    # background_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background_3000m.csv', encoding='utf-8', index=False)
     
     # read data
-    background_df_3000m = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background_3000m.csv')
-    background_df_2000m = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background.csv')
+    background_df_3000m = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background_3000m.csv')
+    background_df_2000m = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_background.csv')
 
     # Merge 2000 m and 3000 m background data on date
     background_df_3000m['date'] = pd.to_datetime(background_df_3000m['date'])
@@ -82,5 +82,5 @@ for year_id, year in enumerate([2012, 2013, 2014, 2017]):
 
 fig.supxlabel('Month', fontsize=18)
 fig.supylabel('CO$_2$ background (ppm)', fontsize=18)
-plt.savefig('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_2k_3k.png', dpi=300, bbox_inches='tight')
+plt.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_2k_3k.png', dpi=300, bbox_inches='tight')
 plt.show()

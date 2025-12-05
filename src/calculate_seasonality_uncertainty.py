@@ -40,11 +40,11 @@ for varname in ['NEE', 'GPP', 'Reco', 'Ra', 'Rh']:
         filestr = varname
 
     if varname == 'Reco':
-        seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
-        seasonal_df_TRENDYv11Rh = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11Ra = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11Rh = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
         seasonal_df_TRENDYv11 = seasonal_df_TRENDYv11Ra + seasonal_df_TRENDYv11Rh
     else:
-        seasonal_df_TRENDYv11 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
+        seasonal_df_TRENDYv11 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
     
     seasonal_df_TRENDYv11 = seasonal_df_TRENDYv11.apply(scale_fun, axis=0)
 
@@ -58,7 +58,7 @@ for varname in ['NEE', 'GPP', 'Reco', 'Ra', 'Rh']:
             MAD_pairwise = cal_MAD(seasonal_df_TRENDYv11[model1][3:11], seasonal_df_TRENDYv11[model2][3:11])
             MAD_df = pd.concat([MAD_df, pd.DataFrame([{'model1': model1, 'model2': model2, 'MAD': MAD_pairwise}])], ignore_index=True)
     
-    MAD_df.to_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv", index=False)
+    MAD_df.to_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv", index=False)
 
 
 
@@ -80,7 +80,7 @@ def customize_boxplot(bplot, colors):
 # Panel (a) MAD of NEE, GPP, Reco, Ra, Rh for all models
 all_mad_data = []
 for varname in ['NEE', 'GPP', 'Reco', 'Ra', 'Rh']:
-    mad_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv")
+    mad_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv")
     all_mad_data.append(mad_df['MAD'])
 
 bplot1 = axes[0].boxplot(all_mad_data, labels=['NEE', 'GPP', 'Reco', 'Ra', 'Rh'], patch_artist=True, showfliers=False)
@@ -94,7 +94,7 @@ axes[0].text(0.95, 0.95, '(a) All TBMs', transform=axes[0].transAxes, fontsize=1
 # Panel (b) MAD of NEE, GPP, Reco, Ra, Rh for high_model_subset
 high_mad_data = []
 for varname in ['NEE', 'GPP', 'Reco', 'Ra', 'Rh']:
-    mad_df = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv")
+    mad_df = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_uncertainty/{varname}_MADpairwise.csv")
     high_mad_df = mad_df[mad_df['model1'].isin(high_model_subset) & mad_df['model2'].isin(high_model_subset)]
     high_mad_data.append(high_mad_df['MAD'])
 
@@ -108,6 +108,6 @@ axes[1].text(0.95, 0.95, '(b) High-cor TBMs', transform=axes[1].transAxes, fonts
 
 plt.tight_layout()
 
-plt.savefig("/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.png", dpi=300, bbox_inches='tight')
-plt.savefig("/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.pdf", dpi=300, bbox_inches='tight')
+plt.savefig("/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.png", dpi=300, bbox_inches='tight')
+plt.savefig("/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/seasonal_uncertainty.pdf", dpi=300, bbox_inches='tight')
 plt.show()

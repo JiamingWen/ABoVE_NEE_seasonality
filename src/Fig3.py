@@ -53,9 +53,9 @@ else:
 
 '''stat'''
 # TRENDY
-fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
+fitting_df_TRENDYv11_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_TRENDYv11_only_seasonal.csv')
 # Upscaled EC
-fitting_df_UpscaledEC_unscaled_only_seasonal = pd.read_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC_only_seasonal.csv')
+fitting_df_UpscaledEC_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/evaluation_stat_unscaled_UpscaledEC_only_seasonal.csv')
 fitting_df = pd.concat((fitting_df_TRENDYv11_unscaled_only_seasonal, fitting_df_UpscaledEC_unscaled_only_seasonal))
 
 fitting_df = fitting_df.sort_values('cor', ascending=False)
@@ -68,16 +68,16 @@ fitting_df.loc[fitting_df['model_name'].isin(['X-BASE', 'ABCflux']),'color'] = '
 '''seasonal cycle'''
 # TRENDY
 if varname in ['NEE', 'GPP', 'Ra', 'Rh']:
-    seasonal_df_TRENDYv11 = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_TRENDYv11 = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11{filestr}_{regionname}_{lcname}_{weightname}.csv")
 elif varname == 'Reco':
-    seasonal_df_TRENDYv11Ra = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
-    seasonal_df_TRENDYv11Rh = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_TRENDYv11Ra = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Ra_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_TRENDYv11Rh = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
     seasonal_df_TRENDYv11 = seasonal_df_TRENDYv11Ra + seasonal_df_TRENDYv11Rh
 
 # Upscaled EC
-seasonal_UpscaledEC = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")
+seasonal_UpscaledEC = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")
 if varname in ['GPP', 'Reco']:
-    seasonal_UpscaledEC_GPP = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_UpscaledEC_GPP = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")
 
 if varname == 'NEE':
     seasonal_df_EC = seasonal_UpscaledEC
@@ -93,16 +93,16 @@ seasonal_df = seasonal_df.apply(scale_fun, axis=0)
 
 # reference
 # inversions
-seasonal_df_inversions = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
+seasonal_df_inversions = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_inversionsNEE_{regionname}_{lcname}_{weightname}.csv")
 inversion_names = ['CAMS', 'CarboScope', 'CMS-Flux', 'CTE', 'CT-NOAA', 'IAPCAS', 'MIROC', 'NISMON-CO2', 'UoE'] # excluding models without CARVE coverage
 seasonal_df_subset_inversion = seasonal_df_inversions[inversion_names]
 
 if varname in ['GPP', 'Reco']:
     # GOME-2 SIF
-    seasonal_df_RS = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_reference_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_df_RS = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_reference_{regionname}_{lcname}_{weightname}.csv")
 
     # GOSIF GPP
-    seasonal_GPPobservations = pd.read_csv(f"/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")
+    seasonal_GPPobservations = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_GPPobservations_{regionname}_{lcname}_{weightname}.csv")
 
 if reference == 'GroupH': # high-cor TBMs
     seasonal_df_reference = seasonal_df_TRENDYv11[high_model_subset]
@@ -167,7 +167,7 @@ for i in np.arange(num_models):
         ax1.xaxis.set_tick_params(labelbottom=True)
 
     mean_seasonal_NEE_diff_df = pd.concat((mean_seasonal_NEE_diff_df, pd.DataFrame([[model_name, cor, mean_seasonal_NEE_diff]], columns=['model_name', 'cor', 'mean_seasonal_diff'])))
-mean_seasonal_NEE_diff_df.to_csv(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}{lc_filestr}_{weightname}.csv', index=False)
+mean_seasonal_NEE_diff_df.to_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_diff/seasonal_mad_{reference}_{varname}_{regionname}{lc_filestr}_{weightname}.csv', index=False)
 
 
 # Set shared labels
@@ -192,7 +192,7 @@ fig.legend(handles=handles, loc='lower center', fontsize=14, bbox_to_anchor=(0.5
 plt.subplots_adjust(wspace=0, hspace=0)
 
 if lcname == 'alllc':
-    plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig3_{varname}_{reference}{lc_filestr}.png', dpi=300, bbox_inches='tight')
-    plt.savefig(f'/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig3_{varname}_{reference}{lc_filestr}.pdf', dpi=300, bbox_inches='tight')
+    plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig3_{varname}_{reference}{lc_filestr}.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig3_{varname}_{reference}{lc_filestr}.pdf', dpi=300, bbox_inches='tight')
 
 plt.show()

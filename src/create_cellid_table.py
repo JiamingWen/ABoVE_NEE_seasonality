@@ -12,7 +12,7 @@ coor_df = pd.DataFrame({'cell_id': cell_id, 'lat_id': lat_id, 'lon_id': lon_id,
                         'lat': lat[lat_id], 'lon': lon[lon_id]})
 
 # marking ocean/land pixels
-ocean_mask = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/ocean-mask-half-degree.nc')
+ocean_mask = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/ocean-mask-half-degree.nc')
 ocean_mask_subset: xr.Dataset = ocean_mask.isel(
     latitude=(ocean_mask.latitude >= 30) & (ocean_mask.latitude <= 90),
     )
@@ -31,7 +31,7 @@ coor_df['land'] = land_mask.astype(int)
 
 
 # marking ABoVE regions
-ABoVE_mask = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
+ABoVE_mask = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/above_mask/above_ext.nc')
 ABoVE_mask = ABoVE_mask.rename({'lat': 'latitude', 'lon': 'longitude'})
 ABoVE_mask_subset: xr.Dataset = ABoVE_mask.isel(
     latitude=(ABoVE_mask.latitude >= 30) & (ABoVE_mask.latitude <= 90),
@@ -41,7 +41,7 @@ coor_df['ABoVE'] = value.flatten().astype(int)
 
 
 # marking land covers
-lc = xr.open_dataset('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/esa_cci_landcover/esa-cci-dominant-landcover-2017.nc')
+lc = xr.open_dataset('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/esa_cci_landcover/esa-cci-dominant-landcover-2017.nc')
 lc_subset: xr.Dataset = lc.isel(
     latitude=(lc.latitude >= 30) & (lc.latitude <= 90),
     )
@@ -50,4 +50,4 @@ coor_df['lc'] = np.flip(value, axis=0).flatten().astype(int)
 
 
 # export file
-coor_df.to_csv('/central/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv', encoding='utf-8', index=False)
+coor_df.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv', encoding='utf-8', index=False)
