@@ -1,8 +1,4 @@
-'''
-calculate statistics (e.g., Pearson correlation, slope, intercept) between modeled and observed CO2 enhancement
-calculate for both original unscaled values and scaled values with regression
-use all years' data
-'''
+'''evaluate model performance, using ct or empirical backgrounds and imposing x-base diurnal cycle'''
 
 import os
 import numpy as np
@@ -12,18 +8,14 @@ import statsmodels.api as sm
 from scipy import stats
 from scipy.stats import pearsonr
 from statsmodels.regression.linear_model import OLSResults
-
-os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
+import sys
+sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
-# create dir
-dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/"
-if not os.path.exists(dir0):
-    os.makedirs(dir0)
+background = 'ct' #ct ebg
 
+dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/evaluation_stat/"
 dir1 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/regression/"
-if not os.path.exists(dir1):
-    os.makedirs(dir1)
 
 # whether to filter observations based on land covers they are most sensitive to
 lcname = 'alllc' #alllc forest shrub tundra
@@ -34,14 +26,11 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 
 # model types
 # all types
-model_types = ['TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'] #'TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'
+model_types = ['TRENDYv11', 'inversionsNEE', 'UpscaledEC'] #'TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'regression', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal'
 # only one variable (i.e., not regression like CRU or LC)
 model_types_single = ['TRENDYv11', 'inversionsNEE', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'TRENDYv11_only_seasonal', 'inversionsNEE_only_seasonal', 'UpscaledEC_only_seasonal', 'reference_only_seasonal', 'inversionsNEE-prior', 'inversionsNEE-prior_only_seasonal']
 
 for model_type in model_types:
-
-    print(model_type)
-
     if model_type in ['TRENDYv11', 'TRENDYv11GPP', 'TRENDYv11NPP', 'TRENDYv11Reco', 'TRENDYv11_only_seasonal']:
         model_names = ['CABLE-POP', 'CLASSIC', 'CLM5.0', 'IBIS', 'ISAM', 'ISBA-CTRIP', 'JSBACH', 'JULES', 'LPJ', 'LPX-Bern', 'OCN', 'ORCHIDEE', 'SDGVM', 'VISIT', 'VISIT-NIES', 'YIBs']
         figsize = (20, 20); rownum = 4; colnum = 4; axislabelsize = 25; xlabel_loc = (0.5, 0.07); ylabel_loc = (0.07, 0.5)
@@ -72,8 +61,6 @@ for model_type in model_types:
 
     for (model_id, model_name) in enumerate(model_names):
 
-        print(model_name)
-
         # specify covariates if they are not constant + model_name
         if model_name == 'CRU':
             variable_names = ['dswrf', 'pre', 'spfh', 'tmp'] + ['constant']
@@ -88,15 +75,16 @@ for model_type in model_types:
             month_num = end_month - start_month + 1
 
             # read atmospheric observations
-            df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+            df_airborne_original = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
+            df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change_background-{background}.csv')
             df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
 
             # filters for airborne observations
-            mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
+            mask_id = np.where((df_airborne_original['background_CO2_std'].notna()) &
                 (df_influence['ABoVE_influence_fraction'] > 0.5) &
                 (df_influence['ocean_influence_fraction'] < 0.3) &
-                (df_airborne['CO2_change'] < 30) &
-                (df_airborne['CO_change'] < 40))[0]
+                (df_airborne_original['CO2_change'] < 30) &
+                (df_airborne_original['CO_change'] < 40))[0]
 
             # # land cover filtering 1: select observations with footprint sensitivity of certain land cover > 50%
             # if lcname == 'forest':
@@ -160,6 +148,11 @@ for model_type in model_types:
 
             '''add transported carbon fluxes or variables'''
             if model_type in model_types_single:
+
+                # diurnal cycle from X-BASE
+                df_x_base_monthly_diurnal = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')
+                df_x_base_monthly = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly.csv')
+                df_x_base_diurnal = df_x_base_monthly_diurnal - df_x_base_monthly
                 
                 if model_type in ['inversionsNEE', 'inversionsNEE-prior']: # account for fire emissions
                     if model_type == 'inversionsNEE':
@@ -167,10 +160,12 @@ for model_type in model_types:
                     elif model_type == 'inversionsNEE-prior':
                         df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_inversions-prior.csv')
                     X_year_NEE = df_model[f"{model_name}"].loc[mask_id] - df_fire['gfed4.1'].loc[mask_id]
+                    X_year_NEE += df_x_base_diurnal['X-BASE'].loc[mask_id] # impose diurnal cycle from X-BASE
                     X_year = pd.concat((X_year_NEE, X_year), axis=1)
                 else:
                     df_model = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_{model_type}.csv')
                     X_year_NEE = df_model[f"{model_name}"].loc[mask_id]
+                    X_year_NEE += df_x_base_diurnal['X-BASE'].loc[mask_id]
                     X_year = pd.concat((X_year_NEE, X_year), axis=1)
 
             if year == 2012:
@@ -254,7 +249,7 @@ for model_type in model_types:
                 fitting_df_unscaled = fitting_df_unscaled0
             else:
                 fitting_df_unscaled = pd.concat((fitting_df_unscaled, fitting_df_unscaled0))
-            fitting_df_unscaled.to_csv(f"{dir0}evaluation_stat_unscaled_{model_type}{lc_filestr}.csv", encoding='utf-8', index=False)
+            fitting_df_unscaled.to_csv(f"{dir0}evaluation_stat_unscaled_{model_type}{lc_filestr}_background-{background}_diurnal_x_base.csv", encoding='utf-8', index=False)
 
 
         '''evaluate consistency between scaled surface fields (with regression) and atmospheric observations'''
@@ -264,15 +259,15 @@ for model_type in model_types:
         print(len(y))
         model = sm.OLS(y,X)
         results2 = model.fit()
-        results2.save(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
-        # to load ols model back
-        results2 = OLSResults.load(f"{dir1}{model_type}_{model_name}{lc_filestr}.pickle")
-        results2.params
-        results2.summary() # this is exactly the same as the results from fit_linear_regression_fullH.py
-        # export results to txt
-        f = f"{dir1}{model_type}_{model_name}{lc_filestr}.txt"
-        with open(f, 'w') as fh:
-            fh.write(results2.summary().as_text())
+        # results2.save(f"{dir1}{model_type}_{model_name}{lc_filestr}_background-{background}.pickle")
+        # # to load ols model back
+        # results2 = OLSResults.load(f"{dir1}{model_type}_{model_name}{lc_filestr}_background-{background}.pickle")
+        # results2.params
+        # results2.summary() # this is exactly the same as the results from fit_linear_regression_fullH.py
+        # # export results to txt
+        # f = f"{dir1}{model_type}_{model_name}{lc_filestr}_background-{background}.txt"
+        # with open(f, 'w') as fh:
+        #     fh.write(results2.summary().as_text())
 
         # calculate correlation between z and H X beta
         y_hat = results2.fittedvalues
@@ -301,14 +296,9 @@ for model_type in model_types:
     if model_type in model_types_single:
         fig.text(xlabel_loc[0], xlabel_loc[1], 'Observed CO$_2$ enhancement (ppm)', fontsize=axislabelsize, ha='center')
         fig.text(ylabel_loc[0], ylabel_loc[1], 'Modeled CO$_2$ enhancement (ppm)', fontsize=axislabelsize, va='center', rotation='vertical')
-        plt.savefig(f"{dir0}evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
+        plt.savefig(f"{dir0}evaluation_stat_{model_type}{lc_filestr}_background-{background}_diurnal_x_base_scatterplot.png", dpi=100, bbox_inches='tight')
         
-        # if model_type in ['TRENDYv11', 'inversionsNEE', 'UpscaledEC']:
-        #     plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
-        #     plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.pdf", dpi=100, bbox_inches='tight')
         
-        plt.show()
-        
-    fitting_df.to_csv(f"{dir0}evaluation_stat_scaled_{model_type}{lc_filestr}.csv", encoding='utf-8', index=False)
+    fitting_df.to_csv(f"{dir0}evaluation_stat_scaled_{model_type}{lc_filestr}_background-{background}_diurnal_x_base.csv", encoding='utf-8', index=False)
 
     

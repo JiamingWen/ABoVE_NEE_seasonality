@@ -189,6 +189,13 @@ for model_type in model_types:
             mean_bias = np.mean(X.iloc[:,0] - y)
             rmse = np.sqrt(np.mean((X.iloc[:,0] - y)**2))
 
+            # range ratio
+            x_p5, x_p10, x_p25, x_p75, x_p90, x_p95  = np.percentile(X.iloc[:, 0], [5, 10, 25, 75, 90, 95])
+            y_p5, y_p10, y_p25, y_p75, y_p90, y_p95 = np.percentile(y, [5, 10, 25, 75, 90, 95])
+            range_ratio_95_5 = (x_p95 - x_p5) / (y_p95 - y_p5)
+            range_ratio_90_10 = (x_p90 - x_p10) / (y_p90 - y_p10)
+            range_ratio_75_25 = (x_p75 - x_p25) / (y_p75 - y_p25)
+
             # regression 1: HX ~ y
             # constant term in y, but no constant term in X
             # to directly evaluate the consistency between modeled and observed CO2 enhancement
@@ -233,8 +240,8 @@ for model_type in model_types:
                 model_name_label = model_name
             plt.text(-48, 48, f"({chr(97 + model_id)}) {model_name_label}", fontsize=25, va='top', ha='left')
 
-            fitting_df_unscaled0 = pd.DataFrame([[model_name, cor, cor_CI_low, cor_CI_high, slope, intercept, mean_bias, rmse]],
-                                                columns=['model_name', 'cor', 'cor_CI_low', 'cor_CI_high', 'slope', 'intercept', 'mean_bias', 'rmse']) 
+            fitting_df_unscaled0 = pd.DataFrame([[model_name, cor, cor_CI_low, cor_CI_high, slope, intercept, mean_bias, rmse, range_ratio_95_5, range_ratio_90_10, range_ratio_75_25]],
+                                                columns=['model_name', 'cor', 'cor_CI_low', 'cor_CI_high', 'slope', 'intercept', 'mean_bias', 'rmse', 'range_ratio_95_5', 'range_ratio_90_10', 'range_ratio_75_25']) 
 
             if model_id == 0:
                 fitting_df_unscaled = fitting_df_unscaled0

@@ -67,7 +67,7 @@ for plot_id in np.arange(4):
     yticklabels = ['Adjusted', 'Original'] + fitting_df_TRENDYv11_low['model_name'].values.tolist()
     ytick_colors = ['black', 'black'] + ['#D4631D']*len(low_model_subset)
     ax_sub.set_yticks(np.arange(len(yticklabels))-2)
-    ax_sub.set_yticklabels(yticklabels)
+    ax_sub.set_yticklabels(yticklabels, fontsize=18)
     for ytick, color in zip(ax_sub.get_yticklabels(), ytick_colors):
         ytick.set_color(color)
     # ax_sub.tick_params(axis='y', colors='black')
