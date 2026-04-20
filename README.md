@@ -145,11 +145,11 @@ concentration measured beyond 2,000 m above ground level during each flight date
             * `extract_background_3k.py`
             * `extract_background_ct_ebg.py`
             * `compare_background.py`
-            <br>
+            * &nbsp
             * `calculate_airborne_change_background.py`
             * `evaluate_stat_multiyear_background.py`
             * `evaluate_stat_multiyear_background_diurnal_x_base.py`
-            <br>
+            * &nbsp
             * `Fig2_background.py`
             * `Fig2_other_metrics_background.py`
         - Use different fossil fuel emission datasets: (1) ODIAC 2022 (default); 
