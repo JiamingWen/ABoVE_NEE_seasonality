@@ -121,6 +121,8 @@ The `data/` and `result/` directories are not included in this repository due to
             - `compare_day_night_footprint_hist_heatmap.py`
             - `compare_day_night_footprint_map.py`
 
+            <br>
+
             - `aggregate_inversions_3hourly_daily_monthly.py`
             - `convert_flux_to_concentration_3hourly.py`
             - `convert_flux_to_concentration_daily.py`
@@ -128,6 +130,8 @@ The `data/` and `result/` directories are not included in this repository due to
             - `convert_flux_to_concentration_diurnal_cycle_x_base.py`
             - `decompose_var_monthly_diurnal.py`
             - `examine_enhancement_diff_diurnal.py`
+
+            <br>
 
             - `evaluate_stat_multiyear_highres.py`
             - `evaluate_stat_multiyear_highres_plot.py`
@@ -138,6 +142,8 @@ The `data/` and `result/` directories are not included in this repository due to
             - `Fig2_diurnal_x_base_other_metrics.py`
             - `Fig2_diurnal_x_base_mean_seasonal.py`
 
+            <br>
+
             - `modify_TRENDY_component_seasonal_groupH_x_base_diurnal.py`
             - `Fig4_diurnal_x_base.py`
         - Use different background calculations: (1) calculate the average CO2
@@ -146,9 +152,13 @@ concentration measured beyond 2,000 m above ground level during each flight date
             - `extract_background_ct_ebg.py`
             - `compare_background.py`
 
+            <br>
+
             - `calculate_airborne_change_background.py`
             - `evaluate_stat_multiyear_background.py`
             - `evaluate_stat_multiyear_background_diurnal_x_base.py`
+
+            <br>
 
             - `Fig2_background.py`
             - `Fig2_other_metrics_background.py`
@@ -181,6 +191,8 @@ concentration measured beyond 2,000 m above ground level during each flight date
     - Figure 3: `Fig3.py`
     - Figure 4: `Fig4.py`
     - Figure 5: `Fig5.py`
+
+    <br>
 
     - Figure S1: `modify_TRENDY_component_seasonal_example.py`
     - Figure S2-S4: `plot_scatterplot_obs_model_co2_enhancement.py`
