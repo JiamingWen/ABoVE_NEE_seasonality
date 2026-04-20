@@ -7,9 +7,9 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
 ## Contents
 
 - `src/`: Directory containing analysis scripts.
-- `data/`: Directory containing input data.
-- `results/`: Directory containing output results.
 - `README.md`: This file.
+
+The `data/` and `result/` directories are not included in this repository due to file size limitations. The datasets used in this study are all publicly available. Please feel free to contact me if you need access to any results or intermediate files.
 
 ## Data
 - Atmospheric CO2 concentration measurements and footprints: CARVE and Arctic-CAP
@@ -89,7 +89,7 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
     - Plot seasonal variations of NEE
         - `plot_seasonal.py`
         - `plot_seasonal_different_years.py`
-    - Plot seasonal variations of scaled remtoe sensing variables
+    - Plot seasonal variations of scaled remote sensing variables
         - `plot_seasonal_scaled_remote_sensing.py`
     - Modify NEE season cycle and examine its consistency with atmospheric observations
         - `modify_TRENDY_component_seasonal_example.py`
@@ -97,9 +97,9 @@ This repository contains code for analyzing the seasonality of Net Ecosystem Exc
         - `modify_X_BASE_component_seasonal_groupH.py`
     - Compute Mean Absolute Deviation of seasonality compared to reference data
         - `Fig3.py`
-    - Analyze the relationship between NEE seasonlity bias and consistency with atmospheric observations
+    - Analyze the relationship between NEE seasonality bias and consistency with atmospheric observations
         - `examine_cor_mad.py`
-    - Analyze the relationship between NEE seasonlity bias and GPP/Reco seasonality bias
+    - Analyze the relationship between NEE seasonality bias and GPP/Reco seasonality bias
         - `Fig5.py`
     - Analyze the relationship of NEE seasonality bias between the whole region and individual land cover
         - `examine_mad_across_lc.py`
@@ -158,7 +158,7 @@ concentration measured beyond 2,000 m above ground level during each flight date
             - `evaluate_stat_multiyear_fossil.py`
             - `Fig2_fossil.py`
             - `Fig2_fossil_other_metrics.py`
-        - Use different fire emission datasets: (1) GFEDv4.1 (default); (2) GFED v5.  (in `others/other_tests/sensitivity_fossil`)
+        - Use different fire emission datasets: (1) GFEDv4.1 (default); (2) GFED v5.  (in `others/other_tests/sensitivity_fire`)
             - `compare_enhancement_gfed_versions.py`
             - `evaluate_stat_multiyear_gfed5.py`
             - `Fig2_gfed5.py`
@@ -204,7 +204,10 @@ concentration measured beyond 2,000 m above ground level during each flight date
     - Table S2: `Fig2_other_metrics.py`
     - Table S3: `Fig4.py`
 
-## Python package version
+## Python and package version
+
+Python: 3.11.10.
+Package versions are provided in `src/requirements.txt`.
 
     
 ## Contact
