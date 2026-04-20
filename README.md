@@ -142,15 +142,15 @@ The `data/` and `result/` directories are not included in this repository due to
             - `Fig4_diurnal_x_base.py`
         - Use different background calculations: (1) calculate the average CO2
 concentration measured beyond 2,000 m above ground level during each flight date (default) (2) use 3,000 m as height cutoff; (3) extract background values from Carbon Tracker CO2 fields; (4) extract background values from empirical background fields. (in `others/other_tests/sensitivity_backgrounds`) 
-            - `extract_background_3k.py`
-            - `extract_background_ct_ebg.py`
-            - `compare_background.py`
+            * `extract_background_3k.py`
+            * `extract_background_ct_ebg.py`
+            * `compare_background.py`
             <br>
-            - `calculate_airborne_change_background.py`
-            - `evaluate_stat_multiyear_background.py`
-            - `evaluate_stat_multiyear_background_diurnal_x_base.py`br><br>
-            - `Fig2_background.py`
-            - `Fig2_other_metrics_background.py`
+            * `calculate_airborne_change_background.py`
+            * `evaluate_stat_multiyear_background.py`
+            * `evaluate_stat_multiyear_background_diurnal_x_base.py`br><br>
+            * `Fig2_background.py`
+            * `Fig2_other_metrics_background.py`
         - Use different fossil fuel emission datasets: (1) ODIAC 2022 (default); 
         (2) GridFED v2024.0. (in `others/other_tests/sensitivity_fossil`)
             - `compare_enhancement_fossil.py`
