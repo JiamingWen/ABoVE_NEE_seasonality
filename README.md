@@ -119,14 +119,16 @@ The `data/` and `result/` directories are not included in this repository due to
             - `derive_h_matrix_3hourly.py`
             - `aggregate_footprint_3hourly_daily_monthly.py`
             - `compare_day_night_footprint_hist_heatmap.py`
-            - `compare_day_night_footprint_map.py`br><br>
+            - `compare_day_night_footprint_map.py`
+            <br>
             - `aggregate_inversions_3hourly_daily_monthly.py`
             - `convert_flux_to_concentration_3hourly.py`
             - `convert_flux_to_concentration_daily.py`
             - `convert_flux_to_concentration_monthly.py`
             - `convert_flux_to_concentration_diurnal_cycle_x_base.py`
             - `decompose_var_monthly_diurnal.py`
-            - `examine_enhancement_diff_diurnal.py`br><br>
+            - `examine_enhancement_diff_diurnal.py`
+            <br>
             - `evaluate_stat_multiyear_highres.py`
             - `evaluate_stat_multiyear_highres_plot.py`
             - `evaluate_stat_multiyear_highres_afternoon.py`
@@ -134,14 +136,16 @@ The `data/` and `result/` directories are not included in this repository due to
             - `evaluate_stat_multiyear_diurnal_x_base.py`
             - `Fig2_diurnal_x_base.py`
             - `Fig2_diurnal_x_base_other_metrics.py`
-            - `Fig2_diurnal_x_base_mean_seasonal.py`br><br>
+            - `Fig2_diurnal_x_base_mean_seasonal.py`
+            <br>
             - `modify_TRENDY_component_seasonal_groupH_x_base_diurnal.py`
             - `Fig4_diurnal_x_base.py`
         - Use different background calculations: (1) calculate the average CO2
 concentration measured beyond 2,000 m above ground level during each flight date (default) (2) use 3,000 m as height cutoff; (3) extract background values from Carbon Tracker CO2 fields; (4) extract background values from empirical background fields. (in `others/other_tests/sensitivity_backgrounds`) 
             - `extract_background_3k.py`
             - `extract_background_ct_ebg.py`
-            - `compare_background.py`br><br>
+            - `compare_background.py`
+            <br>
             - `calculate_airborne_change_background.py`
             - `evaluate_stat_multiyear_background.py`
             - `evaluate_stat_multiyear_background_diurnal_x_base.py`br><br>
