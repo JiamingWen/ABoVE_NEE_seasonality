@@ -36,7 +36,7 @@ ax2.set_ylabel('Background CO$_2$ (ppm)')
 ax2.set_title(f'Background CO$_2$ Time Series: {campaign_name} {year}')
 ax2.legend()
 plt.tight_layout()
-plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_timeseries_{year}.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/compare_background_timeseries_{year}.png', dpi=300)
 plt.show()
 
 
@@ -77,5 +77,5 @@ create_scatter_plot(axs[2], data_background_ct['background_CO2'], data_backgroun
 
 fig.suptitle(f'{campaign_name} {year}', fontsize=20)
 plt.tight_layout()
-plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/compare_background_scatterplot_{year}.png', dpi=300)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/compare_background_scatterplot_{year}.png', dpi=300)
 plt.show()

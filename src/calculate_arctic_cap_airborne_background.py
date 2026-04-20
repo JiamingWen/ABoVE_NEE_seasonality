@@ -41,22 +41,22 @@ for date in unique_datelist:
 background_df.to_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv', encoding='utf-8', index=False)
 
 
-#################################################################
-# plot
-import matplotlib.pyplot as plt
-import pandas as pd
-from datetime import datetime
+# #################################################################
+# # plot
+# import matplotlib.pyplot as plt
+# import pandas as pd
+# from datetime import datetime
 
-background_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
+# background_df = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/arctic_cap_airborne/atm_obs/ABoVE_2017_arctic_cap_airborne_background.csv')
 
-background_df['date'] = pd.to_datetime(background_df['date'])
-plt.plot(background_df['date'], background_df['CO2'], c='red')
-plt.errorbar(background_df['date'], background_df['CO2'], yerr=background_df['CO2_std'], fmt="o", color="r")
-plt.ylabel('CO2 background (ppm)')
-# plt.xticks(rotation='vertical')
-plt.show()
+# background_df['date'] = pd.to_datetime(background_df['date'])
+# plt.plot(background_df['date'], background_df['CO2'], c='red')
+# plt.errorbar(background_df['date'], background_df['CO2'], yerr=background_df['CO2_std'], fmt="o", color="r")
+# plt.ylabel('CO2 background (ppm)')
+# # plt.xticks(rotation='vertical')
+# plt.show()
 
-plt.plot(background_df['date'], background_df['CO'], c='black')
-plt.errorbar(background_df['date'], background_df['CO'], yerr=background_df['CO_std'], fmt="o", color="r")
-plt.ylabel('CO background (ppb)')
-plt.show()
+# plt.plot(background_df['date'], background_df['CO'], c='black')
+# plt.errorbar(background_df['date'], background_df['CO'], yerr=background_df['CO_std'], fmt="o", color="r")
+# plt.ylabel('CO background (ppb)')
+# plt.show()

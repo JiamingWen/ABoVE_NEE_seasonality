@@ -1,4 +1,4 @@
-# temporally aggregate the 4-day tiff files into a monthly netcdf file
+'''Aggregate MODIS FPAR/LAI from 8-day to monthly'''
 
 import glob
 from typing import List
@@ -8,7 +8,7 @@ import pandas as pd
 import os
 import numpy as np
 
-year = 2014 # 2012 2013 2014 2017
+year = 2012 # 2012 2013 2014 2017
 
 varname = 'Fpar' #Fpar Lai
 input_dir = f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/modis_fpar/data_{year}'

@@ -11,9 +11,9 @@ month = 7
 lat0 = 42.25
 lon0 = -76.25
 
-dir_monthlydiurnal = '/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthlycycle'
-dir_daily = '/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/daily'
-dir_monthly = '/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthly-half-degree'
+dir_monthlydiurnal = '/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthlycycle'
+dir_daily = '/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/daily'
+dir_monthly = '/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthly-half-degree'
 
 # monthly 0.5 degree
 filename = f"{dir_monthly}/NEE_{year}_050_monthly.nc"

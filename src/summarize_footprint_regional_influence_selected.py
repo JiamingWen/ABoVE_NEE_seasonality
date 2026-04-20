@@ -1,6 +1,6 @@
 '''
 For all months, sum up the 10-day influence for each observation and take the average across the observations (output: netcdf file)
-only for selected observations
+only for selected observations after filtering
 '''
 
 import numpy as np
@@ -31,10 +31,8 @@ for year in [2012,2013,2014,2017]:
 
     # filters for airborne observations
     mask_id = np.where((df['background_CO2_std'].notna()) &
-        # (local_hour.isin([13, 14, 15, 16])) &
         (df['ABoVE_influence_fraction'] > 0.5) &
         (df['ocean_influence_fraction'] < 0.3) &
-        # (df['ABoVE_land_influence_fraction'] > 0.5)) and
         (df['CO2_change'] < 30) &
         (df['CO_change'] < 40))[0]
     

@@ -1,5 +1,13 @@
-'''plot scatterplots for seasonality features of simulated NEE and component fluxes'''
-'''modified from plot_NEE_component_phenology_bias.py'''
+'''
+This script generates:
+Fig. 5 in the main text (component_name = 'GPP') and Fig. S22 in SI (component_name = 'Reco').
+It analyzes the relationship between NEE seasonlity bias and GPP/Reco seasonality bias,
+and plots scatterplots for seasonality biases of estimated NEE and component fluxes:
+(a) Earlier start of growing season
+(b) Peak in June
+(c) Later end of growing season
+'''
+
 
 import numpy as np
 import pandas as pd
@@ -11,8 +19,8 @@ if lcname == 'alllc':
 elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
-high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0'] # , 'IBIS' #'ISBA-CTRIP', 'LPJ', 'LPX-Bern', 'SDGVM', 'CLASSIC', 'CLM5.0'
-low_model_subset = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES'] #, 'YIBs', 'CABLE-POP', 'ISAM'
+high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
+low_model_subset = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES']
 
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
@@ -109,7 +117,6 @@ ax1.set_xlabel(rf'{axis_label}$_{{May}}$ / {axis_label}$_{{max}}$', fontsize=16)
 ax1.set_ylabel(r'NEE$_{{May}}$ / NEE$_{{min}}$', fontsize=16)
 
 
-# NEE vs GPP bias for specific features
 # Peak in June
 reference_models = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
 bias_models = ['ORCHIDEE', 'VISIT', 'JSBACH', 'SDGVM', 'VISIT-NIES']

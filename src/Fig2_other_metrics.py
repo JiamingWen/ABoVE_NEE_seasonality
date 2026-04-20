@@ -1,5 +1,6 @@
 '''
-plot summary figure for model performance, e.g., mean bias, regression slopes/intercepts, RMSE
+This script generates Table S2 in SI.
+It calculates and plots model performance metrics (correlation, regression slope/intercept, mean bias, RMSE) for each model.
 '''
 
 import numpy as np

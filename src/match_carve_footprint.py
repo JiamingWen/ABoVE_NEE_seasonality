@@ -1,3 +1,4 @@
+'''match airborne measurements with footprint files for CARVE data'''
 import os
 import pandas as pd
 import numpy as np

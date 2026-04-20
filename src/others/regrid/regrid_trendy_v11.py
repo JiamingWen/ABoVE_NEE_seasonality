@@ -11,7 +11,7 @@ import time
 
 def regrid_trendy(var_name: str = "nbp") -> None:
     """Regrid TRENDY v11 output"""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/trendy-v11/output/S3"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/trendy-v11/output/S3"
     # compression = config.io.netcdf_compression
     compression = dict(zlib=True, complevel=5)
 
@@ -226,12 +226,12 @@ def regrid_trendy(var_name: str = "nbp") -> None:
         ds_subset_out["time"] = timestamps.to_numpy()
 
         f_o: str = (
-            f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/"
+            f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/"
             f"{model_name}-half-degree.nc"
         )
         # mark ISBA-CTRIP carbon pool output as monthly
         if "ISBA-CTRIP" in model_name and var_name in ['cLitter', 'cSoil']:
-            f_o = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{model_name}-half-degree-monthly.nc"
+            f_o = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{model_name}-half-degree-monthly.nc"
 
         ds_subset_out.to_netcdf(
             f_o,

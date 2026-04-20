@@ -1,4 +1,7 @@
-'''plot seasonal cycle of scaled remote sensing variables'''
+'''
+This script generates Fig. S15 in SI.
+It plots the seasonal cycle of scaled remote sensing variables.
+'''
 
 import numpy as np
 import pandas as pd
@@ -11,7 +14,7 @@ if lcname == 'alllc':
 elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
-weightname = 'unweighted' #unweighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 
 # standardize with minumum NEE

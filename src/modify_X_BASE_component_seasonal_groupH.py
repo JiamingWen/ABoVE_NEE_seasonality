@@ -1,6 +1,7 @@
 '''
 modify the magnitude and seasonal cycle of X-BASE component fluxes, 
 check how it improves the correlation
+reference: higher-correlation TRENDY models and upscaled ABCflux
 '''
 
 import numpy as np
@@ -32,10 +33,8 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
 
         # filters for airborne observations
         mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
-            # (local_hour.isin([13, 14, 15, 16])) &
             (df_influence['ABoVE_influence_fraction'] > 0.5) &
             (df_influence['ocean_influence_fraction'] < 0.3) &
-            # (df_influence['ABoVE_land_influence_fraction'] > 0.5)) and
             (df_airborne['CO2_change'] < 30) &
             (df_airborne['CO_change'] < 40))[0]
         
@@ -90,9 +89,9 @@ def modify_seasonality (mean_seasonal_cycle_model, mean_seasonal_cycle_ref):
     result = mean_seasonal_cycle_ref / calculate_annual_sum(mean_seasonal_cycle_ref) * calculate_annual_sum(mean_seasonal_cycle_model)
     return result
 
-lcname = 'alllc' #alllc forest shrub tundra
+lcname = 'alllc'
 lc_filestr = ''
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_adjustment/'
 
@@ -108,7 +107,7 @@ fitting_df_UpscaledEC_unscaled_only_seasonal = pd.read_csv(f'/resnick/groups/car
 # read original simulated carbon fluxes
 # X-BASE
 seasonal_df_NEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_{regionname}_{lcname}_{weightname}.csv")[['X-BASE']]
-seasonal_df_GPP = pd.read_csv(f"//resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")[['X-BASE']]
+seasonal_df_GPP = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_UpscaledEC_GPP_{regionname}_{lcname}_{weightname}.csv")[['X-BASE']]
 seasonal_df_Reco = seasonal_df_NEE + seasonal_df_GPP
 
 # TRENDY

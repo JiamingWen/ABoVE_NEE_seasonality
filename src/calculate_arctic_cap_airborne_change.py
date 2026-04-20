@@ -1,4 +1,4 @@
-# calculate arctic-cap airborne enhancement and drawdown
+'''Calculate CO2 enhancement/drawdown relative to background signals for Arctic-CAP data'''
 
 import pandas as pd
 import numpy as np

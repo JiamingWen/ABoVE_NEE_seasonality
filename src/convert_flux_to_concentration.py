@@ -8,7 +8,7 @@ import os
 os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, read_H_matrix, subset_30N_90N, read_fossil, read_fire, read_TRENDYv11, read_TRENDYv9, read_inversions, read_remote_sensing, read_x_base_monthly, read_abcflux, read_gosif_gpp, read_MODIS_VI, read_GOME2_SIF, read_inversions_prior, read_ocean_fluxes
 
-year = 2017 # 2012 2013 2014 2017
+year = 2012 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 

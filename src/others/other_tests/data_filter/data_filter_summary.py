@@ -1,4 +1,4 @@
-
+'''check how many observations are left after applying different filters'''
 import os
 import numpy as np
 import pandas as pd

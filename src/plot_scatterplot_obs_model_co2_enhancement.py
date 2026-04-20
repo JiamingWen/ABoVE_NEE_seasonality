@@ -1,4 +1,7 @@
-'''plot scatterplots between observed and modeled CO2 enhancement'''
+'''
+This script generates Fig. S2-S4 in SI
+and plot scatterplots between observed and modeled CO2 enhancements for the three types of models
+'''
 
 import os
 import numpy as np
@@ -206,7 +209,7 @@ for model_type in model_types:
 
         print(model_name)
 
-        for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
+        for year in [2012, 2013, 2014, 2017]:
 
             start_month, end_month, campaign_name = get_campaign_info(year)
             month_num = end_month - start_month + 1

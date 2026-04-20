@@ -34,7 +34,7 @@ def regrid_gridfed(year) -> None:
 
     print(f"Regridding GridFED {year} data to monthly, half-degree resolution:")
 
-    filename = "/central/groups/carnegie_poc/michalak-lab/data/gcp-gridfed/GCP-GridFEDv2024.0_2012.nc"
+    filename = "/resnick/groups/carnegie_poc/michalak-lab/data/gcp-gridfed/GCP-GridFEDv2024.0_2012.nc"
     ds_tmp = xr.open_dataset(filename)
     ds0 = xr.open_dataset(filename, group='CO2') # unit: kg CO2 cell-1 month-1
 
@@ -60,7 +60,7 @@ def regrid_gridfed(year) -> None:
     ds_subset_out['TOTAL'].attrs['units'] = 'kg CO2 m-2 month-1' # add attribute for the unit
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gcp-gridfed/global-half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gcp-gridfed/global-half-degree/"
         f"GCP-GridFEDv2024.0_{year}-half-degree.nc"
     )
 

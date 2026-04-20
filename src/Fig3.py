@@ -1,10 +1,27 @@
+'''
+This script plots standardized seasonal cycles of TRENDYv11 TBMs and upscaled EC datasets,
+and calculate mean absolute difference (MAD) between each model and reference.
+The reference is: 
+1) inversions, GOME-2 SIF and GOSIF GPP (reference = 'obs'); 
+2) higher-correlation TBMs (reference = 'GroupH').
+This script generates: 
+Fig. 3 in the main text: varname = 'NEE', reference = 'obs'
+Fig. S16: varname = 'NEE', reference = 'GroupH'
+Fig. S17: varname = 'GPP', reference = 'GroupH'
+Fig. S18: varname = 'Ra', reference = 'GroupH'
+Fig. S19: varname = 'Rh', reference = 'GroupH'
+Fig. S20: varname = 'Reco', reference = 'GroupH'
+Fig. S24: varname = 'GPP', reference = 'obs'
+Fig. S25: varname = 'Reco', reference = 'obs'
+'''
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.regression.linear_model import OLSResults
 import math
 
-varname = 'Reco' # NEE GPP Ra Rh Reco
+varname = 'NEE' # NEE GPP Ra Rh Reco
 reference = 'obs' # GroupH obs
 
 
@@ -14,11 +31,11 @@ if lcname == 'alllc':
 elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 
-high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0'] # , 'IBIS' #'ISBA-CTRIP', 'LPJ', 'LPX-Bern', 'SDGVM', 'CLASSIC', 'CLM5.0'
-low_model_subset = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM'] #, 'VISIT-NIES'   
+high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']
+low_model_subset = ['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM']
 
 
 # standardize with minumum NEE

@@ -1,7 +1,8 @@
 '''
-plot summary figure for model performance (correlation with observed CO2 enhancement)
-plot in alphabetical order of model names
-remove regression models
+This script generates Fig. 2 in the main text.
+It shows the correlation with observed CO2 for the three types of models.
+It also compares the evaluation of original data with that of the mean seasonal cycle,
+to show the importance of seasonal cycle in model evaluation
 '''
 
 import numpy as np
@@ -108,9 +109,6 @@ plt.axvline(x=fitting_df_reference_scaled_only_seasonal.loc[fitting_df_reference
 
 plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean seasonal cycle'],
            bbox_to_anchor=(0.65, 0.8), fontsize=14, handletextpad=1.5, scatterpoints=1, numpoints=1, handler_map={tuple: HandlerTuple(ndivide=None, pad=2)}, frameon=True, borderpad=1, labelspacing=0.5)
-
-# plt.legend([(p1a, p2a, p3a, p4a), (p1b, p2b, p3b, p4b)], ['Original data', 'Mean seasonal cycle'],
-#            bbox_to_anchor=(0.5, 1.15), loc='upper center', fontsize=14, handletextpad=1.5, scatterpoints=1, numpoints=1, handler_map={tuple: HandlerTuple(ndivide=None, pad=2)}, frameon=True, borderpad=1, labelspacing=0.5)
 
 fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2.png', dpi=300, bbox_inches='tight')
 fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/Fig2.pdf', dpi=300, bbox_inches='tight')

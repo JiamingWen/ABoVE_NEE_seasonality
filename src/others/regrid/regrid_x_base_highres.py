@@ -9,7 +9,7 @@ from pyproj import CRS
 
 def regrid_x_base(varname: str, res_name: str, year: int, regridder) -> None:
     """Regrid X-BASE"""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/"
     compression = dict(zlib=True, complevel=5)
 
     print(f"Regridding year '{year}' data to half-degree resolution:")
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         }
     )
 
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/"
     f = f"{input_dir}monthlycycle/NEE_2012_025_monthlycycle.nc"
 
     ds0 = xr.open_dataset(f, decode_coords="all")

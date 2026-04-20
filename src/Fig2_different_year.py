@@ -1,6 +1,6 @@
 '''
-plot summary figure for model performance (correlation with observed CO2 enhancement)
-evaluation separately for each year
+This script generates Fig. S8 in SI.
+It compares model performance evaluated separately for different years
 '''
 
 import numpy as np
@@ -77,10 +77,8 @@ for year, color in zip(['All', '2012', '2013', '2014', '2017'], ['black', 'blue'
         df_influence = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_regional_influence.csv')
         df = pd.concat((df_airborne, df_influence), axis=1)
         mask_id = np.where((df['background_CO2_std'].notna()) &
-            # (local_hour.isin([13, 14, 15, 16])) &
             (df['ABoVE_influence_fraction'] > 0.5) &
             (df['ocean_influence_fraction'] < 0.3) &
-            # (df['ABoVE_land_influence_fraction'] > 0.5)) and
             (df['CO2_change'] < 30) &
             (df['CO_change'] < 40))[0]
         n = len(mask_id)

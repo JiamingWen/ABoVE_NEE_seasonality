@@ -1,3 +1,4 @@
+'''Generate a table with information of id, lat, lon, land cover, whether in the ABoVE region'''
 import numpy as np
 import pandas as pd
 import xarray as xr

@@ -1,15 +1,16 @@
 '''
-plot change in correlation of lower-correlation TBMs
-after modify the magnitude and seasonal cycle of component fluxes
+This script plots Fig. 4 in the main text and Fig. S23 in SI.
+It shows the change in correlation of lower-correlation TBMs
+after modifying the magnitude and seasonal cycle of component fluxes.
 '''
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-lcname = 'alllc' #alllc forest shrub tundra
+lcname = 'alllc'
 lc_filestr = ''
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_adjustment/'
 low_model_subset = sorted(['ORCHIDEE', 'JULES', 'OCN', 'VISIT', 'JSBACH', 'LPX-Bern', 'SDGVM', 'VISIT-NIES', 'YIBs', 'CABLE-POP', 'ISAM'], reverse=True)

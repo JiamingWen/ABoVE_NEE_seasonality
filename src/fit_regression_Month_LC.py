@@ -1,5 +1,6 @@
 '''
 fit a linear regression with Month and LC as covariates
+assuming surface fluxes are spatially varying by land cover and seasonally varying
 '''
 
 import os
@@ -33,7 +34,7 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 model_type = 'regression'
 model_name = 'MonthxLC'
 
-for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
+for year in [2012, 2013, 2014, 2017]:
 
     start_month, end_month, campaign_name = get_campaign_info(year)
     month_num = end_month - start_month + 1
@@ -44,10 +45,8 @@ for year in [2012, 2013, 2014, 2017]: #, 2013, 2014, 2017
 
     # filters for airborne observations
     mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
-        # (local_hour.isin([13, 14, 15, 16])) &
         (df_influence['ABoVE_influence_fraction'] > 0.5) &
         (df_influence['ocean_influence_fraction'] < 0.3) &
-        # (df_influence['ABoVE_land_influence_fraction'] > 0.5)) and
         (df_airborne['CO2_change'] < 30) &
         (df_airborne['CO_change'] < 40))[0]
 

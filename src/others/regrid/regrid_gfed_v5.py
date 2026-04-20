@@ -7,7 +7,7 @@ import time
 
 def regrid_gfedv5(year: int, regridder) -> None:
     """Regrid GFEDv5 fire emissions."""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/gfed/v5/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/gfed/v5/"
     compression = dict(zlib=True, complevel=5)
 
     print(f"Regridding year '{year}' data to monthly, half-degree resolution:")
@@ -30,7 +30,7 @@ def regrid_gfedv5(year: int, regridder) -> None:
 
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v5/global-half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v5/global-half-degree/"
         f"GFED5_Beta_monthly-half-degree-{year}.nc"
     )
     ds_out.to_netcdf(
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         }
     )
 
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/gfed/v5/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/gfed/v5/"
     f = input_dir + f"GFED5_Beta_monthly_2012.nc"
 
     ds = xr.open_dataset(f)

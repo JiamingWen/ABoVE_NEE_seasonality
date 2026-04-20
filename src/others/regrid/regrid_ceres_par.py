@@ -41,7 +41,7 @@ def regrid_ceres_par() -> None:
     print(f"Regridding CERES PAR data to monthly, half-degree resolution:")
 
     # read the data
-    filename1 = '/central/groups/carnegie_poc/michalak-lab/data/ceres-par/CERES_SYN1deg-Month_Terra-Aqua-MODIS_Ed4.1_Subset_200003-202312.nc'
+    filename1 = '/resnick/groups/carnegie_poc/michalak-lab/data/ceres-par/CERES_SYN1deg-Month_Terra-Aqua-MODIS_Ed4.1_Subset_200003-202312.nc'
     ds = xr.open_dataset(filename1)
 
     # harmonize coordinate names
@@ -83,7 +83,7 @@ def regrid_ceres_par() -> None:
     ds_subset_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/ceres-par/CERES_PAR-half-degree.nc"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/ceres-par/CERES_PAR-half-degree.nc"
     )
     ds_subset_out.to_netcdf(
         f_o,

@@ -1,5 +1,5 @@
 '''
-calculate statistics (e.g., Pearson correlation, slope, intercept) between modeled and observed CO2 enhancement
+calculate statistics (e.g., Pearson correlation, slope, intercept) between modeled and observed CO2 enhancements
 calculate for both original unscaled values and scaled values with regression
 use single year's data
 '''
@@ -49,10 +49,8 @@ for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
 
     # filters for airborne observations
     mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
-        # (local_hour.isin([13, 14, 15, 16])) &
         (df_influence['ABoVE_influence_fraction'] > 0.5) &
         (df_influence['ocean_influence_fraction'] < 0.3) &
-        # (df_influence['ABoVE_land_influence_fraction'] > 0.5)) and
         (df_airborne['CO2_change'] < 30) &
         (df_airborne['CO_change'] < 40))[0]
 

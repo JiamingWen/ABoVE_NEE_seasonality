@@ -1,4 +1,4 @@
-'''combine ABoVE arctic-cap airborne and footprint data'''
+'''match airborne measurements with footprint files for Arctic-CAP data'''
 import os
 import pandas as pd
 import numpy as np

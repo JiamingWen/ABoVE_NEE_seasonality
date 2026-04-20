@@ -7,7 +7,7 @@ import time
 
 def regrid_odiac(year: int) -> None:
     """Regrid ODIAC land fossil fuel emissions."""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/odiac2022_1x1d_2000to2021/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/odiac2022_1x1d_2000to2021/"
     compression = dict(zlib=True, complevel=5)
 
     # grid for output data
@@ -54,7 +54,7 @@ def regrid_odiac(year: int) -> None:
     ds_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/odiac/global-half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/odiac/global-half-degree/"
         f"odiac2022-half-degree-{year}.nc"
     )
     ds_out.to_netcdf(

@@ -302,11 +302,6 @@ for model_type in model_types:
         fig.text(xlabel_loc[0], xlabel_loc[1], 'Observed CO$_2$ enhancement (ppm)', fontsize=axislabelsize, ha='center')
         fig.text(ylabel_loc[0], ylabel_loc[1], 'Modeled CO$_2$ enhancement (ppm)', fontsize=axislabelsize, va='center', rotation='vertical')
         plt.savefig(f"{dir0}evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
-        
-        # if model_type in ['TRENDYv11', 'inversionsNEE', 'UpscaledEC']:
-        #     plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.png", dpi=100, bbox_inches='tight')
-        #     plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/figures/evaluation_stat_{model_type}{lc_filestr}_scatterplot.pdf", dpi=100, bbox_inches='tight')
-        
         plt.show()
         
     fitting_df.to_csv(f"{dir0}evaluation_stat_scaled_{model_type}{lc_filestr}.csv", encoding='utf-8', index=False)

@@ -22,7 +22,7 @@ def add_above_boundaries(ax):
 
     # ABoVE study domain
     above_domain = geopandas.read_file(
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/domain/ABoVE_reference_grid_v2_1527/data/ABoVE_Study_Domain/ABoVE_Study_Domain.shp"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/domain/ABoVE_reference_grid_v2_1527/data/ABoVE_Study_Domain/ABoVE_Study_Domain.shp"
     )
     above_core_geometry = above_domain.loc[
         above_domain["Region"] == "Core Region", "geometry"

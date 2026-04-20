@@ -8,7 +8,7 @@ import h5py
 
 def regrid_gfed(year: int) -> None:
     """Regrid GFEDv4.1 fire emissions."""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/gfed/v4.1s/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/gfed/v4.1s/"
     compression = dict(zlib=True, complevel=5)
 
     # grid for output data
@@ -41,7 +41,7 @@ def regrid_gfed(year: int) -> None:
     else:
         filename = input_dir + f"GFED4.1s_{year}_beta.hdf5"
 
-    emission_factor = pd.read_table('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4/GFED4_Emission_Factors.txt', 
+    emission_factor = pd.read_table('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4/GFED4_Emission_Factors.txt', 
                                     skiprows=17, header=None, nrows=3, delim_whitespace=True, 
                                     names=['C_species','AGRI', 'BORF', 'DEFO', 'PEAT', 'SAVA', 'TEMF'])
     
@@ -98,7 +98,7 @@ def regrid_gfed(year: int) -> None:
     ds_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4.1s/global-half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4.1s/global-half-degree/"
         f"GFED4.1s-half-degree-{year}.nc"
     )
     ds_out.to_netcdf(

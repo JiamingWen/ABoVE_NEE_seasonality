@@ -1,3 +1,10 @@
+'''
+This script generates Fig. 1 in the main text.
+It includes: (a) land cover map, 
+(b) flight tracks of each year, and 
+(c) aggregated footprint sensitivity
+'''
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt

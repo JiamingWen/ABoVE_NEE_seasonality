@@ -8,7 +8,7 @@ import time
 
 def read_monthlycycle_x_base(year: int, month: int) -> xr.DataArray:
     '''read monthly diurnal cycle'''
-    dir_monthlycycle: str = "/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthlycycle"
+    dir_monthlycycle: str = "/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/monthlycycle"
     f = f"{dir_monthlycycle}/NEE_{year}_05_monthlycycle.nc"
     ds_monthlycycle = xr.open_dataset(f, decode_coords=None) #unit: gC m-2 d-1
     ds_monthlycycle = ds_monthlycycle.sel(time=f"{year}-{month:02d}-01T00:00:00", method="nearest")
@@ -16,7 +16,7 @@ def read_monthlycycle_x_base(year: int, month: int) -> xr.DataArray:
 
 def read_daily_x_base(year: int, month: int, day: int) -> xr.DataArray:
     """Read daily X-BASE data"""
-    dir_daily: str = "/central/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/daily"
+    dir_daily: str = "/resnick/groups/carnegie_poc/michalak-lab/data/fluxcom-x-base/daily"
     f = f"{dir_daily}/NEE_{year}_05_daily.nc"
     ds = xr.open_dataset(f, decode_coords="all") #unit: gC m-2 d-1
     ds_daily = ds.sel(time=f"{year}-{month:02d}-{day:02d}T00:00:00", method="nearest")
@@ -61,10 +61,10 @@ def mask_ocean_pixels (ds):
 year = 2017 # 2012 2013 2014 2017
 if year in [2012, 2013, 2014]:
     campaign_name = 'carve'
-    dir_footprint = f'/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
+    dir_footprint = f'/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
 else:
     campaign_name = 'arctic_cap'
-    dir_footprint = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
+    dir_footprint = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
 
 # read atmospheric observations
 df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
@@ -157,10 +157,10 @@ foot1_2017 = foot1
 year = 2012 # 2012 2013 2014 2017
 if year in [2012, 2013, 2014]:
     campaign_name = 'carve'
-    dir_footprint = f'/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
+    dir_footprint = f'/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
 else:
     campaign_name = 'arctic_cap'
-    dir_footprint = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
+    dir_footprint = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
 
 # read atmospheric observations
 df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')
@@ -291,10 +291,10 @@ print("zlib:", enc.get("zlib"), "shuffle:", enc.get("shuffle"))
 year = 2017 # 2012 2013 2014 2017
 if year in [2012, 2013, 2014]:
     campaign_name = 'carve'
-    dir_footprint = f'/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
+    dir_footprint = f'/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-{year}-aircraft-footprints-convect/'
 else:
     campaign_name = 'arctic_cap'
-    dir_footprint = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
+    dir_footprint = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/'
 
 # read atmospheric observations
 df_airborne = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/atm_obs/ABoVE_{year}_{campaign_name}_airborne_change.csv')

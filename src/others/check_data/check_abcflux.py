@@ -7,7 +7,7 @@ import rioxarray
 import pyproj
 from pyproj import CRS
 
-f = f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/CO2Fluxes_Arctic_Boreal_GPP_2017.nc"
+f = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/CO2Fluxes_Arctic_Boreal_GPP_2017.nc"
 
 ds = xr.open_dataset(f)
 crs_variable = ds.get("crs")
@@ -59,7 +59,7 @@ plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/test.png', dpi=100, bbox_
 
 
 
-ds_regrid = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/CO2Fluxes_Arctic_Boreal_NEE_2017-half-degree-ABoVE.nc')
+ds_regrid = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/CO2Fluxes_Arctic_Boreal_NEE_2017-half-degree-ABoVE.nc')
 ds_regrid = ds_regrid.where((ds_regrid.time.dt.month == 7), drop=True)
 fig = plt.figure(figsize=(9,6))
 ax = plt.axes(projection=ccrs.PlateCarree())
@@ -76,8 +76,8 @@ plt.show()
 
 
 # check projected data
-# ds_proj = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/projected_NEE_2001.nc')
-ds_proj = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/projected.nc')
+# ds_proj = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/projected_NEE_2001.nc')
+ds_proj = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/projected.nc')
 ds_proj = ds_proj.where((ds_proj.time.dt.month == 7), drop=True)
 fig = plt.figure(figsize=(9,6))
 ax = plt.axes(projection=ccrs.PlateCarree())
@@ -94,8 +94,8 @@ plt.show()
 
 
 # check regridded data
-# ds_regrid = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/old2/CO2Fluxes_Arctic_Boreal_NEE_2017-half-degree.nc')
-ds_regrid = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/CO2Fluxes_Arctic_Boreal_GPP_2001-half-degree.nc')
+# ds_regrid = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/old2/CO2Fluxes_Arctic_Boreal_NEE_2017-half-degree.nc')
+ds_regrid = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/CO2Fluxes_Arctic_Boreal_GPP_2001-half-degree.nc')
 ds_regrid = ds_regrid.where((ds_regrid.time.dt.month == 7), drop=True)
 fig = plt.figure(figsize=(9,6))
 ax = plt.axes(projection=ccrs.PlateCarree())

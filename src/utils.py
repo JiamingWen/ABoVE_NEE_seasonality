@@ -1,5 +1,5 @@
 """
-functions used for generating h matrix
+functions used for generating h matrices
 """
 
 import sys

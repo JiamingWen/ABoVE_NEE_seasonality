@@ -2,8 +2,8 @@
 import datetime
 import xarray as xr
 
-fn = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/foot2017x04x26x19x25x50.0227Nx104.1285Wx03012.nc'
-fn = '/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-2013-aircraft-footprints-convect/foot2013x04x02x23x21x64.8920Nx147.7411Wx00440.nc'
+fn = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/above/ABoVE_Footprints_WRF_AK_NWCa/data/ArcticCAP_2017_insitu-footprints/foot2017x04x26x19x25x50.0227Nx104.1285Wx03012.nc'
+fn = '/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/footprints/carve/CARVE_L4_WRF-STILT_Footprint/data/CARVE-2013-aircraft-footprints-convect/foot2013x04x02x23x21x64.8920Nx147.7411Wx00440.nc'
 
 data = xr.open_dataset(filename_or_obj  = fn)
 

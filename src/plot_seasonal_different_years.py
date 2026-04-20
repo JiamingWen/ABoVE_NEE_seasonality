@@ -11,7 +11,7 @@ os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
 
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 lcname = 'alllc'
 regionname = 'ABoVEcore'
 

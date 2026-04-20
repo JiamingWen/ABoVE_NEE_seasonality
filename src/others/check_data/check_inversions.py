@@ -9,7 +9,7 @@ import time
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 
-ds = xr.open_dataset('/central/groups/carnegie_poc/michalak-lab/data/inversions/inversions_raw/GCP2023_inversions_1x1_version1_1_20240124.nc')
+ds = xr.open_dataset('/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversions_raw/GCP2023_inversions_1x1_version1_1_20240124.nc')
 inversion_num = 5
 inversion_name = ''.join(ds.ensemble_member_name[inversion_num].values)
 print(inversion_name)

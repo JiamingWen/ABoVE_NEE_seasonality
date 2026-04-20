@@ -135,6 +135,6 @@ plt.scatter(fitting_df_reference_merge_ebg[f'{stat_var}_background_ebg'], fittin
 
 plt.legend(bbox_to_anchor=(0.1, 0.7), fontsize=14)
 
-fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background.png', dpi=300, bbox_inches='tight')
-fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background.pdf', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/Fig2_background.png', dpi=300, bbox_inches='tight')
+fig.savefig('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/Fig2_background.pdf', dpi=300, bbox_inches='tight')
 plt.show()

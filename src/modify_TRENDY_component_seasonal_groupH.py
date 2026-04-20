@@ -1,7 +1,7 @@
 '''
 modify the magnitude and seasonal cycle of TRENDY component fluxes
 to check how it improves the correlation
-reference: higher-correlation models
+reference: higher-correlation TRENDY models
 '''
 
 import numpy as np
@@ -34,10 +34,8 @@ def evaluate_seasonal_cycle_cor(mean_seasonal_cycle):
 
         # filters for airborne observations
         mask_id = np.where((df_airborne['background_CO2_std'].notna()) &
-            # (local_hour.isin([13, 14, 15, 16])) &
             (df_influence['ABoVE_influence_fraction'] > 0.5) &
             (df_influence['ocean_influence_fraction'] < 0.3) &
-            # (df_influence['ABoVE_land_influence_fraction'] > 0.5)) and
             (df_airborne['CO2_change'] < 30) &
             (df_airborne['CO_change'] < 40))[0]
         
@@ -113,9 +111,9 @@ def plot_modified_performance(cor_modified_case, fitting_df_TRENDYv11_sorted):
     plt.errorbar((cor_modified_case_max+cor_modified_case_min)/2, fitting_df_TRENDYv11_sorted['model_name'], xerr=(cor_modified_case_max-cor_modified_case_min)/2, ecolor='black', fmt='none')
 
 
-lcname = 'alllc' #alllc forest shrub tundra
+lcname = 'alllc'
 lc_filestr = ''
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 dir0 = '/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonality_adjustment/'
 

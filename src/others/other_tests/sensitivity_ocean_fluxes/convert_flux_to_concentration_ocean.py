@@ -9,7 +9,7 @@ import sys
 sys.path.append('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, read_H_matrix, subset_30N_90N, read_ocean_fluxes
 
-year = 2017 # 2012 2013 2014 2017
+year = 2012 # 2012 2013 2014 2017
 
 start_month, end_month, campaign_name = get_campaign_info(year)
 

@@ -1,13 +1,15 @@
-'''plot an example of four types of adjustment'''
+'''This script generates Fig. S1 in SI,
+which provides an example of four types of NEE seasonality adjustment
+'''
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # read original simulated carbon fluxes
-lcname = 'alllc' #alllc forest shrub tundra
+lcname = 'alllc'
 lc_filestr = ''
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 
 seasonal_df_TRENDYv11NEE = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11_{regionname}_{lcname}_{weightname}.csv")
@@ -16,10 +18,10 @@ seasonal_df_TRENDYv11Ra = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE
 seasonal_df_TRENDYv11Rh = pd.read_csv(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal/seasonal_TRENDYv11Rh_{regionname}_{lcname}_{weightname}.csv")
 
 # only select growing seasons (Apr-Nov)
-seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[3:10]
-seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[3:10]
-seasonal_df_TRENDYv11Ra = seasonal_df_TRENDYv11Ra.loc[3:10]
-seasonal_df_TRENDYv11Rh = seasonal_df_TRENDYv11Rh.loc[3:10]
+seasonal_df_TRENDYv11NEE = seasonal_df_TRENDYv11NEE.loc[2:10]
+seasonal_df_TRENDYv11GPP = seasonal_df_TRENDYv11GPP.loc[2:10]
+seasonal_df_TRENDYv11Ra = seasonal_df_TRENDYv11Ra.loc[2:10]
+seasonal_df_TRENDYv11Rh = seasonal_df_TRENDYv11Rh.loc[2:10]
 
 
 ''' calculate annual or growing season sum'''
@@ -54,14 +56,12 @@ seasonal_Rh_ref = seasonal_df_TRENDYv11Rh[model_name_ref]
 
 
 labels_adjustment = ['Adjusting GPP seasonality', 'Adjusting $\it{R}_{a}$ seasonality', 'Adjusting $\it{R}_{h}$ seasonality', 'Adjusting relative proportion']
-# colors = ['#50c878', '#d4bf1d', '#1367e9']
 colors = ['#438382', '#c0ac1a', '#e573d5']
 subtitles = ['(a)', '(b)', '(c)', '(d)', '(e)', '(f)', '(g)', '(h)']
 
 fig, ax = plt.subplots(4, 2, figsize=(10, 18))
 for plot_id in np.arange(4):
 
-    # fig, ax = plt.subplots(figsize=(4, 4))
     ax_sub = plt.subplot(4, 2, plot_id*2+1)
 
     # adjust NEE
@@ -93,19 +93,19 @@ for plot_id in np.arange(4):
 
 
     # plot original data
-    ax_sub.plot(np.arange(4, 12), seasonal_GPP_model, linestyle='-', color=colors[0], linewidth=3, alpha=0.5, label='GPP')
-    ax_sub.plot(np.arange(4, 12), seasonal_Ra_model, linestyle='-', color=colors[1], linewidth=3, alpha=0.5, label='$\it{R}_{a}$')
-    ax_sub.plot(np.arange(4, 12), seasonal_Rh_model, linestyle='-', color=colors[2], linewidth=3, alpha=0.5, label='$\it{R}_{h}$')
+    ax_sub.plot(np.arange(3, 12), seasonal_GPP_model, linestyle='-', color=colors[0], linewidth=3, alpha=0.5, label='GPP')
+    ax_sub.plot(np.arange(3, 12), seasonal_Ra_model, linestyle='-', color=colors[1], linewidth=3, alpha=0.5, label='$\it{R}_{a}$')
+    ax_sub.plot(np.arange(3, 12), seasonal_Rh_model, linestyle='-', color=colors[2], linewidth=3, alpha=0.5, label='$\it{R}_{h}$')
 
     # plot adjusted data
-    ax_sub.plot(np.arange(4, 12), seasonal_GPP_model_modified, linestyle='--', color=colors[0], linewidth=3, alpha=alpha_modified[0])
-    ax_sub.plot(np.arange(4, 12), seasonal_Ra_model_modified, linestyle='--', color=colors[1], linewidth=3, alpha=alpha_modified[1])
-    ax_sub.plot(np.arange(4, 12), seasonal_Rh_model_modified, linestyle='--', color=colors[2], linewidth=3, alpha=alpha_modified[2])
+    ax_sub.plot(np.arange(3, 12), seasonal_GPP_model_modified, linestyle='--', color=colors[0], linewidth=3, alpha=alpha_modified[0])
+    ax_sub.plot(np.arange(3, 12), seasonal_Ra_model_modified, linestyle='--', color=colors[1], linewidth=3, alpha=alpha_modified[1])
+    ax_sub.plot(np.arange(3, 12), seasonal_Rh_model_modified, linestyle='--', color=colors[2], linewidth=3, alpha=alpha_modified[2])
 
     # plot settings
-    ax_sub.set_xlim(4, 11) #4,11
+    ax_sub.set_xlim(3, 11) #4,11
     ax_sub.set_ylim(0, 5)
-    ax_sub.set_xticks(np.arange(4, 12))
+    ax_sub.set_xticks(np.arange(3, 12))
     ax_sub.tick_params(axis='x', labelsize=14)
     ax_sub.tick_params(axis='y', labelsize=14)
     ax_sub.set_xlabel('Month', fontsize=16)
@@ -114,17 +114,17 @@ for plot_id in np.arange(4):
     
     if plot_id == 0:
         handles, labels = ax_sub.get_legend_handles_labels()
-        ax_sub.legend(handles, labels, loc='upper center', ncol=1, fontsize=14, bbox_to_anchor=(0.8, 0.85))
+        ax_sub.legend(handles, labels, loc='upper center', ncol=1, fontsize=14, bbox_to_anchor=(0.17, 0.9), labelspacing=0.1)
 
     # plot NEE separately
     ax_sub = plt.subplot(4, 2, plot_id*2+2)
-    ax_sub.plot(np.arange(4, 12), scale_minumum(seasonal_NEE_model), linestyle='-', color='#e57f3f', linewidth=3, alpha=0.5, label='NEE')
-    ax_sub.plot(np.arange(4, 12), scale_minumum(seasonal_NEE_model_modified), linestyle='--', color='#e57f3f', linewidth=3, alpha=1) #, label='NEE modified'
+    ax_sub.plot(np.arange(3, 12), scale_minumum(seasonal_NEE_model), linestyle='-', color='#e57f3f', linewidth=3, alpha=0.5, label='NEE')
+    ax_sub.plot(np.arange(3, 12), scale_minumum(seasonal_NEE_model_modified), linestyle='--', color='#e57f3f', linewidth=3, alpha=1) #, label='NEE modified'
     
     # plot settings
-    ax_sub.set_xlim(4, 11) #4,11
+    ax_sub.set_xlim(3, 11) #4,11
     ax_sub.set_ylim(-1.2, 1.2)
-    ax_sub.set_xticks(np.arange(4, 12))
+    ax_sub.set_xticks(np.arange(3, 12))
     ax_sub.tick_params(axis='x', labelsize=14)
     ax_sub.tick_params(axis='y', labelsize=14)
     ax_sub.set_xlabel('Month', fontsize=16)

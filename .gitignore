@@ -1,6 +1,6 @@
 data/
 result/
 src/others/download/
-src/AGU2024/
-src/ASTM10/
-src/ASTM11/
+src/others/check_data/
+src/presentations/
+src/previous_version/

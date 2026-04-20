@@ -1,5 +1,6 @@
 '''
-Analyze the relationship between NEE seasonlity bias and correlation with atmospheric observations
+This script generates Fig. S13 in SI.
+It analyzes the relationship between NEE seasonlity bias and correlation with atmospheric observations 
 '''
 
 import numpy as np

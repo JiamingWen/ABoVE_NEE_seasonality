@@ -1,6 +1,6 @@
 '''
-For each footprint, sum up influence from different land covers (output: csv file)
-For each month/year and each pixel, sum up influence to all footprints (output: netcdf file)
+For each footprint, sum up the influence from different land covers (output: csv file)
+For each month/year and each pixel, sum up the influence to all footprints (output: netcdf file)
 '''
 
 import numpy as np

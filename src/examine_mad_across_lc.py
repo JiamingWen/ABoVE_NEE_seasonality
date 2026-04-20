@@ -1,12 +1,15 @@
-'''plot relationship of NEE seasonality bias between the whole region and individual land covers'''
+'''
+This script generates Fig. S14 in SI.
+It plots the relationship of NEE seasonality bias between the whole region and individual land covers.
+'''
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
-weightname = 'unweighted' #unweighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
-reference = 'GroupH' # GroupH obs
+reference = 'obs' # GroupH obs
 varname = 'NEE' # NEE GPP Ra Rh Reco
 
 high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']

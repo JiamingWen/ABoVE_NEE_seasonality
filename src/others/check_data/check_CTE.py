@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 year = 2012
 month = '01'
 
-# dir_3hourly = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CTE/three-hourly/cte2024_posterior/co2_bio_flux_opt/'; time_var = 'date'
-dir_3hourly = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CTE/three-hourly/'; time_var = 'time'
+# dir_3hourly = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CTE/three-hourly/cte2024_posterior/co2_bio_flux_opt/'; time_var = 'date'
+dir_3hourly = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CTE/three-hourly/'; time_var = 'time'
 
 '''3-hourly data'''
 files = os.listdir(dir_3hourly)

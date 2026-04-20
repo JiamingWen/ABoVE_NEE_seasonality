@@ -1,4 +1,5 @@
 '''
+This script generates Fig. S12 in SI.
 plot summary figure for model performance (correlation with observed CO2 enhancement)
 plot in alphabetical order of model names
 '''

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 """
 This file is adopted from Yoichi's hsplit.py file for inversion.
 

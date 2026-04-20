@@ -1,4 +1,7 @@
-'''calculate and plot seasonality difference between each pair of TRENDY models'''
+'''
+This script generates Fig. S26 in SI.
+It calculates and plots seasonality difference between each pair of TRENDY models.
+'''
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +13,7 @@ if lcname == 'alllc':
 elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
-weightname = 'unweighted' #unweighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 
 high_model_subset = ['ISBA-CTRIP', 'LPJ', 'CLASSIC', 'CLM5.0']

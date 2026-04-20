@@ -1,6 +1,6 @@
 '''
-plot summary figure for model performance (correlation with observed CO2 enhancement)
-evaluation separately for each land cover
+This script generates Fig. S11 in SI.
+It compares model performance separately evaluated for each land cover
 '''
 
 import numpy as np

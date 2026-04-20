@@ -1,4 +1,7 @@
-# compare performance of inversions with in-situ data and satellite data as input
+'''
+This script generates Fig. S9 in SI.
+It compares performance of inversions with in-situ data and satellite data as input
+'''
 
 import numpy as np
 import pandas as pd

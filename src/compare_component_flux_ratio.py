@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 lcname = 'alllc' #alllc forest shrub tundra
 lc_filestr = ''
-weightname = 'unweighted' #unweighted weighted
+weightname = 'unweighted'
 regionname = 'ABoVEcore'
 
 # model performance with original seasonal cycle

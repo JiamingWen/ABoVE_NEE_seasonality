@@ -1,4 +1,4 @@
-'''extract seasonal cycle of different datasets'''
+'''extract the seasonal cycle of different datasets'''
 
 import numpy as np
 import pandas as pd
@@ -6,9 +6,6 @@ import xarray as xr
 import os
 os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info, subset_30N_90N, read_TRENDYv11, read_TRENDYv9, read_inversions, read_inversions_prior, read_remote_sensing, read_gosif_gpp, read_x_base_monthly, read_abcflux, read_fossil, read_fire, read_MODIS_VI, read_GOME2_SIF
-
-
-# year = 2012 # 2012 2013 2014 2017
 
 for year in [2012, 2013, 2014, 2017]:
 
@@ -19,7 +16,7 @@ for year in [2012, 2013, 2014, 2017]:
     if not os.path.exists(dir0):
         os.makedirs(dir0)
 
-    # some anciliary datasets
+    # some ancillary datasets
     # regional mask and land cover table
     cell_id_table = pd.read_csv('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/cell_id_table/cell_id_table.csv')
 
@@ -33,7 +30,7 @@ for year in [2012, 2013, 2014, 2017]:
         elif regionname == 'ABoVEcoreextended':
             region_mask = np.where(cell_id_table['ABoVE'] != 255)[0]
 
-        for lcname in ['alllc']: #'alllc', 'forest', 'shrub', 'tundra'
+        for lcname in ['alllc', 'forest', 'shrub', 'tundra']:
             if lcname == 'alllc':
                 lc_mask = cell_id_table['cell_id']
             elif lcname == 'forest':

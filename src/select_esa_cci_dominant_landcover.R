@@ -1,4 +1,4 @@
-#plot ESA-CCI land cover map
+#Determine the dominant land cover of each 0.5 degree pixel based on land cover area fraction
 
 library(raster)
 library(ncdf4)

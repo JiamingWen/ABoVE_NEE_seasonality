@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 year = 2012
 month = '01'
 
-dir_3hourly = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CT-NOAA/three-hourly/'
-dir_monthly = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CT-NOAA/monthly/'
-# dir_3hourly = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CT-NOAA/three-hourly/'
+dir_3hourly = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CT-NOAA/three-hourly/'
+dir_monthly = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CT-NOAA/monthly/'
+# dir_3hourly = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/global-half-degree/CT-NOAA/three-hourly/'
 
 
 '''3-hourly data'''

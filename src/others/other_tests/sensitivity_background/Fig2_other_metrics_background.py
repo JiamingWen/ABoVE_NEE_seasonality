@@ -127,6 +127,6 @@ plt.scatter(fitting_df_UpscaledEC_merge_ebg[f'{stat_var}_background_ebg'], fitti
 
 plt.legend(loc='best', fontsize=14)
 
-fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.png', dpi=300, bbox_inches='tight')
-fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_test_background/Fig2_background_other_metrics_{stat_var}.pdf', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/Fig2_background_other_metrics_{stat_var}.png', dpi=300, bbox_inches='tight')
+fig.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_background/Fig2_background_other_metrics_{stat_var}.pdf', dpi=300, bbox_inches='tight')
 plt.show()

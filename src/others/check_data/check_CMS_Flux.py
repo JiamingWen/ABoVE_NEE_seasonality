@@ -5,7 +5,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 
-filepath = '/central/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CMS-Flux/three-hourly'
+filepath = '/resnick/groups/carnegie_poc/michalak-lab/data/inversions/inversion_dif_tem_res/original/CMS-Flux/three-hourly'
 filename = 'CMS-Flux.GCP.3hrly.grid.1x1.2010-2022.nc'
 ds = xr.open_dataset(os.path.join(filepath, filename))
 

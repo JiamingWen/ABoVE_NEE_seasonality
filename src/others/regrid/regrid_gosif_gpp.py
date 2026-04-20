@@ -79,7 +79,7 @@ def regrid_gosif_gpp(year, geotiff_list) -> None:
 
     # export
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gosif-gpp/global-half-degree/gosif-gpp-half-degree-{year}.nc"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gosif-gpp/global-half-degree/gosif-gpp-half-degree-{year}.nc"
     )
     ds_subset_out.to_netcdf(
         f_o,
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     
     start_time: float = time.time()
 
-    input_dir = '/central/groups/carnegie_poc/michalak-lab/data/gosif-gpp/data.globalecology.unh.edu/data/GOSIF-GPP_v2/Monthly/Mean/'
+    input_dir = '/resnick/groups/carnegie_poc/michalak-lab/data/gosif-gpp/data.globalecology.unh.edu/data/GOSIF-GPP_v2/Monthly/Mean/'
 
     # read filenames into a list
     geotiff_list: List[str] = sorted(

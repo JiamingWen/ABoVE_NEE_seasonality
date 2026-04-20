@@ -7,7 +7,7 @@ year = 2019
 month = 1
 monthstr = str(month).zfill(2)
 
-input_dir: str = "/central/groups/carnegie_poc/michalak-lab/data/gfed/v4.1s/"
+input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/gfed/v4.1s/"
 if (year <= 2016):
     filename = input_dir + f"GFED4.1s_{year}.hdf5"
 else:
@@ -43,7 +43,7 @@ DM_emission = f['emissions'][monthstr]['DM'][()] #unit kg DM m-2 month-1
 # DM_SAVA_frac = f['emissions'][monthstr]['partitioning']['DM_SAVA'][()]
 # DM_TEMF_frac = f['emissions'][monthstr]['partitioning']['DM_TEMF'][()]
 
-emission_factor = pd.read_table('/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4/GFED4_Emission_Factors.txt', 
+emission_factor = pd.read_table('/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gfed/v4/GFED4_Emission_Factors.txt', 
                                 skiprows=17, header=None, nrows=3, delim_whitespace=True, 
                                 names=['C_species','AGRI', 'BORF', 'DEFO', 'PEAT', 'SAVA', 'TEMF'])
 

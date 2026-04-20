@@ -1,5 +1,5 @@
 '''
-convert mean seasonal cycle of surface fields to concentration space
+convert the mean seasonal cycle of surface fields to concentration space
 both spatial variation and interannual variation are removed
 '''
 

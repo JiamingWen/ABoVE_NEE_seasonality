@@ -11,7 +11,7 @@ from pyproj import CRS
 
 def regrid_abcflux(varname: str, year: int, regridder) -> None:
     """Regrid upscaled ABCflux"""
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/"
     compression = dict(zlib=True, complevel=5)
 
     print(f"Regridding year '{year}' data to monthly, half-degree resolution:")
@@ -43,7 +43,7 @@ def regrid_abcflux(varname: str, year: int, regridder) -> None:
     ds_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/half-degree/"
         f"CO2Fluxes_Arctic_Boreal_{varname}_{year}-half-degree.nc"
     )
     ds_out.to_netcdf(
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         }
     )
 
-    input_dir: str = "/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/"
+    input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/abcflux_upscaled/CO2Fluxes_Arctic_Boreal_Domain/data/"
     f = input_dir + f"CO2Fluxes_Arctic_Boreal_NEE_2001.nc"
 
     ds0 = xr.open_dataset(f, decode_coords="all")

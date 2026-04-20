@@ -3,7 +3,7 @@
 import os
 import xarray as xr
 
-dir = '/central/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean'
+dir = '/resnick/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean'
 filelist = [f for f in os.listdir(dir) if 'dataprod' in f]
 filename = f'{dir}/{filelist[0]}'
 

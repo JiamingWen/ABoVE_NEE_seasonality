@@ -1,6 +1,6 @@
 '''
-plot summary figure for model performance (correlation with observed CO2 enhancement)
-evaluation with and without regression
+This script generates Fig. S10 in SI.
+It compares the model performance evaluated with and without regression
 '''
 
 import numpy as np

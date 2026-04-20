@@ -2,7 +2,7 @@
 
 import xarray as xr
 
-filename = "/central/groups/carnegie_poc/michalak-lab/data/gcp-gridfed/GCP-GridFEDv2024.0_2012.nc"
+filename = "/resnick/groups/carnegie_poc/michalak-lab/data/gcp-gridfed/GCP-GridFEDv2024.0_2012.nc"
 ds = xr.open_dataset(filename)
 print(ds)
 ds.lat # 0.1 degree

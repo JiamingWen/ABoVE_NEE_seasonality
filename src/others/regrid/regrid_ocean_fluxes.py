@@ -36,7 +36,7 @@ def regrid_ocean_fluxes(filename) -> None:
     dataset_name = filename.split('_19')[0]
     print(f"Regridding ocean fluxes '{dataset_name}' data to monthly, half-degree resolution:")
 
-    filename_full = f"/central/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean/{filename}"
+    filename_full = f"/resnick/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean/{filename}"
     ds = xr.open_dataset(filename_full)
 
     # select the period for model benchmarking
@@ -57,7 +57,7 @@ def regrid_ocean_fluxes(filename) -> None:
     ds_subset_out["time"] = timestamps.to_numpy()
 
     f_o: str = (
-        f"/central/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gcb-2024-ocean/global-half-degree/"
+        f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/gcb-2024-ocean/global-half-degree/"
         f"{dataset_name}_{year_start}-{year_end}-half-degree.nc"
     )
 
@@ -72,7 +72,7 @@ def regrid_ocean_fluxes(filename) -> None:
 
 if __name__ == "__main__":
 
-    dir = '/central/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean'
+    dir = '/resnick/groups/carnegie_poc/michalak-lab/data/gcb-2024-ocean'
     filelist = [f for f in os.listdir(dir) if 'dataprod' in f]
     for filename in filelist:
         regrid_ocean_fluxes(filename)

@@ -1,5 +1,5 @@
 '''
-calculate multiyear average seasonal cycle of different models
+calculate multiyear average seasonal cycle of different datasets
 based on results from extract_seasonal.py
 '''
 
@@ -8,17 +8,15 @@ import os
 os.chdir('/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/src')
 from functions import get_campaign_info
 
-
 dir0 = f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/seasonal"
 
 for regionname in ['ABoVEcore']: #, 'ABoVEcoreextended'
 
-    for lcname in ['alllc']: #'alllc', 'forest', 'shrub', 'tundra'
+    for lcname in ['alllc', 'forest', 'shrub', 'tundra']:
 
         for weightname in ['unweighted']: #, 'weighted'
 
             for model_type in ['TRENDYv11', 'inversions', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'fossil', 'fire', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior']:
-                #'TRENDYv11', 'inversions', 'UpscaledEC', 'reference', 'TRENDYv11GPP', 'TRENDYv11Ra', 'TRENDYv11Rh', 'TRENDYv11LAI', 'UpscaledEC_GPP', 'GPPobservations', 'UpscaledEC_Reco', 'fossil', 'fire', 'inversionsNEE', 'inversions-prior', 'inversionsNEE-prior'
                 
                 print(regionname, lcname, weightname, model_type)
 
