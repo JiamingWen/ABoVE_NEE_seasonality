@@ -67,7 +67,7 @@ for model_type in model_types:
         elif model_name == 'LC':
             variable_names = ['constant_forest', 'constant_shrub', 'constant_tundra', 'constant_others'] # do no need to include "constant" - adding "constant" results in the same statistics
         else:
-            variable_names = ['constant'] # for constant, reference, and TRENDYv11 or inversionsNEE or NEEobservations (transported NEE or variables will be added later)
+            variable_names = ['constant'] # for constant, reference, and TRENDYv11 or inversionsNEE or UpscaledEC (transported NEE or variables will be added later)
 
         for year in [2012, 2013, 2014, 2017]: #2012, 2013, 2014, 2017
 

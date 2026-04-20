@@ -205,9 +205,9 @@ if __name__ == "__main__":
 
 
 # '''check output'''
-# df_diurnal_cycle = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')
-# df_daily = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-daily.csv')
-# df_hourly = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_magnitude/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-hourly.csv')
+# df_diurnal_cycle = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-monthly_diurnal.csv')
+# df_daily = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-daily.csv')
+# df_hourly = pd.read_csv(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/data/{campaign_name}_airborne/transported_surface_field/ABoVE_{year}_{campaign_name}_airborne_X-BASE-hourly.csv')
 # print(len(mask_id), np.sum(df_diurnal_cycle['X-BASE_CO2_change'].notna()), np.sum(df_daily['X-BASE_CO2_change'].notna()), np.sum(df_hourly['X-BASE_CO2_change'].notna()))
 # diff = abs(df_diurnal_cycle['X-BASE_CO2_change'] + df_daily['X-BASE_CO2_change'] - df_hourly['X-BASE_CO2_change'])
 # diff[~pd.isna(diff)]
