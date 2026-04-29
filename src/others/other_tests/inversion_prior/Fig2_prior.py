@@ -11,7 +11,11 @@ if lcname == 'alllc':
 elif lcname in ['forest', 'shrub', 'tundra']:
     lc_filestr = '_' + lcname
 
-stat_var = 'cor'; xlim = [-0.1, 0.85]
+stat_var = 'cor'; xlim = [-0.2, 0.85]; xlabel = r'Correlation with CO$_{2}$ observations'
+# stat_var = 'slope'; xlim = [-0.2, 2.2]; xlabel = r'Slope of regression with CO$_{2}$ observations'
+# stat_var = 'intercept'; xlim = [-8, 2]; xlabel = r'Intercept of regression with CO$_{2}$ observations'
+# stat_var = 'mean_bias'; xlim = [-8, 2]; xlabel = r'Mean bias compared to CO$_{2}$ observations'
+# stat_var = 'rmse'; xlim = [0, 15]; xlabel = r'RMSE compared to CO$_{2}$ observations'
 
 
 # all years
@@ -40,7 +44,9 @@ p2 = plt.scatter(fitting_df_inversions_sorted[f'{stat_var}_prior'], fitting_df_i
 
 plt.xlim(xlim)
 plt.ylim(-1, fitting_df_inversions_sorted.shape[0]-0.5)
-plt.xlabel(r'Correlation with CO$_{2}$ observations', fontsize=18)
-plt.xticks(ticks=np.arange(xlim[0], xlim[1], 0.1), fontsize=15) #np.arange(-0.2, 1, 0.2), 
+plt.xlabel(xlabel, fontsize=18)
+plt.xticks(fontsize=15)
 plt.yticks(fontsize=15)
 plt.legend(fontsize=14)
+plt.savefig(f'/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_inversion_prior/Fig2_prior_{stat_var}.png', dpi=300, bbox_inches='tight')
+plt.show()

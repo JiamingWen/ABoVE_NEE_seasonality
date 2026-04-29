@@ -13,7 +13,7 @@ elif lcname in ['forest', 'shrub', 'tundra']:
 weightname = 'unweighted' #unweighted weighted
 regionname = 'ABoVEcore'
 period = 'growing_season' #'growing_season' 'annual'
-yearstr = '_2017' #'_2012', '_2013', '_2014', '_2017', ''
+yearstr = '' #'_2012', '_2013', '_2014', '_2017', ''
 
 # seasonal cycle
 if yearstr in ['', '_2012', '_2013', '_2014']: # all years - only five models
@@ -60,5 +60,5 @@ plt.ylim(-1, annuan_NEE_df.shape[0]-0.5)
 plt.xlabel(f'Annual NEE ' + '($\mu$mol m$^{-2}$ s$^{-1}$)', fontsize=18)
 plt.xticks(ticks=np.arange(xlim[0], xlim[1], 0.1), fontsize=15) #np.arange(-0.2, 1, 0.2), 
 plt.yticks(fontsize=15)
-
+plt.savefig(f"/resnick/groups/carnegie_poc/jwen2/ABoVE/ABoVE_NEE_seasonality/result/other/sensitivity_inversion_prior/NEE_{yearstr}_{period}_{regionname}_{lcname}_{weightname}.png", dpi=300, bbox_inches='tight')
 plt.show()
