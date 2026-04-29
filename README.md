@@ -11,7 +11,7 @@ To cite this paper: Wen, J., Sun, W., Foster, K. T., Bond-Lamberty, B., Miller, 
 - `src/`: Directory containing analysis scripts.
 - `README.md`: This file.
 
-The `data/` and `result/` directories are not included in this repository due to file size limitations. The datasets used in this study are all publicly available. Please feel free to contact me if you need access to any results or intermediate files.
+The `data/` and `result/` directories are not included in this repository due to file size limitations. The datasets used in this study are all publicly available. Please feel free to contact me if you need access to any processed data and intermediate results.
 
 ## Data
 - Atmospheric CO2 concentration measurements and footprints: CARVE and Arctic-CAP
@@ -23,6 +23,8 @@ The `data/` and `result/` directories are not included in this repository due to
 - Fire emissions: GFED v4.1 (and GFED v5 for sensitivity tests)
 - Ocean fluxes: ensemble of nine data products from GCB 2024
 - Land cover: ESA-CCI
+
+Please refer to the Data Availability Statement in Wen et al. (2026) for details on how to access the datasets used in this study.
 
 ## Analysis Steps and Overview of Scripts
 
@@ -54,7 +56,7 @@ The `data/` and `result/` directories are not included in this repository due to
         - `select_esa_cci_dominant_landcover.R`
     - Aggregate MODIS FPAR/LAI from 8-day to monthly
         - `aggregate_monthly_modis_fpar_lai.py`
-    - Regriding all datasets to 0.5 degree, monthly resolution (in `others/regrid`)
+    - Regridding all datasets to 0.5 degree, monthly resolution (in `others/regrid`)
         - `regrid_abcflux.py`
         - `regrid_ceres_par.py`
         - `regrid_gfed_v5.py`
@@ -187,7 +189,7 @@ concentration measured beyond 2,000 m above ground level during each flight date
             - `examine_decreased_correlation.py`
     - Comparing agreement with atmospheric observations for inversion prior and posterior fluxes (in `others/other_tests/inversion_prior`)
 
-6. **Figures and Tabels in the manuscript**:
+6. **Figures and Tables in the manuscript**:
     - Figure 1: `Fig1.py`
     - Figure 2: `Fig2.py`
     - Figure 3: `Fig3.py`
