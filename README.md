@@ -41,7 +41,7 @@ The `data/` and `result/` directories are not included in this repository due to
         - `derive_h_matrix_carve_monthly.py`
         - ancillary scripts: `utils.py`
     - Summarize/Aggregate footprint sensitivity: 
-    (1) for each atmospheric observation, summarize footprint sensitivity from different regions (e.g., land vs ocean; within vs out of ABoVE; forests vs shrubs vs tundra)
+    (1) For each atmospheric observation, summarize footprint sensitivity from different regions (e.g., land vs ocean; within vs out of ABoVE; forests vs shrubs vs tundra)
     (2) Aggregate footprint sensitivity over all atmospheric observations for each month/year
     (3) Make plots for footprint sensitivity
         - `summarize_footprint_regional_influence.py`
@@ -223,6 +223,7 @@ concentration measured beyond 2,000 m above ground level during each flight date
 ## Python and package version
 
 Python: 3.11.10.
+
 Package versions are provided in `src/requirements.txt`.
 
     
