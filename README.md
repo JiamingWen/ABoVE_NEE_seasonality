@@ -206,7 +206,7 @@ concentration measured beyond 2,000 m above ground level during each flight date
     - Figure S8: `Fig2_different_year.py`
     - Figure S9: `compare_inv_insitu_satellite.py`
     - Figure S10: `Fig2_scaled.py`
-    - Figure S11: `Fig2_different_lc`
+    - Figure S11: `Fig2_different_lc.py`
     - Figure S12: `Fig2_full.py` 
     - Figure S13: `examine_cor_mad.py`
     - Figure S14: `examine_mad_across_lc.py`
