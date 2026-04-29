@@ -30,7 +30,7 @@ def regrid_abcflux(varname: str, year: int, regridder) -> None:
 
     ds = ds.rename({"x": "longitude", "y": "latitude"})
 
-    # change nan to zero - otherwise the value at coarse grids will be zero if any nan value falls into it
+    # change nan to zero - otherwise the value at coarse grids will be nan if any nan value falls into it
     ds = ds.fillna(0)
 
     ds_out = regridder(ds)
