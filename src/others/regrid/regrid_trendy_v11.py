@@ -224,6 +224,7 @@ def regrid_trendy(var_name: str) -> None:
             )
 
         ds_subset_out["time"] = timestamps.to_numpy()
+        ds_subset_out[var_name].attrs = ds[var_name].attrs.copy()
 
         f_o: str = (
             f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/"
