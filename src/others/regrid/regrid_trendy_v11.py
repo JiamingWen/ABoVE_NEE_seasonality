@@ -9,7 +9,7 @@ import pandas as pd
 import xesmf as xe
 import time
 
-def regrid_trendy(var_name: str = "nbp") -> None:
+def regrid_trendy(var_name: str) -> None:
     """Regrid TRENDY v11 output"""
     input_dir: str = "/resnick/groups/carnegie_poc/michalak-lab/data/trendy-v11/output/S3"
     # compression = config.io.netcdf_compression
@@ -45,16 +45,16 @@ def regrid_trendy(var_name: str = "nbp") -> None:
         }
     )
 
-    print(f"Regridding '{var_name}' data to monthly, half-degree resolution:")
+    print(f"Regridding '{var_name}' data to half-degree resolution:")
 
     # remove ISAM from tsl flist for now
     if var_name == 'tsl':
         flist = [filename for filename in flist if 'ISAM' not in filename]
 
-    # only keep four selected models for carbon pools
-    if var_name in ['cLitter', 'cSoil']:
-        selected_models = ['CLASSIC', 'ISBA-CTRIP', 'JSBACH', 'JULES']
-        flist = [filename for filename in flist if any(selected_model in filename for selected_model in selected_models)]
+    # # only keep four selected models for carbon pools
+    # if var_name in ['cLitter', 'cSoil']:
+    #     selected_models = ['CLASSIC', 'ISBA-CTRIP', 'JSBACH', 'JULES']
+    #     flist = [filename for filename in flist if any(selected_model in filename for selected_model in selected_models)]
 
     for f in flist:
         model_name: str = os.path.basename(f).split(".nc")[0]
@@ -94,7 +94,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
         print(f"* {model_name} _time_start_str: {_time_start_str}")
 
         # re-assign timestamps
-        if  var_name in ['cLitter', 'cSoil'] and model_name.split("_")[0] in ['CLASSIC', 'JSBACH', 'JULES']: # annual resolution # ISBA-CTRIP has monthly output for carbon pools
+        if  var_name in ['cLitter', 'cSoil'] and model_name.split("_")[0] not in ['ISBA-CTRIP', 'VISIT-NIES']: # annual resolution 
             _time_start: pd.Timestamp = (
                 pd.Timestamp(_time_start_str)
                 + pd.offsets.YearEnd(0)
@@ -108,7 +108,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
             ds = ds.assign_coords(time=_timestamps)
             print(f"* {model_name} is read successfully")
         
-        else: # monthly resolution
+        else: # monthly resolution for ISBA-CTRIP and VISIT-NIES
             _time_start: pd.Timestamp = (
                 pd.Timestamp(_time_start_str)
                 + pd.offsets.MonthEnd(0)
@@ -158,7 +158,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
             & (ds.time.dt.year <= year_end),
             latitude=(ds.latitude >= -90) & (ds.latitude <= 90),
         )
-
+        
         # aggregate tsl by layer depth (top 10 cm)
         if var_name == 'tsl':
             ds_subset = aggrgate_tsl_by_depth (model_name, ds_subset)
@@ -214,7 +214,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
         # harmonize the timestamps: keep the days on the first of each month
         # note: this will alter non-standard calendars, for example, a calendar
         # without a leap day
-        if  var_name in ['cLitter', 'cSoil'] and model_name.split("_")[0] in ['CLASSIC', 'JSBACH', 'JULES']: # annual resolution # ISBA-CTRIP has monthly output for carbon pools
+        if  var_name in ['cLitter', 'cSoil'] and model_name.split("_")[0] not in ['ISBA-CTRIP', 'VISIT-NIES']: # these two models have monthly resolution
             timestamps: pd.DatetimeIndex = pd.date_range(
                 start=f"{year_start}-01-01", end=f"{year_end}-12-31", freq="YS"
             )
@@ -230,7 +230,7 @@ def regrid_trendy(var_name: str = "nbp") -> None:
             f"{model_name}-half-degree.nc"
         )
         # mark ISBA-CTRIP carbon pool output as monthly
-        if "ISBA-CTRIP" in model_name and var_name in ['cLitter', 'cSoil']:
+        if model_name.split("_")[0] in ['ISBA-CTRIP', 'VISIT-NIES'] and var_name in ['cLitter', 'cSoil']:
             f_o = f"/resnick/groups/carnegie_poc/michalak-lab/nasa-above/data/input/trendy-v11/global-half-degree/{model_name}-half-degree-monthly.nc"
 
         ds_subset_out.to_netcdf(
